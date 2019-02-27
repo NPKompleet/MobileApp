@@ -5,11 +5,11 @@
 
     <stroke
         android:width="2dp"
-        android:color="@color/signin_button_text" />
+        android:color="@color/main_red" />
 
     <corners
         android:radius="32dp"/>
 
     <solid
-        android:color="@color/signin_button_text"/>
+        android:color="@color/main_red"/>
 </shape>

@@ -10,4 +10,6 @@
     <color name="white">#FFFFFF</color>
     <color name="signin_button_text">#841B18</color>
     <color name="black_text">#222222</color>
+    <color name="main_red">#C40001</color>
+    <color name="main_grey">#DDDDDD</color>
 </resources>

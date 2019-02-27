@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ServicePlanActivity"
-    tools:showIn="@layout/app_bar_service_plan">
+    tools:context=".ManageServiceActivity"
+    tools:showIn="@layout/app_bar_manage_service">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="User ID: 1100101"
-            android:textColor="#841B18"
+            android:textColor="@color/main_red"
             android:textSize="18sp" />
 
         <TextView
@@ -41,7 +41,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#C40001"
+        android:background="@color/main_red"
         android:gravity="center"
         android:text="Manage Services"
         android:textColor="@color/white"
@@ -60,7 +60,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#dddddd"
+                android:background="@color/main_grey"
                 android:gravity="center"
                 android:text="Advantage Basic NGN15750/Monthly"
                 android:textColor="@color/black_text"
@@ -89,7 +89,7 @@
                     android:layout_toEndOf="@+id/balance_text"
                     android:layout_toRightOf="@+id/balance_text"
                     android:text="N45,000"
-                    android:textColor="#841B18"
+                    android:textColor="@color/main_red"
                     android:textSize="12sp" />
 
                 <TextView
@@ -111,7 +111,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_margin="8dp"
                     android:text="Feb 22, 2019"
-                    android:textColor="#841B18"
+                    android:textColor="@color/main_red"
                     android:textSize="12sp" />
 
             </RelativeLayout>
@@ -119,7 +119,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="#dddddd" />
+                android:background="@color/main_grey" />
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -134,19 +134,19 @@
 
                     <TextView
                         style="@style/ManagedServicesTextTheme"
-                        android:drawableTop="@drawable/ic_renew"
+                        android:drawableTop="@drawable/ic_renew2"
                         android:elevation="5dp"
                         android:text="Renew" />
 
                     <TextView
                         style="@style/ManagedServicesTextTheme"
-                        android:drawableTop="@drawable/ic_data_usage"
+                        android:drawableTop="@drawable/ic_data_usage2"
                         android:elevation="5dp"
                         android:text="View Data Usage" />
 
                     <TextView
                         style="@style/ManagedServicesTextTheme"
-                        android:drawableTop="@drawable/ic_settings"
+                        android:drawableTop="@drawable/ic_settings2"
                         android:text="Manage Settings" />
                 </TableRow>
 
@@ -154,12 +154,12 @@
 
                     <TextView
                         style="@style/ManagedServicesTextTheme"
-                        android:drawableTop="@drawable/ic_exchange"
+                        android:drawableTop="@drawable/ic_exchange2"
                         android:text="Change Service Plan" />
 
                     <TextView
                         style="@style/ManagedServicesTextTheme"
-                        android:drawableTop="@drawable/ic_change_password"
+                        android:drawableTop="@drawable/ic_change_password2"
                         android:text="Change WiFi Password" />
                     <!-- A Placeholder view -->
                     <View
@@ -173,7 +173,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#dddddd"
+                android:background="@color/main_grey"
                 android:padding="14dp">
 
                 <TextView
@@ -245,5 +245,5 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#dddddd"/>
+        android:background="@color/main_grey"/>
 </LinearLayout>

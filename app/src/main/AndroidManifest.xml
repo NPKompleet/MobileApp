@@ -10,9 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ServicePlanActivity"
+            android:name=".DataUsageActivity"
+            android:label="@string/title_activity_data_usage"
+            android:parentActivityName=".ManageServiceActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ipnx.ipnxmobile.ManageServiceActivity" />
+        </activity>
+        <activity
+            android:name=".ManageServiceActivity"
             android:label="@string/title_activity_service_plan"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

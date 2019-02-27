@@ -28,7 +28,7 @@
         <item name="android:drawableTint">@color/signin_button_text</item>
         <item name="android:textSize">14sp</item>
         <item name="android:gravity">center</item>
-        <item name="android:tint">@color/signin_button_text</item>
+        <item name="android:tint">@color/main_red</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -38,12 +38,12 @@
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:tint">@color/signin_button_text</item>
-        <item name="android:textColorPrimary">@color/signin_button_text</item>
+        <item name="android:textColorPrimary">@color/main_red</item>
     </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:tint">@color/signin_button_text</item>
-        <item name="android:textColorPrimary">@color/signin_button_text</item>
+        <item name="android:textColorPrimary">@color/main_red</item>
     </style>
 
 

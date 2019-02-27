@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ManageServiceActivity"
+    tools:showIn="@layout/app_bar_manage_service">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello, Jeff"
+            android:textColor="@color/black_text"
+            android:textSize="24sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User ID: 1100101"
+            android:textColor="@color/main_red"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LAST LOGIN DATE: Feb 3, 2019"
+            android:textColor="@color/black_text"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main_red"
+        android:gravity="center"
+        android:text="Manage Services"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/main_grey"
+                android:gravity="center"
+                android:text="Advantage Basic NGN15750/Monthly"
+                android:textColor="@color/black_text"
+                android:textSize="14sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <TextView
+                    android:id="@+id/balance_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Balance:"
+                    android:textColor="@color/black_text"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/balance_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_toEndOf="@+id/balance_text"
+                    android:layout_toRightOf="@+id/balance_text"
+                    android:text="N45,000"
+                    android:textColor="@color/main_red"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/expiry_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_toStartOf="@id/expiry_date"
+                    android:layout_toLeftOf="@id/expiry_date"
+                    android:text="Expires:"
+                    android:textColor="@color/black_text"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/expiry_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="8dp"
+                    android:text="Feb 22, 2019"
+                    android:textColor="@color/main_red"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/main_grey" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:padding="24dp"
+                android:stretchColumns="*">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="40dp">
+
+                    <TextView
+                        style="@style/ManagedServicesTextTheme"
+                        android:drawableTop="@drawable/ic_renew2"
+                        android:elevation="5dp"
+                        android:text="Renew" />
+
+                    <TextView
+                        style="@style/ManagedServicesTextTheme"
+                        android:drawableTop="@drawable/ic_data_usage2"
+                        android:elevation="5dp"
+                        android:text="View Data Usage" />
+
+                    <TextView
+                        style="@style/ManagedServicesTextTheme"
+                        android:drawableTop="@drawable/ic_settings2"
+                        android:text="Manage Settings" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        style="@style/ManagedServicesTextTheme"
+                        android:drawableTop="@drawable/ic_exchange2"
+                        android:text="Change Service Plan" />
+
+                    <TextView
+                        style="@style/ManagedServicesTextTheme"
+                        android:drawableTop="@drawable/ic_change_password2"
+                        android:text="Change WiFi Password" />
+                    <!-- A Placeholder view -->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                </TableRow>
+            </TableLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/main_grey"
+                android:padding="14dp">
+
+                <TextView
+                    android:id="@+id/wireless_phone_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="iWireless Phone No Charge"
+                    android:textColor="@color/black_text"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/wireless_id_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/wireless_phone_text"
+                    android:text="(161616) (RMCG180Q13E)"
+                    android:textColor="@color/black_text"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/topup_button"
+                    android:layout_width="120dp"
+                    android:layout_height="32dp"
+                    android:layout_below="@+id/wireless_id_text"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/topup_button"
+                    android:text="Top-Up"
+                    android:textColor="@color/signin_button_text"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/view_cdr_button"
+                    android:layout_width="120dp"
+                    android:layout_height="32dp"
+                    android:layout_below="@+id/topup_button"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/view_cdr_button"
+                    android:text="View CDR"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/status_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/topup_button"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:text="Active"
+                    android:textColor="@color/signin_button_text"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/status_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/topup_button"
+                    android:layout_toStartOf="@+id/status_value"
+                    android:layout_toLeftOf="@+id/status_value"
+                    android:text="Status:"
+                    android:textColor="@color/black_text"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/main_grey"/>
+</LinearLayout>
