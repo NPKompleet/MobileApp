@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/main_red"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ManageServiceActivity"
     tools:showIn="@layout/app_bar_manage_service">
@@ -38,14 +39,9 @@
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/main_red"
-        android:gravity="center"
-        android:text="Manage Services"
-        android:textColor="@color/white"
-        android:textSize="18sp" />
+    <!--<TextView-->
+        <!--android:text="Manage Services"-->
+        <!--style="@style/HeadingTextTheme"/>-->
 
 
     <ScrollView
@@ -58,13 +54,8 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/main_grey"
-                android:gravity="center"
                 android:text="Advantage Basic NGN15750/Monthly"
-                android:textColor="@color/black_text"
-                android:textSize="14sp" />
+                style="@style/SubheadingTextTheme"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -142,7 +133,9 @@
                         style="@style/ManagedServicesTextTheme"
                         android:drawableTop="@drawable/ic_data_usage2"
                         android:elevation="5dp"
-                        android:text="View Data Usage" />
+                        android:text="View Data Usage"
+                        android:id="@+id/service_data_usage"
+                        android:onClick="selectService"/>
 
                     <TextView
                         style="@style/ManagedServicesTextTheme"

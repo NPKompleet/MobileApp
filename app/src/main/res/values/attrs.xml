@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DataChartView">
+        <attr name="totalDataColor" format="color" />
+        <attr name="usedDataColor" format="color" />
+        <attr name="centerColor" format="color" />
+        <attr name="totalDataValue" format="float" />
+        <attr name="usedDataValue" format="float" />
+    </declare-styleable>
+</resources>

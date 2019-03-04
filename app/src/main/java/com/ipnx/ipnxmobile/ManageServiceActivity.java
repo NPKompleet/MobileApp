@@ -1,5 +1,6 @@
 package com.ipnx.ipnxmobile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 public class ManageServiceActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -94,5 +96,14 @@ public class ManageServiceActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void selectService(View view){
+        switch (view.getId()){
+            case R.id.service_data_usage:
+                Intent i = new Intent(this, DataUsageActivity.class);
+                startActivity(i);
+                break;
+        }
     }
 }
