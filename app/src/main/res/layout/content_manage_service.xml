@@ -171,8 +171,10 @@
                                 android:text="View Data Usage" />
 
                             <TextView
+                                android:id="@+id/service_manage_settings"
                                 style="@style/ManagedServicesTextTheme"
                                 android:drawableTop="@drawable/ic_settings2"
+                                android:onClick="selectService"
                                 android:text="Manage Settings" />
                         </TableRow>
 

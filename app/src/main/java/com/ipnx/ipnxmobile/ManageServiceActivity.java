@@ -99,9 +99,14 @@ public class ManageServiceActivity extends AppCompatActivity
     }
 
     public void selectService(View view){
+        Intent i;
         switch (view.getId()){
             case R.id.service_data_usage:
-                Intent i = new Intent(this, DataUsageActivity.class);
+                i = new Intent(this, DataUsageActivity.class);
+                startActivity(i);
+                break;
+            case R.id.service_manage_settings:
+                i = new Intent(this, ManageSettingsActivity.class);
                 startActivity(i);
                 break;
         }
