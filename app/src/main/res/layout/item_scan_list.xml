@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/scan_ssid"
+            style="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ipnx"
+            android:textColor="@color/black_text"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/scan_bssid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="26:a4:3c:6d:34:07" />
+
+        <TextView
+            android:id="@+id/scan_frequency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="26MHz"
+            android:textColor="#009688" />
+
+        <TextView
+            android:id="@+id/scan_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-60dBm"
+            android:textColor="#E91E63" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/main_grey" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="90dp"
+        android:layout_height="90dp">
+
+        <com.ipnx.ipnxmobile.customviews.MeterView
+            android:id="@+id/scan_meter"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_margin="4dp"
+            app:mv_backgroundColor="#4A148C"
+            app:mv_centerPointColor="#FF9800"
+            app:mv_centerPointSize="4dp"
+            app:mv_headColor="#009688"
+            app:mv_headWidth="2dp"
+            app:mv_markerBigColor="@color/white"
+            app:mv_markerBigSzie="7dp"
+            app:mv_markerSmallColor="#BA68C8"
+            app:mv_markerSmallSzie="4dp"
+            app:mv_markerTextColor="#9E9E9E"
+            app:mv_markerTextSzie="14sp"
+            app:mv_maxValue="90"
+            app:mv_minValue="10"
+            app:mv_showMarkerText="false"
+            app:mv_textColor="#E91E63"
+            app:mv_textSize="16sp"
+            app:mv_value="50" />
+        <!--#E91E63-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="4dp"
+            android:text="dBm"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+
+</LinearLayout>

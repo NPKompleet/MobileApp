@@ -159,8 +159,10 @@
                             android:layout_marginBottom="40dp">
 
                             <TextView
+                                android:id="@+id/service_renew"
                                 style="@style/ManagedServicesTextTheme"
                                 android:drawableTop="@drawable/ic_renew2"
+                                android:onClick="selectService"
                                 android:text="Renew" />
 
                             <TextView

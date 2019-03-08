@@ -2,6 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ipnx.ipnxmobile">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission-sdk-23 android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+    <uses-feature android:name="android.hardware.wifi" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,6 +16,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".wifianalyzer.WifiAnalyzerActivity"
+            android:label="@string/title_activity_wifi_analyzer"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".RenewPaymentActivity"
+            android:label="@string/title_activity_renew_payment"
+            android:parentActivityName=".ManageServiceActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ipnx.ipnxmobile.ManageServiceActivity" />
+        </activity>
         <activity
             android:name=".ManageSettingsActivity"
             android:label="@string/title_activity_manage_settings"

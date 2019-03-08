@@ -12,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.ipnx.ipnxmobile.wifianalyzer.WifiAnalyzerActivity;
+
 public class ManageServiceActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -80,7 +82,8 @@ public class ManageServiceActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            Intent i = new Intent(this, WifiAnalyzerActivity.class);
+            startActivity(i);
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
@@ -107,6 +110,10 @@ public class ManageServiceActivity extends AppCompatActivity
                 break;
             case R.id.service_manage_settings:
                 i = new Intent(this, ManageSettingsActivity.class);
+                startActivity(i);
+                break;
+            case R.id.service_renew:
+                i = new Intent(this, RenewPaymentActivity.class);
                 startActivity(i);
                 break;
         }
