@@ -6,13 +6,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
-import android.view.animation.BounceInterpolator;
 import android.view.animation.Interpolator;
 
 import com.ipnx.ipnxmobile.R;
@@ -22,7 +21,7 @@ import com.nineoldandroids.animation.ObjectAnimator;
  * This MeterView was adapted from the MeterView at https://github.com/noohkvm/MeterView
  * It was adapted to account for the negative meter values of wifi signal strength in this project
  */
-public class MeterView extends View {
+public class SignalMeter extends View {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -34,7 +33,7 @@ public class MeterView extends View {
 
     private Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint markerTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-
+    private Paint arcPaint = new Paint();
     private float minValue = 0;
     private float maxValue = 300;
 
@@ -69,21 +68,24 @@ public class MeterView extends View {
     private Interpolator interpolator;
     private float currentPoint;
 
+    RectF arcRect = new RectF();
+
+
     // ===========================================================
     // Constructors
     // ===========================================================
-    public MeterView(Context context) {
+    public SignalMeter(Context context) {
         super(context);
         init(context, null);
     }
 
-    public MeterView(Context context, AttributeSet attrs) {
+    public SignalMeter(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
 
     }
 
-    public MeterView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SignalMeter(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
     }
@@ -104,71 +106,112 @@ public class MeterView extends View {
     // ===========================================================
     // Methods for/from SuperClass/Interfaces
     // ===========================================================
-    @Override
-    protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
-
-        final int widthMode = MeasureSpec.getMode(widthMeasureSpec);
-        final int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-        final int widthSize = MeasureSpec.getSize(widthMeasureSpec);
-        final int heightSize = MeasureSpec.getSize(heightMeasureSpec);
-
-        final int chosenWidth = getDimension(widthMode, widthSize);
-        final int chosenHeight = getDimension(heightMode, heightSize);
-        setMeasuredDimension(chosenWidth, chosenHeight);
-    }
+//    @Override
+//    protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
+//
+//        final int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+//        final int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+//        final int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+//        final int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+//
+//        final int chosenWidth = getDimension(widthMode, widthSize);
+//        final int chosenHeight = getDimension(heightMode, heightSize);
+//        setMeasuredDimension(chosenWidth, chosenHeight);
+//    }
 
     @Override
     protected void onDraw(Canvas canvas) {
 
-        float drawbleWidth = getWidth();
-        float drawblHight = getHeight();
+        float drawableWidth = getWidth();
+        float drawableHeight = getHeight();
 
 
 
-        float radius = (Math.min(drawbleWidth, drawblHight)) / 2;
+        float length = (Math.min(drawableWidth, drawableHeight));
+        float radius = length / 2 + length / 10;
+//        float radius = 3f/4 * length;
 
 
         float markerTextHeight = 0;
-        float centerX = drawbleWidth / 2;
-        float centerY = drawblHight / 2;
+        float centerX = drawableWidth / 2;
+        float centerY = 3.0f/4 * length;
         float halfWidth = centerX;
         float halfHight = centerY;
-        float padding = dpToPx(4);
+        float padding = 0f;
+        
+        //---------------------------------------------
 
         //background
         p.setColor(backgroundColor);
-        canvas.drawCircle(halfWidth, halfHight,radius, p);
+        canvas.drawRect(0,0,length, 3.0f/4 * length, p);
+
+        arcRect.left = (radius - centerX) * -1;
+        arcRect.top = centerY - radius;
+        arcRect.right = drawableWidth + radius - centerX;
+        arcRect.bottom = radius * 2 + arcRect.top;
+        arcPaint.setStyle(Paint.Style.STROKE);
+        arcPaint.setStrokeWidth(6.0f);
+        arcPaint.setColor(Color.BLACK);
+        canvas.drawArc(arcRect, -135.0f, 90.0f, false, arcPaint);
+        arcPaint.setColor(Color.RED);
+        arcPaint.setStrokeWidth(25.0f);
+        canvas.drawArc(arcRect, -45.0f, -30.0f, false, arcPaint);
+        arcRect.top += 15.0f;
+        arcRect.bottom -= 15.0f;
+        arcRect.left += 15.0f;
+        arcRect.right -= 15.0f;
+        arcPaint.setStrokeWidth(20.0f);
+        arcPaint.setColor(Color.GRAY);
+//        arcPaint.setAntiAlias(true);
+        canvas.drawArc(arcRect, -135.0f, 15.0f, false, arcPaint);
+        arcPaint.setColor(Color.YELLOW);
+        canvas.drawArc(arcRect, -120.0f, 45.0f, false, arcPaint);
+        arcPaint.setColor(Color.GREEN);
+        canvas.drawArc(arcRect, -75.0f, 30.0f, false, arcPaint);
+
+
         radius-=padding;
         p.setStrokeWidth(markerWidth);
         p.setColor(Color.parseColor("#3F51B5"));
-
+        
+        //----------------------------------------------
         //draw Big markers and Text
         if (showMarkerBig || showMarkerText) {
             markerTextPaint.setColor(markerTextColor);
             markerTextPaint.setTextSize(markerTextSize);
 
             float drawMarkerTextValue = minValue;
-            float difference = (maxValue - minValue) / 10;
+//            float difference = (maxValue - minValue) / 10;
+            float difference = 10;
+            canvas.save();
 
-            canvas.rotate(-150, halfWidth, halfHight);
-            for (int i = -150; i <= 150; i = i + 30) {
+            canvas.rotate(-40, halfWidth, halfHight);
+            for (int i = -40; i <= 40; i = i + 10) {
                 if (showMarkerBig) {
+                    if (i > 10) {
+                        markerBigColor = Color.RED;
+                        markerBigSize = 20.f;
+                    }
                     p.setColor(markerBigColor);
-                    canvas.drawLine(halfWidth , halfHight - radius + markerBigSize, halfWidth, halfHight - radius, p);
+                    p.setStrokeWidth(4f);
+                    canvas.drawLine(halfWidth , centerY -radius -4, halfWidth, centerY-radius - markerBigSize - 4, p);
                 }
                 if (showMarkerText) {
-                    String text = (int) drawMarkerTextValue + "";
+                    String text = (int) drawMarkerTextValue -100 + "";
                     Rect bounds = new Rect();
                     markerTextPaint.getTextBounds(text, 0, text.length(), bounds);
                     markerTextHeight = bounds.height();
                     int width = bounds.width();
-                    canvas.drawText(text, halfWidth - width / 2, halfHight - radius + markerBigSize + markerTextHeight + padding, markerTextPaint);
+                    canvas.drawText(text, halfWidth - width / 2, centerY - radius - markerBigSize - markerTextHeight + padding, markerTextPaint);
+
 
                     drawMarkerTextValue += difference;
                 }
-                canvas.rotate(30, halfWidth, halfHight);
+                canvas.rotate(10, halfWidth, halfHight);
             }
-            canvas.rotate(-150, halfWidth, halfHight);
+            markerBigColor = Color.BLACK;
+            markerBigSize = dpToPx(7);
+            canvas.restore();
         }
 
 
@@ -176,33 +219,42 @@ public class MeterView extends View {
         //draw small markers
         if (showMarkerSmall) {
             p.setColor(markerSmallColor);
-            canvas.rotate(-165, halfWidth, halfHight);
-            for (int i = -165; i <= 120; i = i + 30) {
-                canvas.drawLine(halfWidth ,  halfHight - radius + markerSmallSiae, halfWidth, halfHight - radius, p);
-                canvas.rotate(30, halfWidth, halfHight);
+            canvas.rotate(-40, halfWidth, halfHight);
+            for (int i = -40; i <= 40; i = i + 2) {
+                if (i > 14) {
+                    markerSmallColor = Color.RED;
+                    markerSmallSiae = 18.0f;
+                    p.setColor(markerSmallColor);
+                }
+                canvas.drawLine(halfWidth ,  centerY - radius - markerSmallSiae, halfWidth, centerY - radius, p);
+                canvas.rotate(2, halfWidth, halfHight);
             }
-            canvas.rotate(-165, halfWidth, halfHight);
+            markerSmallColor = Color.BLACK;
+            markerSmallSiae = dpToPx(4);
+            canvas.restore();
         }
 
         //draw value text
         p.setColor(textColor);
-        String text = (int) (value - 100) + "";
+//        String text = (int) (value - 100) + "";
+        String text = "dBm";
         Rect bounds = new Rect();
+        p.setFakeBoldText(true);
         p.setTextSize(textSize);
         p.getTextBounds(text, 0, text.length(), bounds);
         int textheight = bounds.height();
         int textwidth = bounds.width();
-        canvas.drawText(text, halfWidth - textwidth / 2, halfHight+textPadding+textSize, p);
+        canvas.drawText(text, halfWidth - textwidth / 2, centerY/2 +textPadding+textSize, p);
 
         //draw head
         p.setColor(headColor);
-        float rotation = ((value - minValue) / (maxValue - minValue)) * 300f;
+        float rotation = ((value - minValue) / (maxValue - minValue)) * 80.0f;
         rotation = value < minValue ? 0 : rotation;
-        rotation = value > maxValue ? 300f : rotation;
-        canvas.rotate(rotation - 150, halfWidth, halfHight);
+        rotation = value > maxValue ? 80.0f : rotation;
+        canvas.rotate(rotation + 320.0f, halfWidth, halfHight);
         p.setStrokeWidth(headWidth);
         canvas.drawLine(halfWidth, halfHight - dpToPx(6), halfWidth , halfHight - radius, p);
-        canvas.rotate(-rotation + 150, halfWidth, halfHight);
+        canvas.restore();
 
         //draw center point
         if (showCenterPoint) {
@@ -239,38 +291,39 @@ public class MeterView extends View {
     // Methods
     // ===========================================================
     private void init(Context context, AttributeSet attrs) {
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MeterView);
-        showMarkerBig = typedArray.getBoolean(R.styleable.MeterView_mv_showMarkerBig, true);
-        showMarkerSmall = typedArray.getBoolean(R.styleable.MeterView_mv_showMarkerSmall, true);
-        markerBigSize = typedArray.getDimensionPixelSize(R.styleable.MeterView_mv_markerBigSzie, getResources().getDimensionPixelSize(R.dimen.mv_big_marker));
-        markerSmallSiae = typedArray.getDimensionPixelSize(R.styleable.MeterView_mv_markerSmallSzie, getResources().getDimensionPixelSize(R.dimen.mv_small_marker));
-        markerBigColor = typedArray.getColor(R.styleable.MeterView_mv_markerBigColor, Color.parseColor("#3F51B5"));
-        markerSmallColor = typedArray.getColor(R.styleable.MeterView_mv_markerSmallColor, Color.parseColor("#B71C1C"));
-        markerWidth = getResources().getDimensionPixelSize(R.dimen.mv_marker_width);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.SignalMeter);
+        showMarkerBig = typedArray.getBoolean(R.styleable.SignalMeter_sm_showMarkerBig, true);
+        showMarkerSmall = typedArray.getBoolean(R.styleable.SignalMeter_sm_showMarkerSmall, true);
+        markerBigSize = typedArray.getDimensionPixelSize(R.styleable.SignalMeter_sm_markerBigSzie, getResources().getDimensionPixelSize(R.dimen.sm_big_marker));
+        markerSmallSiae = typedArray.getDimensionPixelSize(R.styleable.SignalMeter_sm_markerSmallSzie, getResources().getDimensionPixelSize(R.dimen.sm_small_marker));
+        markerBigColor = typedArray.getColor(R.styleable.SignalMeter_sm_markerBigColor, Color.parseColor("#3F51B5"));
+        markerSmallColor = typedArray.getColor(R.styleable.SignalMeter_sm_markerSmallColor, Color.parseColor("#B71C1C"));
+        markerWidth = getResources().getDimensionPixelSize(R.dimen.sm_marker_width);
 
-        showMarkerText = typedArray.getBoolean(R.styleable.MeterView_mv_showMarkerText, true);
-        markerTextSize = typedArray.getDimensionPixelSize(R.styleable.MeterView_mv_markerTextSzie, getResources().getDimensionPixelSize(R.dimen.mv_marker_text_size));
+        showMarkerText = typedArray.getBoolean(R.styleable.SignalMeter_sm_showMarkerText, true);
+        markerTextSize = typedArray.getDimensionPixelSize(R.styleable.SignalMeter_sm_markerTextSzie, getResources().getDimensionPixelSize(R.dimen.sm_marker_text_size));
 
-        markerTextColor = typedArray.getColor(R.styleable.MeterView_mv_markerTextColor, Color.parseColor("#3F51B5"));
+        markerTextColor = typedArray.getColor(R.styleable.SignalMeter_sm_markerTextColor, Color.parseColor("#3F51B5"));
 
-        showCenterPoint = typedArray.getBoolean(R.styleable.MeterView_mv_showCenterPoint, true);
-        centerPointSize = typedArray.getDimensionPixelSize(R.styleable.MeterView_mv_centerPointSize, getResources().getDimensionPixelSize(R.dimen.mv_center_point_size));
-        centerPointColor = typedArray.getColor(R.styleable.MeterView_mv_centerPointColor, Color.parseColor("#3F51B5"));
+        showCenterPoint = typedArray.getBoolean(R.styleable.SignalMeter_sm_showCenterPoint, true);
+        centerPointSize = typedArray.getDimensionPixelSize(R.styleable.SignalMeter_sm_centerPointSize, getResources().getDimensionPixelSize(R.dimen.sm_center_point_size));
+        centerPointColor = typedArray.getColor(R.styleable.SignalMeter_sm_centerPointColor, Color.parseColor("#3F51B5"));
 
-        headWidth = typedArray.getDimensionPixelSize(R.styleable.MeterView_mv_headWidth, getResources().getDimensionPixelSize(R.dimen.mv_head_width));
-        headColor = typedArray.getColor(R.styleable.MeterView_mv_headColor, Color.parseColor("#B71C1C"));
+        headWidth = typedArray.getDimensionPixelSize(R.styleable.SignalMeter_sm_headWidth, getResources().getDimensionPixelSize(R.dimen.sm_head_width));
+        headColor = typedArray.getColor(R.styleable.SignalMeter_sm_headColor, Color.parseColor("#B71C1C"));
 
 
-        minValue = typedArray.getFloat(R.styleable.MeterView_mv_minValue, 0);
-        maxValue = typedArray.getFloat(R.styleable.MeterView_mv_maxValue, 300);
-        value = typedArray.getFloat(R.styleable.MeterView_mv_value, minValue);
+        minValue = typedArray.getFloat(R.styleable.SignalMeter_sm_minValue, 0);
+        maxValue = typedArray.getFloat(R.styleable.SignalMeter_sm_maxValue, 300);
+        value = typedArray.getFloat(R.styleable.SignalMeter_sm_value, minValue);
         currentPoint = value;
 
-        textSize = typedArray.getDimension(R.styleable.MeterView_mv_textSize, getResources().getDimensionPixelSize(R.dimen.mv_text_size));
-        textColor = typedArray.getColor(R.styleable.MeterView_mv_textColor, Color.parseColor("#3F51B5"));
-        textPadding = getResources().getDimensionPixelSize(R.dimen.mv_text_padding);
+        textSize = typedArray.getDimension(R.styleable.SignalMeter_sm_textSize, getResources().getDimensionPixelSize(R.dimen.sm_text_size));
+        textColor = typedArray.getColor(R.styleable.SignalMeter_sm_textColor, Color.parseColor("#3F51B5"));
+        textPadding = getResources().getDimensionPixelSize(R.dimen.sm_text_padding);
 
-        backgroundColor=typedArray.getColor(R.styleable.MeterView_mv_backgroundColor, Color.parseColor("#FFFFFF"));
+        backgroundColor=typedArray.getColor(R.styleable.SignalMeter_sm_backgroundColor, Color.parseColor("#FFFFFF"));
+        arcPaint.setAntiAlias(true);
     }
 
     private int getDimension(final int mode, final int size) {
@@ -330,8 +383,8 @@ public class MeterView extends View {
             out.writeFloat(this.value);
         }
 
-        public static final Parcelable.Creator<SavedState> CREATOR =
-                new Parcelable.Creator<SavedState>() {
+        public static final Creator<SavedState> CREATOR =
+                new Creator<SavedState>() {
                     public SavedState createFromParcel(Parcel in) {
                         return new SavedState(in);
                     }

@@ -1,5 +1,6 @@
 package com.ipnx.ipnxmobile.wifianalyzer;
 
+import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,7 +15,9 @@ import android.view.MenuItem;
 
 import com.ipnx.ipnxmobile.R;
 
-public class WifiAnalyzerActivity extends AppCompatActivity {
+public class WifiAnalyzerActivity extends AppCompatActivity
+        implements ChannelGraphFragment.OnFragmentInteractionListener,
+        SignalMeterFragment.OnFragmentInteractionListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -85,6 +88,11 @@ public class WifiAnalyzerActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -100,7 +108,15 @@ public class WifiAnalyzerActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a ScanListFragment (defined as a static inner class below).
-            return ScanListFragment.newInstance(position + 1);
+            switch (position){
+                case 0:
+                    return ScanListFragment.newInstance(position + 1);
+                case 2:
+                    return SignalMeterFragment.newInstance("Fragment:", position+1+"");
+
+                    default:
+                        return ChannelGraphFragment.newInstance("Fragment:", position+1+"");
+            }
         }
 
         @Override

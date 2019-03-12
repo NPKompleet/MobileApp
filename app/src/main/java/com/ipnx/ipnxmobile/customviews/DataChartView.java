@@ -71,6 +71,8 @@ public class DataChartView extends View {
         canvas.drawCircle(radius, centerY, radius - 15, totalDataPaint);
         canvas.drawCircle(radius, centerY, radius/2 + 15, centerPaint);
         canvas.drawArc(rect, 180.0f, 75.0f, true, usedDataPaint);
+//        usedDataPaint.setColor(Color.BLUE);
+//        canvas.drawArc(rect, 255.0f, 75.0f, true, usedDataPaint);
         canvas.drawCircle(radius, centerY, radius/2, centerPaint);
     }
 }

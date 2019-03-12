@@ -18,6 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ipnx"
+            android:drawablePadding="8dp"
             android:textColor="@color/black_text"
             android:textSize="16sp" />
 

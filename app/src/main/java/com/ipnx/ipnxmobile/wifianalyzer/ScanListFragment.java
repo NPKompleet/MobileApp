@@ -66,7 +66,7 @@ public class ScanListFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_wifi_analyzer, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_scan_list, container, false);
 //        TextView textView = (TextView) rootView.findViewById(R.id.section_label);
         unbinder = ButterKnife.bind(this, rootView);
         textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
@@ -76,25 +76,25 @@ public class ScanListFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-//        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setOnRefreshListener(this);
 //        swipeRefreshLayout.setColorSchemeColors(
 //                getResources().getColor(R.color.),
 //                getResources().getColor(R.color.accent),
 //                getResources().getColor(R.color.primary_text)
 //        );
-//        adapter= new ScanListAdapter(scanResults);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-//        recyclerView.setAdapter(adapter);
+        adapter= new ScanListAdapter(scanResults);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+        recyclerView.setAdapter(adapter);
 //        onRefresh();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        swipeRefreshLayout.setOnRefreshListener(this);
-        adapter= new ScanListAdapter(scanResults);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-        recyclerView.setAdapter(adapter);
+//        swipeRefreshLayout.setOnRefreshListener(this);
+//        adapter= new ScanListAdapter(scanResults);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+//        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -130,7 +130,7 @@ public class ScanListFragment extends Fragment implements SwipeRefreshLayout.OnR
             scanResults = wifiManager.getScanResults();
             printLength();
             getActivity().unregisterReceiver(this);
-            adapter.setData(scanResults);
+            adapter.setData(scanResults, wifiManager.getConnectionInfo().getBSSID());
         }
     };
 
@@ -139,7 +139,6 @@ public class ScanListFragment extends Fragment implements SwipeRefreshLayout.OnR
     {
         public void run()
         {
-            //write here whaterver you want to repeat
             getScans();
             customHandler.postDelayed(this, 2000);
         }
@@ -147,8 +146,8 @@ public class ScanListFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void onPause() {
-        super.onPause();
         customHandler.removeCallbacks(updateScanThread);
+        super.onPause();
     }
 
     @Override

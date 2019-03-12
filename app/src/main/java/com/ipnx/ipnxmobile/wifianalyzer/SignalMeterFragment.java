@@ -1,24 +1,37 @@
 package com.ipnx.ipnxmobile.wifianalyzer;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.BounceInterpolator;
+import android.widget.Toast;
 
 import com.ipnx.ipnxmobile.R;
+import com.ipnx.ipnxmobile.customviews.SignalMeter;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link AnalyzerMeterFragment.OnFragmentInteractionListener} interface
+ * {@link SignalMeterFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link AnalyzerMeterFragment#newInstance} factory method to
+ * Use the {@link SignalMeterFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AnalyzerMeterFragment extends Fragment {
+public class SignalMeterFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -30,7 +43,14 @@ public class AnalyzerMeterFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public AnalyzerMeterFragment() {
+    WifiManager wifiManager;
+    Handler customHandler;
+    Unbinder unbinder;
+
+    @BindView(R.id.signal_meter)
+    SignalMeter signalMeter;
+
+    public SignalMeterFragment() {
         // Required empty public constructor
     }
 
@@ -40,11 +60,11 @@ public class AnalyzerMeterFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment AnalyzerMeterFragment.
+     * @return A new instance of fragment SignalMeterFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AnalyzerMeterFragment newInstance(String param1, String param2) {
-        AnalyzerMeterFragment fragment = new AnalyzerMeterFragment();
+    public static SignalMeterFragment newInstance(String param1, String param2) {
+        SignalMeterFragment fragment = new SignalMeterFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -65,8 +85,53 @@ public class AnalyzerMeterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_analyzer_meter, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_signal_meter, container, false);
+        unbinder = ButterKnife.bind(this, rootView);
+        signalMeter.setInterpolator(new BounceInterpolator());
+        return rootView;
     }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        customHandler = new Handler();
+        customHandler.postDelayed(updateScanThread, 0);
+    }
+
+    public void getWifiInfo(){
+        wifiManager = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        Toast.makeText(this.getContext(), "Getting WiFi Info...", Toast.LENGTH_SHORT).show();
+        WifiInfo info = wifiManager.getConnectionInfo();
+        signalMeter.moveHeadTo(info.getRssi() + 100);
+    }
+
+    private Runnable updateScanThread = new Runnable()
+    {
+        public void run()
+        {
+            getWifiInfo();
+            customHandler.postDelayed(this, 2000);
+        }
+    };
+
+//    BroadcastReceiver wifiReceiver = new BroadcastReceiver() {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            scanResults = wifiManager.getScanResults();
+//            getActivity().unregisterReceiver(this);
+//            updateGraph();
+//        }
+//    };
+
+
+    @Override
+    public void onPause() {
+        customHandler.removeCallbacks(updateScanThread);
+        super.onPause();
+    }
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

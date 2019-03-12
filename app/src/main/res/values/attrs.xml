@@ -37,4 +37,35 @@
 
         <attr name="mv_backgroundColor" format="color" />
     </declare-styleable>
+
+    <declare-styleable name="SignalMeter">
+        <attr name="sm_markerBigSzie" format="dimension" />
+        <attr name="sm_markerSmallSzie" format="dimension" />
+        <attr name="sm_markerTextSzie" format="dimension" />
+
+        <attr name="sm_markerBigColor" format="color" />
+        <attr name="sm_markerSmallColor" format="color" />
+        <attr name="sm_markerTextColor" format="color" />
+
+        <attr name="sm_showMarkerBig" format="boolean" />
+        <attr name="sm_showMarkerSmall" format="boolean" />
+        <attr name="sm_showMarkerText" format="boolean" />
+
+        <attr name="sm_showCenterPoint" format="boolean" />
+        <attr name="sm_centerPointColor" format="color" />
+        <attr name="sm_centerPointSize" format="dimension" />
+
+        <attr name="sm_headColor" format="color" />
+        <attr name="sm_headWidth" format="dimension" />
+
+        <attr name="sm_minValue" format="float" />
+        <attr name="sm_maxValue" format="float" />
+        <attr name="sm_value" format="float" />
+
+        <attr name="sm_textColor" format="color" />
+        <attr name="sm_textSize" format="dimension" />
+
+        <attr name="sm_backgroundColor" format="color" />
+    </declare-styleable>
+
 </resources>

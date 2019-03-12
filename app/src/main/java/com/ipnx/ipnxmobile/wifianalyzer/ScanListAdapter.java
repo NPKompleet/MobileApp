@@ -1,6 +1,7 @@
 package com.ipnx.ipnxmobile.wifianalyzer;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.net.wifi.ScanResult;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -20,13 +21,15 @@ import butterknife.ButterKnife;
 public class ScanListAdapter extends RecyclerView.Adapter<ScanListAdapter.ScanHolder>{
     private Context context;
     private List<ScanResult> scanResultList;
+    String currentWifiBssID;
 
     public ScanListAdapter(List<ScanResult> scanResultList) {
         this.scanResultList = scanResultList;
     }
 
-    public void setData(List<ScanResult> scans){
+    public void setData(List<ScanResult> scans, String bssID){
         this.scanResultList= scans;
+        this.currentWifiBssID = bssID;
         notifyDataSetChanged();
     }
 
@@ -49,6 +52,11 @@ public class ScanListAdapter extends RecyclerView.Adapter<ScanListAdapter.ScanHo
     public void onBindViewHolder(@NonNull ScanHolder holder, int position) {
         ScanResult item = scanResultList.get(position);
         holder.ssId.setText(item.SSID);
+        if(item.BSSID.equals(currentWifiBssID)){
+            Drawable img = context.getResources().getDrawable( R.drawable.ic_wifi );
+//            img.setBounds( 0, 0, 8, 0 );
+            holder.ssId.setCompoundDrawablesWithIntrinsicBounds( img, null, null, null);
+        }
         holder.bssId.setText(item.BSSID);
         holder.frequency.setText(item.frequency + "MHz");
         holder.level.setText(item.level + "dBm");

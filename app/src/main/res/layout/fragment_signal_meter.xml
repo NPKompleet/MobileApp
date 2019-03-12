@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".wifianalyzer.SignalMeterFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/hello_blank_fragment" />
+
+    <com.ipnx.ipnxmobile.customviews.SignalMeter
+        android:id="@+id/signal_meter"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:layout_margin="4dp"
+        app:sm_backgroundColor="#B9CC99"
+        app:sm_centerPointColor="#EEEEEE"
+        app:sm_centerPointSize="30dp"
+        app:sm_headColor="#009688"
+        app:sm_headWidth="2dp"
+        app:sm_markerBigColor="@color/black_text"
+        app:sm_markerBigSzie="7dp"
+        app:sm_markerSmallColor="@color/black_text"
+        app:sm_markerSmallSzie="4dp"
+        app:sm_markerTextColor="#000077"
+        app:sm_markerTextSzie="14sp"
+        app:sm_maxValue="90"
+        app:sm_minValue="10"
+        app:sm_showMarkerText="true"
+        app:sm_textColor="#3F51B5"
+        app:sm_textSize="24sp"
+        app:sm_value="10"
+        android:background="#EEEEEE"/>
+
+</FrameLayout>
