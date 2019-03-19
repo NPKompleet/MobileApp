@@ -106,18 +106,18 @@ public class SignalMeter extends View {
     // ===========================================================
     // Methods for/from SuperClass/Interfaces
     // ===========================================================
-//    @Override
-//    protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
-//
-//        final int widthMode = MeasureSpec.getMode(widthMeasureSpec);
-//        final int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-//        final int widthSize = MeasureSpec.getSize(widthMeasureSpec);
-//        final int heightSize = MeasureSpec.getSize(heightMeasureSpec);
-//
-//        final int chosenWidth = getDimension(widthMode, widthSize);
-//        final int chosenHeight = getDimension(heightMode, heightSize);
-//        setMeasuredDimension(chosenWidth, chosenHeight);
-//    }
+    @Override
+    protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
+
+        final int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        final int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+        final int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+        final int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+
+        final int chosenWidth = getDimension(widthMode, widthSize);
+        final int chosenHeight = getDimension(heightMode, heightSize);
+        setMeasuredDimension(chosenWidth, chosenHeight);
+    }
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -162,7 +162,6 @@ public class SignalMeter extends View {
         arcRect.right -= 15.0f;
         arcPaint.setStrokeWidth(20.0f);
         arcPaint.setColor(Color.GRAY);
-//        arcPaint.setAntiAlias(true);
         canvas.drawArc(arcRect, -135.0f, 15.0f, false, arcPaint);
         arcPaint.setColor(Color.YELLOW);
         canvas.drawArc(arcRect, -120.0f, 45.0f, false, arcPaint);
@@ -173,6 +172,8 @@ public class SignalMeter extends View {
         radius-=padding;
         p.setStrokeWidth(markerWidth);
         p.setColor(Color.parseColor("#3F51B5"));
+
+        canvas.save();
         
         //----------------------------------------------
         //draw Big markers and Text
@@ -183,7 +184,7 @@ public class SignalMeter extends View {
             float drawMarkerTextValue = minValue;
 //            float difference = (maxValue - minValue) / 10;
             float difference = 10;
-            canvas.save();
+
 
             canvas.rotate(-40, halfWidth, halfHight);
             for (int i = -40; i <= 40; i = i + 10) {
@@ -218,6 +219,7 @@ public class SignalMeter extends View {
 
         //draw small markers
         if (showMarkerSmall) {
+            canvas.save();
             p.setColor(markerSmallColor);
             canvas.rotate(-40, halfWidth, halfHight);
             for (int i = -40; i <= 40; i = i + 2) {
@@ -248,6 +250,7 @@ public class SignalMeter extends View {
 
         //draw head
         p.setColor(headColor);
+        canvas.save();
         float rotation = ((value - minValue) / (maxValue - minValue)) * 80.0f;
         rotation = value < minValue ? 0 : rotation;
         rotation = value > maxValue ? 80.0f : rotation;

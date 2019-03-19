@@ -5,9 +5,10 @@
         <!-- Customize your theme here. -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+        <item name="colorPrimary">@color/signin_button_text</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/white</item>
     </style>
 
     <style name="SignInTextTheme" parent="Widget.AppCompat.EditText">
@@ -78,14 +79,14 @@
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="android:tint">@color/signin_button_text</item>
-        <item name="android:textColorPrimary">@color/main_red</item>
+        <item name="android:tint">@color/white</item>
+        <!--<item name="android:textColorPrimary">@color/black_text</item>-->
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
-        <item name="android:tint">@color/signin_button_text</item>
-        <item name="android:textColorPrimary">@color/main_red</item>
+        <item name="android:tint">@color/white</item>
+        <!--<item name="android:textColorPrimary">@color/black_text</item>-->
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     </style>
 
@@ -95,9 +96,6 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     </style>
 
-    <style name="GreenText" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">#00FF00</item>
-    </style>
 
 
 </resources>

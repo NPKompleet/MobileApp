@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/signin_button_text"
     tools:context=".wifianalyzer.SignalMeterFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -14,11 +15,13 @@
 
     <com.ipnx.ipnxmobile.customviews.SignalMeter
         android:id="@+id/signal_meter"
-        android:layout_width="350dp"
-        android:layout_height="350dp"
-        android:layout_margin="4dp"
-        app:sm_backgroundColor="#B9CC99"
-        app:sm_centerPointColor="#EEEEEE"
+        android:layout_width="340dp"
+        android:layout_height="340dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="8dp"
+        android:background="@color/signin_button_text"
+        app:sm_backgroundColor="@color/white"
+        app:sm_centerPointColor="@color/signin_button_text"
         app:sm_centerPointSize="30dp"
         app:sm_headColor="#009688"
         app:sm_headWidth="2dp"
@@ -33,7 +36,30 @@
         app:sm_showMarkerText="true"
         app:sm_textColor="#3F51B5"
         app:sm_textSize="24sp"
-        app:sm_value="10"
-        android:background="#EEEEEE"/>
+        app:sm_value="10" />
+    <!--#B9CC99-->
+    <LinearLayout
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="280dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/signal_meter_indicator"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/blink_off" />
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:background="@color/main_grey"-->
+            <!--android:layout_marginTop="4dp"/>-->
+    </LinearLayout>
+
+
+
+</RelativeLayout>

@@ -9,6 +9,7 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -48,6 +49,8 @@ public class ScanListFragment extends Fragment implements SwipeRefreshLayout.OnR
     WifiManager wifiManager;
     Handler customHandler;
 
+    FloatingActionButton fab;
+
     public ScanListFragment() {
     }
 
@@ -77,29 +80,23 @@ public class ScanListFragment extends Fragment implements SwipeRefreshLayout.OnR
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         swipeRefreshLayout.setOnRefreshListener(this);
-//        swipeRefreshLayout.setColorSchemeColors(
-//                getResources().getColor(R.color.),
-//                getResources().getColor(R.color.accent),
-//                getResources().getColor(R.color.primary_text)
-//        );
         adapter= new ScanListAdapter(scanResults);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
         recyclerView.setAdapter(adapter);
+        fab = getActivity().findViewById(R.id.fab);
 //        onRefresh();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-//        swipeRefreshLayout.setOnRefreshListener(this);
-//        adapter= new ScanListAdapter(scanResults);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-//        recyclerView.setAdapter(adapter);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        fab.show();
+        wifiManager = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         customHandler = new Handler();
         onRefresh();
     }
@@ -107,28 +104,26 @@ public class ScanListFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onRefresh() {
         swipeRefreshLayout.setRefreshing(true);
-//        getScans();
         customHandler.postDelayed(updateScanThread, 0);
         swipeRefreshLayout.setRefreshing(false);
 
     }
 
-    public void printLength(){
-        Toast.makeText(this.getContext(), "Scan result: "+ scanResults.size(), Toast.LENGTH_SHORT).show();
-    }
+//    public void printLength(){
+//        Toast.makeText(this.getContext(), "Scan result: "+ scanResults.size(), Toast.LENGTH_SHORT).show();
+//    }
 
     public void getScans(){
-        wifiManager = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         getActivity().registerReceiver(wifiReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
         wifiManager.startScan();
-        Toast.makeText(this.getContext(), "Scanning WiFi ...", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this.getContext(), "Scanning WiFi ...", Toast.LENGTH_SHORT).show();
     }
 
     BroadcastReceiver wifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             scanResults = wifiManager.getScanResults();
-            printLength();
+//            printLength();
             getActivity().unregisterReceiver(this);
             adapter.setData(scanResults, wifiManager.getConnectionInfo().getBSSID());
         }

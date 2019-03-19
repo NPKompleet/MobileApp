@@ -1,6 +1,7 @@
 package com.ipnx.ipnxmobile.wifianalyzer;
 
 import android.net.Uri;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.ipnx.ipnxmobile.R;
 
@@ -33,6 +35,7 @@ public class WifiAnalyzerActivity extends AppCompatActivity
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+//    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +57,7 @@ public class WifiAnalyzerActivity extends AppCompatActivity
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -90,7 +93,6 @@ public class WifiAnalyzerActivity extends AppCompatActivity
 
     @Override
     public void onFragmentInteraction(Uri uri) {
-
     }
 
 
@@ -111,6 +113,8 @@ public class WifiAnalyzerActivity extends AppCompatActivity
             switch (position){
                 case 0:
                     return ScanListFragment.newInstance(position + 1);
+                case 1:
+                    return ChannelGraphFragment.newInstance("Fragment:", position+1+"");
                 case 2:
                     return SignalMeterFragment.newInstance("Fragment:", position+1+"");
 

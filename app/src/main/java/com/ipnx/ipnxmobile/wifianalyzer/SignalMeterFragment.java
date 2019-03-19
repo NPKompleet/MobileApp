@@ -9,15 +9,21 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.ipnx.ipnxmobile.R;
 import com.ipnx.ipnxmobile.customviews.SignalMeter;
+
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,6 +55,11 @@ public class SignalMeterFragment extends Fragment {
 
     @BindView(R.id.signal_meter)
     SignalMeter signalMeter;
+
+    @BindView(R.id.signal_meter_indicator)
+    ImageView indicator;
+
+    FloatingActionButton fab;
 
     public SignalMeterFragment() {
         // Required empty public constructor
@@ -91,19 +102,38 @@ public class SignalMeterFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        fab = getActivity().findViewById(R.id.fab);
+    }
+
 
     @Override
     public void onResume() {
         super.onResume();
+        fab.show();
         customHandler = new Handler();
-        customHandler.postDelayed(updateScanThread, 0);
+        wifiManager = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        if(!wifiManager.isWifiEnabled()){
+            Toast.makeText(this.getContext(), "Wifi is off. Please put on wifi", Toast.LENGTH_SHORT).show();
+        }
+        getActivity().registerReceiver(wifiReceiver, new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION));
     }
 
     public void getWifiInfo(){
-        wifiManager = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        Toast.makeText(this.getContext(), "Getting WiFi Info...", Toast.LENGTH_SHORT).show();
         WifiInfo info = wifiManager.getConnectionInfo();
         signalMeter.moveHeadTo(info.getRssi() + 100);
+        indicator.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.blink_on));
+
+        Handler lightHandler = new Handler();
+        lightHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                indicator.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.blink_off));
+            }
+        }, 500);
+
     }
 
     private Runnable updateScanThread = new Runnable()
@@ -115,22 +145,30 @@ public class SignalMeterFragment extends Fragment {
         }
     };
 
-//    BroadcastReceiver wifiReceiver = new BroadcastReceiver() {
-//        @Override
-//        public void onReceive(Context context, Intent intent) {
-//            scanResults = wifiManager.getScanResults();
-//            getActivity().unregisterReceiver(this);
-//            updateGraph();
-//        }
-//    };
+    BroadcastReceiver wifiReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (wifiManager.isWifiEnabled()) {
+                customHandler.postDelayed(updateScanThread, 0);
+                Toast.makeText(context, "Wifi is on", Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(context, "WiFi is off", Toast.LENGTH_SHORT).show();
+                customHandler.removeCallbacks(updateScanThread);
+                // Move signal meter to -90dBm
+                signalMeter.moveHeadTo(10);
+                indicator.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.blink_off));
+            }
+        }
+    };
 
 
     @Override
     public void onPause() {
         customHandler.removeCallbacks(updateScanThread);
+        getActivity().unregisterReceiver(wifiReceiver);
+        fab.hide();
         super.onPause();
     }
-
 
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -155,6 +193,12 @@ public class SignalMeterFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
     /**

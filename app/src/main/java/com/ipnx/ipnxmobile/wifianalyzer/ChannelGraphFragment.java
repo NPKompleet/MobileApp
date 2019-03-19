@@ -10,6 +10,8 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,6 +63,8 @@ public class ChannelGraphFragment extends Fragment {
 
     @BindView(R.id.channel_graph)
     GraphView graphView;
+
+    FloatingActionButton fab;
 
 
     public ChannelGraphFragment() {
@@ -125,8 +129,16 @@ public class ChannelGraphFragment extends Fragment {
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        fab = getActivity().findViewById(R.id.fab);
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
+        fab.hide();
+        wifiManager = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         customHandler = new Handler();
         customHandler.postDelayed(updateScanThread, 0);
     }
@@ -153,10 +165,9 @@ public class ChannelGraphFragment extends Fragment {
     }
 
     public void getScans(){
-        wifiManager = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         getActivity().registerReceiver(wifiReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
         wifiManager.startScan();
-        Toast.makeText(this.getContext(), "Scanning WiFi ...", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this.getContext(), "Scanning WiFi ...", Toast.LENGTH_SHORT).show();
     }
 
     public void onButtonPressed(Uri uri) {
@@ -212,7 +223,7 @@ public class ChannelGraphFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-//        unbinder.unbind();
+        unbinder.unbind();
     }
 
     /**
@@ -228,5 +239,6 @@ public class ChannelGraphFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+//        void onFragmentInteraction();
     }
 }

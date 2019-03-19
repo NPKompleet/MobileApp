@@ -102,7 +102,8 @@
                             android:background="@drawable/red_fill_rect_shape"
                             android:text="Proceed"
                             android:textColor="@color/white"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            android:onClick="makePayment"/>
                     </LinearLayout>
                 </TableRow>
 

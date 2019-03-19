@@ -9,8 +9,7 @@
         android:id="@+id/channel_graph"
         android:layout_width="match_parent"
         android:layout_height="500dp"
-        android:layout_marginBottom="8dp"
-        style="@style/GreenText"/>
+        android:layout_marginBottom="8dp"/>
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
