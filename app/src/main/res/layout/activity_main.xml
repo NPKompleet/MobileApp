@@ -15,6 +15,7 @@
         android:contentDescription="@string/signin_background"/>
 
     <LinearLayout
+        android:id="@+id/login_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity"
@@ -23,6 +24,7 @@
         android:layout_marginTop="120dp">
 
         <EditText
+            android:id="@+id/login_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/username"
@@ -32,6 +34,7 @@
             style="@style/SignInTextTheme" />
 
         <EditText
+            android:id="@+id/login_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
@@ -59,4 +62,11 @@
             android:textStyle="bold|italic"/>
 
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/login_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"/>
 </RelativeLayout>

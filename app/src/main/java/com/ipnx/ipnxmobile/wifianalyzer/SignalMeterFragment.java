@@ -124,13 +124,13 @@ public class SignalMeterFragment extends Fragment {
     public void getWifiInfo(){
         WifiInfo info = wifiManager.getConnectionInfo();
         signalMeter.moveHeadTo(info.getRssi() + 100);
-        indicator.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.blink_on));
+        indicator.setImageDrawable(getResources().getDrawable(R.drawable.blink_on));
 
         Handler lightHandler = new Handler();
         lightHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                indicator.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.blink_off));
+                indicator.setImageDrawable(getResources().getDrawable(R.drawable.blink_off));
             }
         }, 500);
 
@@ -156,7 +156,7 @@ public class SignalMeterFragment extends Fragment {
                 customHandler.removeCallbacks(updateScanThread);
                 // Move signal meter to -90dBm
                 signalMeter.moveHeadTo(10);
-                indicator.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.blink_off));
+                indicator.setImageDrawable(getResources().getDrawable(R.drawable.blink_off));
             }
         }
     };
@@ -165,8 +165,11 @@ public class SignalMeterFragment extends Fragment {
     @Override
     public void onPause() {
         customHandler.removeCallbacks(updateScanThread);
-        getActivity().unregisterReceiver(wifiReceiver);
-        fab.hide();
+        try {
+            getActivity().unregisterReceiver(wifiReceiver);
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
         super.onPause();
     }
 

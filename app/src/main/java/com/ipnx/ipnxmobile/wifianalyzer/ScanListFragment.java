@@ -97,6 +97,7 @@ public class ScanListFragment extends Fragment implements SwipeRefreshLayout.OnR
         super.onResume();
         fab.show();
         wifiManager = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        getActivity().registerReceiver(wifiReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
         customHandler = new Handler();
         onRefresh();
     }
@@ -109,22 +110,22 @@ public class ScanListFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     }
 
-//    public void printLength(){
-//        Toast.makeText(this.getContext(), "Scan result: "+ scanResults.size(), Toast.LENGTH_SHORT).show();
-//    }
+
+    public void printLength(){
+        Toast.makeText(this.getContext(), "Scan result: "+ scanResults.size(), Toast.LENGTH_SHORT).show();
+    }
 
     public void getScans(){
-        getActivity().registerReceiver(wifiReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
+//        getActivity().registerReceiver(wifiReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
         wifiManager.startScan();
-//        Toast.makeText(this.getContext(), "Scanning WiFi ...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this.getContext(), "Scanning WiFi ...", Toast.LENGTH_SHORT).show();
     }
 
     BroadcastReceiver wifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             scanResults = wifiManager.getScanResults();
-//            printLength();
-            getActivity().unregisterReceiver(this);
+            printLength();
             adapter.setData(scanResults, wifiManager.getConnectionInfo().getBSSID());
         }
     };
@@ -142,6 +143,7 @@ public class ScanListFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onPause() {
         customHandler.removeCallbacks(updateScanThread);
+        getActivity().unregisterReceiver(wifiReceiver);
         super.onPause();
     }
 

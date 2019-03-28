@@ -11,19 +11,12 @@ public class ChannelGraphUtils {
     public static Map<Integer, Integer> channelMap = getChannelMap();
     public static int[] channelColors =  {
             Color.parseColor("#FF0000"),
-//            Color.parseColor("#FF0000"),
             Color.parseColor("#FF7F00"),
-//            Color.parseColor("#FF7F00"),
             Color.parseColor("#EEEE00"),
-//            Color.parseColor("#AAAA00"),
             Color.parseColor("#00CC00"),
-//            Color.parseColor("#00AA00"),
             Color.parseColor("#0000FF"),
-//            Color.parseColor("#0000FF"),
             Color.parseColor("#4B0082"),
-//            Color.parseColor("#4B0082"),
             Color.parseColor("#9400D3"),
-//            Color.parseColor("#9400D3"),
     };
 
     @SuppressWarnings("UseSparseArrays")
@@ -45,6 +38,7 @@ public class ChannelGraphUtils {
         map.put(2484, 14);
         return map;
     }
+
 
     public static int addAlpha(int color){
         int alpha = Math.round(Color.alpha(color) * 0.2f);

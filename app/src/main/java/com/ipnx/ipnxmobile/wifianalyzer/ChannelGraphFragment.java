@@ -137,8 +137,9 @@ public class ChannelGraphFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        fab.hide();
+//        fab.hide();
         wifiManager = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        getActivity().registerReceiver(wifiReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
         customHandler = new Handler();
         customHandler.postDelayed(updateScanThread, 0);
     }
@@ -147,10 +148,16 @@ public class ChannelGraphFragment extends Fragment {
         graphView.removeAllSeries();
         int i= 0;
         for(ScanResult scanResult : scanResults){
-            int channel = channelMap.get(scanResult.frequency);
+            int channel;
+            try {
+                channel = channelMap.get(scanResult.frequency);
+            }catch (NullPointerException e){
+                e.printStackTrace();
+                System.out.println(scanResult.frequency);
+                continue;
+            }
             int color = i < 7 ? channelColors[i]
                     : channelColors[i % 7];
-//            int color = channelColors[channel - 1];
             DataPoint[] dataPoints = createDataPoints(
                     channel, scanResult.level);
             TitleLineGraphSeries<DataPoint> series = new TitleLineGraphSeries<>(dataPoints);
@@ -165,7 +172,7 @@ public class ChannelGraphFragment extends Fragment {
     }
 
     public void getScans(){
-        getActivity().registerReceiver(wifiReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
+//        getActivity().registerReceiver(wifiReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
         wifiManager.startScan();
 //        Toast.makeText(this.getContext(), "Scanning WiFi ...", Toast.LENGTH_SHORT).show();
     }
@@ -190,7 +197,7 @@ public class ChannelGraphFragment extends Fragment {
         @Override
         public void onReceive(Context context, Intent intent) {
             scanResults = wifiManager.getScanResults();
-            getActivity().unregisterReceiver(this);
+//            getActivity().unregisterReceiver(this);
             updateGraph();
         }
     };
@@ -199,6 +206,11 @@ public class ChannelGraphFragment extends Fragment {
     @Override
     public void onPause() {
         customHandler.removeCallbacks(updateScanThread);
+        try {
+            getActivity().unregisterReceiver(wifiReceiver);
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
         super.onPause();
     }
 
