@@ -83,7 +83,6 @@ public class ScanListFragment extends Fragment implements SwipeRefreshLayout.OnR
         adapter= new ScanListAdapter(scanResults);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
         recyclerView.setAdapter(adapter);
-        fab = getActivity().findViewById(R.id.fab);
 //        onRefresh();
     }
 
@@ -95,7 +94,8 @@ public class ScanListFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onResume() {
         super.onResume();
-        fab.show();
+//        fab = getActivity().findViewById(R.id.fab);
+//        fab.hide();
         wifiManager = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         getActivity().registerReceiver(wifiReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
         customHandler = new Handler();
@@ -116,7 +116,6 @@ public class ScanListFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     public void getScans(){
-//        getActivity().registerReceiver(wifiReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
         wifiManager.startScan();
         Toast.makeText(this.getContext(), "Scanning WiFi ...", Toast.LENGTH_SHORT).show();
     }

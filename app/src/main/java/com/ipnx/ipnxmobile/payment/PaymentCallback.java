@@ -10,9 +10,11 @@ import com.ipnx.ipnxmobile.RenewPaymentActivity;
 public class PaymentCallback extends IswCallback<PurchaseResponse> {
 
         private transient Context context;
+        private transient String ref;
 
-        public PaymentCallback(Context context) {
+        public PaymentCallback(Context context, String ref) {
             this.context = context;
+            this.ref = ref;
         }
 
     @Override
@@ -20,6 +22,7 @@ public class PaymentCallback extends IswCallback<PurchaseResponse> {
         // Handle error.
         // Payment not successful.
         Toast.makeText(context, "Error: "+ error.getMessage(), Toast.LENGTH_SHORT).show();
+        System.out.println(error.getMessage());
     }
 
     @Override
@@ -30,6 +33,8 @@ public class PaymentCallback extends IswCallback<PurchaseResponse> {
            Save the token, tokenExpiryDate, cardType and panLast4Digits
            in order to pay with the token in the future.
         */
-        Toast.makeText(context, "Successful: "+ response.getResponseCode(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Successful: "+ response + " show", Toast.LENGTH_SHORT).show();
+        System.out.println(response);
+        System.out.println(ref);
     }
 }

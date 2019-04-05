@@ -28,7 +28,7 @@ android {
 
 repositories {
     maven {
-        url  'http://dl.bintray.com/techquest/maven-repo'
+        url 'http://dl.bintray.com/techquest/maven-repo'
     }
 }
 

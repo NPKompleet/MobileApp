@@ -2,21 +2,18 @@ package com.ipnx.ipnxmobile;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
+import android.provider.Settings.Secure;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Html;
 import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -29,6 +26,9 @@ import com.ipnx.ipnxmobile.models.requests.Request;
 import com.ipnx.ipnxmobile.models.responses.LoginResponse;
 import com.ipnx.ipnxmobile.retrofit.MyApiEndpointInterface;
 import com.ipnx.ipnxmobile.retrofit.RetrofitUtils;
+import com.ipnx.ipnxmobile.wifianalyzer.WifiAnalyzerActivity;
+
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.*;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,7 +36,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.login_linear_layout)
     LinearLayout linearLayout;
 
@@ -49,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.login_password)
     EditText password;
 
+    @BindView(R.id.login_status_text)
+    TextView loginStatus;
+
     MyApiEndpointInterface myApi;
 
     static private final int MY_PERMISSIONS_REQUEST_LOCATION= 22;
@@ -56,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
     }
 
@@ -80,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         progressBar.setVisibility(View.VISIBLE);
+        loginStatus.setVisibility(View.VISIBLE);
         linearLayout.setVisibility(View.INVISIBLE);
 
         Request loginRequest = new Request();
@@ -87,23 +91,29 @@ public class MainActivity extends AppCompatActivity {
         loginValues.setCUsername(username.getText().toString());
         loginValues.setCPassword(password.getText().toString());
 
-        loginRequest.setAction("login");
+        loginRequest.setAction(ACTION_LOGIN);
         loginRequest.setCustomValues(loginValues);
+
+        DEVICE_ID = Secure.getString(getApplicationContext().getContentResolver(), Secure.ANDROID_ID);
+        loginRequest.setDid(DEVICE_ID);
 
         myApi= RetrofitUtils.getService();
         Call<LoginResponse> call = myApi.loginUser(loginRequest);
         call.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                Toast.makeText(MainActivity.this, "pass...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "deviceId: "+ DEVICE_ID, Toast.LENGTH_SHORT).show();
                 LoginResponse returnedResponse = response.body();
                 if (returnedResponse.getResponseCode().equals("0")){
-                    Intent i = new Intent(MainActivity.this, ManageServiceActivity.class);
+                    Intent i = new Intent(LoginActivity.this, ManageServiceActivity.class);
+                    i.putExtra(EXTRA_KEY_RESPONSE, returnedResponse);
                     startActivity(i);
                     closeActivity();
                 }else{
                     progressBar.setVisibility(View.INVISIBLE);
+                    loginStatus.setVisibility(View.INVISIBLE);
                     linearLayout.setVisibility(View.VISIBLE);
+
                     Snackbar.make(linearLayout, returnedResponse.getResponseMessage(), Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
@@ -112,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                 t.printStackTrace();
                 progressBar.setVisibility(View.INVISIBLE);
                 linearLayout.setVisibility(View.VISIBLE);
@@ -142,10 +152,12 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {  // Only ask for these permissions on runtime when running Android 6.0 or higher
             switch (ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_COARSE_LOCATION)) {
                 case PackageManager.PERMISSION_DENIED:
-                    if (ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    if (ContextCompat.checkSelfPermission(getBaseContext(),
+                            Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                         Toast.makeText(this, "Must grant location permission to use wifi analyzer on this device", Toast.LENGTH_SHORT).show();
-                        ActivityCompat.requestPermissions(MainActivity.this,
-                                new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
+                        ActivityCompat.requestPermissions(LoginActivity.this,
+                                new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
+                                        Manifest.permission.ACCESS_FINE_LOCATION},
                                 MY_PERMISSIONS_REQUEST_LOCATION);
 
 //                        ((TextView) new AlertDialog.Builder(this)
@@ -156,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
 //                                    @Override
 //                                    public void onClick(DialogInterface dialog, int which) {
 //                                        if (ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//                                            ActivityCompat.requestPermissions(MainActivity.this,
+//                                            ActivityCompat.requestPermissions(LoginActivity.this,
 //                                                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
 //                                                    MY_PERMISSIONS_REQUEST_COARSE_LOCATION);
 //                                        }
@@ -181,7 +193,8 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_LOCATION:
                 // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1]==PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                        && grantResults[1]==PackageManager.PERMISSION_GRANTED) {
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
                     Toast.makeText(

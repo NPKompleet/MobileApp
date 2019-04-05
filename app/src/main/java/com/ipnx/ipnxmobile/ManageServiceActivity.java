@@ -11,17 +11,43 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import com.ipnx.ipnxmobile.adapters.InternetServiceAdapter;
+import com.ipnx.ipnxmobile.adapters.TelephonyServiceAdapter;
+import com.ipnx.ipnxmobile.models.responses.LoginResponse;
 import com.ipnx.ipnxmobile.wifianalyzer.WifiAnalyzerActivity;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_RESPONSE;
 
 public class ManageServiceActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawer;
+
+    @BindView(R.id.nav_view)
+    NavigationView navigationView;
+
+    @BindView(R.id.internet_service_list)
+    ListView internetServiceListView;
+
+    @BindView(R.id.voice_service_list)
+    ListView voiceServiceListView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_service);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -33,19 +59,33 @@ public class ManageServiceActivity extends AppCompatActivity
 //            }
 //        });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        LoginResponse response = getIntent().getParcelableExtra(EXTRA_KEY_RESPONSE);
+
+        InternetServiceAdapter internetServiceAdapter
+                = new InternetServiceAdapter(this, response.getCustomValues().getInternetServices());
+        internetServiceListView.setAdapter(internetServiceAdapter);
+
+        TelephonyServiceAdapter voiceServiceAdapter
+                = new TelephonyServiceAdapter(this, response.getCustomValues().getTelephonyServices());
+        voiceServiceListView.setAdapter(voiceServiceAdapter);
+
+        View headerView= navigationView.getHeaderView(0);
+        TextView nav_name = headerView.findViewById(R.id.nav_full_name);
+        nav_name.setText(response.getCustomValues().getFullName());
+        TextView nav_email = headerView.findViewById(R.id.nav_email);
+        nav_email.setText(response.getCustomValues().getEmailAddresses());
+
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -81,22 +121,23 @@ public class ManageServiceActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_wifi_analyzer) {
             Intent i = new Intent(this, WifiAnalyzerActivity.class);
             startActivity(i);
         } else if (id == R.id.nav_gallery) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_payment_history) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_feedback) {
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_faq) {
+            Intent i = new Intent(this, TestActivity.class);
+            startActivity(i);
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

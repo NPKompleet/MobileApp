@@ -79,10 +79,10 @@ public class LoginCustomValues implements Parcelable
     private String firstName;
     @SerializedName("Internet_services")
     @Expose
-    private List<InternetService> internetServices = null;
+    private List<InternetService> internetServices;
     @SerializedName("Telephony_services")
     @Expose
-    private List<TelephonyService> telephonyServices = null;
+    private List<TelephonyService> telephonyServices;
     public final static Parcelable.Creator<LoginCustomValues> CREATOR = new Creator<LoginCustomValues>() {
 
 
@@ -123,8 +123,10 @@ public class LoginCustomValues implements Parcelable
         this.addressFull = ((String) in.readValue((String.class.getClassLoader())));
         this.customerNumber = ((String) in.readValue((String.class.getClassLoader())));
         this.firstName = ((String) in.readValue((String.class.getClassLoader())));
-        in.readList(this.internetServices, (InternetService.class.getClassLoader()));
-        in.readList(this.telephonyServices, (TelephonyService.class.getClassLoader()));
+//        in.readList(this.internetServices, (InternetService.class.getClassLoader()));
+        this.internetServices = in.createTypedArrayList(InternetService.CREATOR);
+//        in.readList(this.telephonyServices, (TelephonyService.class.getClassLoader()));
+        this.telephonyServices = in.createTypedArrayList(TelephonyService.CREATOR);
     }
 
     public LoginCustomValues() {
@@ -345,8 +347,10 @@ public class LoginCustomValues implements Parcelable
         dest.writeValue(addressFull);
         dest.writeValue(customerNumber);
         dest.writeValue(firstName);
-        dest.writeList(internetServices);
-        dest.writeList(telephonyServices);
+//        dest.writeList(internetServices);
+        dest.writeTypedList(internetServices);
+//        dest.writeList(telephonyServices);
+        dest.writeTypedList(telephonyServices);
     }
 
     public int describeContents() {

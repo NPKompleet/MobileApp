@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -12,6 +13,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +23,9 @@ import android.widget.Toast;
 
 import com.ipnx.ipnxmobile.R;
 import com.ipnx.ipnxmobile.customviews.SignalMeter;
+import com.ipnx.ipnxmobile.utils.ApplicationUtils;
 
+import java.io.File;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
@@ -59,6 +63,7 @@ public class SignalMeterFragment extends Fragment {
     @BindView(R.id.signal_meter_indicator)
     ImageView indicator;
 
+    @BindView(R.id.fab_signal_meter)
     FloatingActionButton fab;
 
     public SignalMeterFragment() {
@@ -105,20 +110,28 @@ public class SignalMeterFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        fab = getActivity().findViewById(R.id.fab);
     }
 
 
     @Override
     public void onResume() {
         super.onResume();
-        fab.show();
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                shareViewImage();
+            }
+        });
         customHandler = new Handler();
         wifiManager = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         if(!wifiManager.isWifiEnabled()){
             Toast.makeText(this.getContext(), "Wifi is off. Please put on wifi", Toast.LENGTH_SHORT).show();
         }
         getActivity().registerReceiver(wifiReceiver, new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION));
+    }
+
+    private void makeToast(String source) {
+        Toast.makeText(this.getContext(), "from: " + source, Toast.LENGTH_SHORT).show();
     }
 
     public void getWifiInfo(){
@@ -189,6 +202,26 @@ public class SignalMeterFragment extends Fragment {
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+
+    public void shareViewImage(){
+        Bitmap bitmap= ApplicationUtils.getBitmapFromView(signalMeter);
+        ApplicationUtils.saveBitmapToCache(bitmap, getContext());
+
+        File imagePath = new File(getContext().getCacheDir(), "images");
+        File newFile = new File(imagePath, "image.png");
+        Uri contentUri = FileProvider.getUriForFile(getContext(), "com.ipnx.ipnxmobile.fileprovider", newFile);
+
+        if (contentUri != null) {
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); // temp permission for receiving app to read this file
+            shareIntent.setDataAndType(contentUri, getContext().getContentResolver().getType(contentUri));
+            shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri);
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "Shared from ipNX Mobile App\nCopyright © ipNX 2019");
+            startActivity(Intent.createChooser(shareIntent, "Choose an app"));
         }
     }
 

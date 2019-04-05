@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/data_list_package"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -35,10 +35,10 @@
         android:textColor="@color/black_text"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/data_list_package" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/data_list_balance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -48,10 +48,10 @@
         android:textColor="@color/main_red"
         android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/data_list_package" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/data_list_exp_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -61,7 +61,7 @@
         android:textColor="@color/main_red"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/data_list_package" />
 
     <TextView
         android:id="@+id/textView7"
@@ -73,10 +73,11 @@
         android:text="Expires:"
         android:textColor="@color/black_text"
         android:textSize="12sp"
-        app:layout_constraintEnd_toStartOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintEnd_toStartOf="@+id/data_list_exp_date"
+        app:layout_constraintTop_toBottomOf="@+id/data_list_package" />
 
     <View
+        android:id="@+id/data_list_line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="8dp"

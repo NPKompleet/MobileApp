@@ -9,19 +9,25 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/happyfamily"
+        android:src="@drawable/signin_background"
         android:scaleType="centerCrop"
-        android:tint="@color/signin_background_tint"
-        android:contentDescription="@string/signin_background"/>
+        android:contentDescription="@string/signin_background"
+        android:alpha="0.5"/>
 
     <LinearLayout
         android:id="@+id/login_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity"
+        tools:context=".LoginActivity"
         android:orientation="vertical"
         android:padding="64dp"
         android:layout_marginTop="120dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/username"
+            android:textColor="@color/main_red"/>
 
         <EditText
             android:id="@+id/login_username"
@@ -29,9 +35,16 @@
             android:layout_height="wrap_content"
             android:hint="@string/username"
             android:inputType="text"
-            android:drawableStart="@drawable/ic_profile"
-            android:drawableLeft="@drawable/ic_profile"
+            android:text="bolajio"
+            android:drawableEnd="@drawable/ic_profile"
+            android:drawableRight="@drawable/ic_profile"
             style="@style/SignInTextTheme" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/password"
+            android:textColor="@color/main_red"/>
 
         <EditText
             android:id="@+id/login_password"
@@ -39,8 +52,9 @@
             android:layout_height="wrap_content"
             android:hint="@string/password"
             android:inputType="textPassword"
-            android:drawableStart="@drawable/ic_padlock"
-            android:drawableLeft="@drawable/ic_padlock"
+            android:text="Ade@0987"
+            android:drawableEnd="@drawable/ic_padlock"
+            android:drawableRight="@drawable/ic_padlock"
             style="@style/SignInTextTheme" />
 
         <Button
@@ -48,7 +62,7 @@
             android:layout_height="wrap_content"
             android:text="@string/signin"
             android:background="@drawable/signin_button"
-            android:textColor="@color/signin_button_text"
+            android:textColor="@color/white"
             android:textSize="20sp"
             android:layout_marginBottom="16dp"
             android:onClick="openMainView"/>
@@ -57,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/forgot_password"
-            android:textColor="@color/white"
+            android:textColor="@color/black_text"
             android:layout_gravity="center_horizontal"
             android:textStyle="bold|italic"/>
 
@@ -69,4 +83,16 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:visibility="invisible"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/login_status_text"
+        android:visibility="invisible"
+        android:text="...Logging in"
+        android:layout_below="@+id/login_progress_bar"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="16sp"/>
+
 </RelativeLayout>

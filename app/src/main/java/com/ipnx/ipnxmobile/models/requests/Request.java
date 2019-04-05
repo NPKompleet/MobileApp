@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.ipnx.ipnxmobile.models.CustomValues;
 
-import static com.ipnx.ipnxmobile.utils.APIUtils.*;
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.*;
 
 
 public class Request {

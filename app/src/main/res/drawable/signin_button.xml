@@ -5,11 +5,11 @@ android:shape="rectangle">
 
     <stroke
         android:width="2dp"
-        android:color="#FFFFFFFF" />
+        android:color="#C80D0D" />
 
     <corners
         android:radius="32dp"/>
 
     <solid
-        android:color="#FFFFFFFF"/>
+        android:color="#C80D0D"/>
 </shape>

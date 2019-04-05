@@ -28,109 +28,26 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hello, Jeff"
-                        android:textColor="@color/white"
-                        android:textSize="24sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="User ID: 1100101"
-                        android:textColor="@color/white"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="LAST LOGIN DATE: Feb 3, 2019"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
-
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="18dp"
-                        android:background="@color/main_grey" />
-
                     <TextView
-                        style="@style/SubheadingTextTheme"
-                        android:background="@color/white"
-                        android:text="Advantage Basic NGN15750/Monthly" />
-
-                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="16dp"
-                        android:paddingRight="16dp">
+                        android:padding="4dp"
+                        android:text="Data Services"
+                        android:gravity="center"
+                        android:textColor="@color/black_text"
+                        android:background="@color/main_grey" />
 
-                        <TextView
-                            android:id="@+id/balance_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="Balance:"
-                            android:textColor="@color/black_text"
-                            android:textSize="12sp" />
+                    <ListView
+                        android:id="@+id/internet_service_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:listitem="@layout/item_data_service_list">
+                    </ListView>
 
-                        <TextView
-                            android:id="@+id/balance_value"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
-                            android:layout_toEndOf="@+id/balance_text"
-                            android:layout_toRightOf="@+id/balance_text"
-                            android:text="N45,000"
-                            android:textColor="@color/main_red"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/expiry_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:layout_toStartOf="@id/expiry_date"
-                            android:layout_toLeftOf="@id/expiry_date"
-                            android:text="Expires:"
-                            android:textColor="@color/black_text"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/expiry_date"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_margin="8dp"
-                            android:text="Feb 22, 2019"
-                            android:textColor="@color/main_red"
-                            android:textSize="12sp" />
-
-                    </RelativeLayout>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
-
-            <!--<View-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="2dp"-->
-            <!--android:background="@color/main_grey" />-->
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
@@ -212,10 +129,21 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <View
+                    <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="18dp"
+                        android:layout_height="wrap_content"
+                        android:padding="4dp"
+                        android:text="Voice Services"
+                        android:gravity="center"
+                        android:textColor="@color/black_text"
                         android:background="@color/main_grey" />
+
+                    <ListView
+                        android:id="@+id/voice_service_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:listitem="@layout/item_voice_service_list">
+                    </ListView>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -223,28 +151,10 @@
                         android:background="@color/white"
                         android:padding="14dp">
 
-                        <TextView
-                            android:id="@+id/wireless_phone_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="iWireless Phone No Charge"
-                            android:textColor="@color/black_text"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/wireless_id_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/wireless_phone_text"
-                            android:text="(161616) (RMCG180Q13E)"
-                            android:textColor="@color/black_text"
-                            android:textSize="14sp" />
-
                         <Button
                             android:id="@+id/topup_button"
                             android:layout_width="120dp"
                             android:layout_height="32dp"
-                            android:layout_below="@+id/wireless_id_text"
                             android:layout_marginTop="16dp"
                             android:background="@drawable/topup_button"
                             android:text="Top-Up"
@@ -262,27 +172,6 @@
                             android:textColor="@color/white"
                             android:textSize="16sp" />
 
-                        <TextView
-                            android:id="@+id/status_value"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBaseline="@+id/topup_button"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true"
-                            android:text="Active"
-                            android:textColor="@color/signin_button_text"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/status_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBaseline="@+id/topup_button"
-                            android:layout_toStartOf="@+id/status_value"
-                            android:layout_toLeftOf="@+id/status_value"
-                            android:text="Status:"
-                            android:textColor="@color/black_text"
-                            android:textSize="14sp" />
                     </RelativeLayout>
                 </LinearLayout>
             </android.support.v7.widget.CardView>

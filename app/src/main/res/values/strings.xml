@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">ipNX Mobile</string>
-    <string name="username">Username:</string>
-    <string name="password">Password:</string>
+    <string name="username">USERNAME</string>
+    <string name="password">PASSWORD</string>
     <string name="signin">SIGN IN</string>
     <string name="signin_background">Sign-in background image</string>
     <string name="forgot_password">Forgot Password?</string>
