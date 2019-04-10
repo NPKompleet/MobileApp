@@ -12,7 +12,7 @@
         android:src="@drawable/signin_background"
         android:scaleType="centerCrop"
         android:contentDescription="@string/signin_background"
-        android:alpha="0.5"/>
+        android:alpha="0.8"/>
 
     <LinearLayout
         android:id="@+id/login_linear_layout"
@@ -92,7 +92,7 @@
         android:text="...Logging in"
         android:layout_below="@+id/login_progress_bar"
         android:gravity="center"
-        android:textColor="@color/white"
+        android:textColor="@color/beige"
         android:textSize="16sp"/>
 
 </RelativeLayout>

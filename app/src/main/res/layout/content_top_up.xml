@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".RenewPaymentActivity">
+    tools:context=".TopUpActivity">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -27,9 +27,28 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginLeft="24dp"
-                    android:text="Current Balance: 33050"
+                    android:text="Iwireless Phone No Charge"
+                    android:maxWidth="250dp"
                     android:textColor="@color/black_text"
                     android:textSize="18sp" />
+
+                <Button
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginLeft="24dp"
+                    android:background="@drawable/indigo_fill_button"
+                    android:onClick="makePayment"
+                    android:text="View CDR"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@color/main_grey"/>
 
                 <TextView
                     style="@style/SubheadingTextTheme"
@@ -190,21 +209,24 @@
     </android.support.v7.widget.CardView>
 
 
-    <ImageView style="@style/StyledTopImageView" />
+    <ImageView
+        android:id="@+id/imageView5"
+        style="@style/StyledTopImageView" />
 
     <ImageView
         android:id="@+id/home_button"
         style="@style/PageBackButton"
-        android:onClick="onBackClicked"/>
+        android:src="@drawable/ic_menu"
+        android:onClick="onMenuClicked"/>
 
     <TextView
         android:id="@+id/page_title"
         style="@style/PageTitle"
-        android:text="Renew" />
+        android:text="Top-Up"/>
 
     <TextView
         android:id="@+id/page_subtitle"
         style="@style/PageSubTitle"
-        android:text="Service Plan: Advantage Basic" />
+        android:text="Advantage Basic" />
 
 </android.support.constraint.ConstraintLayout>

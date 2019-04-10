@@ -1,19 +1,15 @@
 package com.ipnx.ipnxmobile;
 
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.os.Bundle;
 import android.view.View;
 
-public class DataUsageActivity extends AppCompatActivity {
+public class TransactionHistoryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_data_usage);
-
+        setContentView(R.layout.activity_transaction_history);
     }
 
     public void onSubmitClicked(View view){
@@ -23,5 +19,4 @@ public class DataUsageActivity extends AppCompatActivity {
     public void onBackClicked(View view){
         finish();
     }
-
 }

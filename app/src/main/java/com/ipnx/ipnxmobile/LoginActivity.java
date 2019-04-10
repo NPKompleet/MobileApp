@@ -105,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "deviceId: "+ DEVICE_ID, Toast.LENGTH_SHORT).show();
                 LoginResponse returnedResponse = response.body();
                 if (returnedResponse.getResponseCode().equals("0")){
-                    Intent i = new Intent(LoginActivity.this, ManageServiceActivity.class);
+                    Intent i = new Intent(LoginActivity.this, ServicesMenuActivity.class);
                     i.putExtra(EXTRA_KEY_RESPONSE, returnedResponse);
                     startActivity(i);
                     closeActivity();
@@ -126,6 +126,11 @@ public class LoginActivity extends AppCompatActivity {
                 t.printStackTrace();
                 progressBar.setVisibility(View.INVISIBLE);
                 linearLayout.setVisibility(View.VISIBLE);
+
+                //
+                Intent i = new Intent(LoginActivity.this, ServicesMenuActivity.class);
+                startActivity(i);
+                //
 
             }
         });

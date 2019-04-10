@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FAQActivity">
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="150dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/faq1"
+                android:text="How do I sign up?"
+                style="@style/FaqWhiteTextView"/>
+            <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                android:id="@+id/faq_answer1"
+                style="@style/ExpandableLayoutStyle">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:text="@string/lorem" />
+            </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+            <TextView
+                android:id="@+id/faq2"
+                android:text="How do I change my password?"
+                style="@style/FaqPinkTextView"/>
+            <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                android:id="@+id/faq_answer2"
+                style="@style/ExpandableLayoutStyle">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:text="@string/lorem" />
+            </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+            <TextView
+                android:id="@+id/faq3"
+                android:text="How do I view my data usage?"
+                style="@style/FaqWhiteTextView"/>
+            <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                android:id="@+id/faq_answer3"
+                style="@style/ExpandableLayoutStyle">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:text="@string/lorem" />
+            </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+            <TextView
+                android:id="@+id/faq4"
+                android:text="How do I make payment?"
+                style="@style/FaqPinkTextView"/>
+            <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                android:id="@+id/faq_answer4"
+                style="@style/ExpandableLayoutStyle">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:text="@string/lorem" />
+            </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+            <TextView
+                android:id="@+id/faq5"
+                android:text="How do I view my payment history?"
+                style="@style/FaqWhiteTextView"/>
+            <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                android:id="@+id/faq_answer5"
+                style="@style/ExpandableLayoutStyle">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:text="@string/lorem" />
+            </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+            <TextView
+                android:id="@+id/faq6"
+                android:text="How do I report a fault?"
+                style="@style/FaqPinkTextView"/>
+            <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                android:id="@+id/faq_answer6"
+                style="@style/ExpandableLayoutStyle">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:text="@string/lorem" />
+            </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+            <TextView
+                android:id="@+id/faq7"
+                android:text="How do I chage my service plan?"
+                style="@style/FaqWhiteTextView"/>
+            <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                android:id="@+id/faq_answer7"
+                style="@style/ExpandableLayoutStyle">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:text="@string/lorem" />
+            </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+            <TextView
+                android:id="@+id/faq8"
+                android:text="What is DDNS?"
+                style="@style/FaqPinkTextView"/>
+            <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                android:id="@+id/faq_answer8"
+                style="@style/ExpandableLayoutStyle">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:text="@string/lorem" />
+            </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <ImageView
+        style="@style/StyledTopImageView"/>
+
+    <ImageView
+        android:id="@+id/home_button"
+        style="@style/PageBackButton"
+        android:onClick="onBackClicked"/>
+
+    <TextView
+        style="@style/PageTitle"
+        android:text="FAQ" />
+</android.support.constraint.ConstraintLayout>

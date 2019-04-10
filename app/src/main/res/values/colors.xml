@@ -12,4 +12,14 @@
     <color name="black_text">#222222</color>
     <color name="main_red">#C40001</color>
     <color name="main_grey">#DDDDDD</color>
+    <color name="faq_pink">#FFE5E5</color>
+    <color name="orange">#FCB345</color>
+    <color name="beige">#E95F5F</color>
+    <color name="indigo">#1A1F71</color>
+    <color name="nav_grey">#757575</color>
+    <color name="data_menu_blue">#7F5FE9</color>
+    <color name="data_menu_cyan">#49C2EF</color>
+    <color name="data_menu_green">#31E2A6</color>
+    <color name="data_menu_red">#E95F5F</color>
+    <color name="data_menu_orange">#FF5E00</color>
 </resources>

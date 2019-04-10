@@ -17,8 +17,23 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".TestActivity"></activity>
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".TransactionHistoryActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".TopUpActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".FAQActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ServicesMenuActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".FeedbackActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".wifianalyzer.WifiAnalyzerActivity"
             android:label="@string/title_activity_wifi_analyzer"

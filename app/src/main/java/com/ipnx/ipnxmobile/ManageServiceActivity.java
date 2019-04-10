@@ -11,24 +11,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
-import android.widget.TextView;
 
-import com.ipnx.ipnxmobile.adapters.InternetServiceAdapter;
-import com.ipnx.ipnxmobile.adapters.TelephonyServiceAdapter;
-import com.ipnx.ipnxmobile.models.responses.LoginResponse;
 import com.ipnx.ipnxmobile.wifianalyzer.WifiAnalyzerActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_RESPONSE;
-
 public class ManageServiceActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+//    @BindView(R.id.toolbar)
+//    Toolbar toolbar;
 
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
@@ -36,52 +29,40 @@ public class ManageServiceActivity extends AppCompatActivity
     @BindView(R.id.nav_view)
     NavigationView navigationView;
 
-    @BindView(R.id.internet_service_list)
-    ListView internetServiceListView;
-
-    @BindView(R.id.voice_service_list)
-    ListView voiceServiceListView;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_service);
         ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
+//        setSupportActionBar(toolbar);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+//                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//        drawer.addDrawerListener(toggle);
+//        toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
 
-        LoginResponse response = getIntent().getParcelableExtra(EXTRA_KEY_RESPONSE);
+//        LoginResponse response = getIntent().getParcelableExtra(EXTRA_KEY_RESPONSE);
+//
+//        InternetServiceAdapter internetServiceAdapter
+//                = new InternetServiceAdapter(this, response.getCustomValues().getInternetServices());
+//        internetServiceListView.setAdapter(internetServiceAdapter);
+//
+//        TelephonyServiceAdapter voiceServiceAdapter
+//                = new TelephonyServiceAdapter(this, response.getCustomValues().getTelephonyServices());
+//        voiceServiceListView.setAdapter(voiceServiceAdapter);
+//
+//        View headerView= navigationView.getHeaderView(0);
+//        TextView nav_name = headerView.findViewById(R.id.nav_full_name);
+//        nav_name.setText(response.getCustomValues().getFullName());
+//        TextView nav_email = headerView.findViewById(R.id.nav_email);
+//        nav_email.setText(response.getCustomValues().getEmailAddresses());
 
-        InternetServiceAdapter internetServiceAdapter
-                = new InternetServiceAdapter(this, response.getCustomValues().getInternetServices());
-        internetServiceListView.setAdapter(internetServiceAdapter);
+    }
 
-        TelephonyServiceAdapter voiceServiceAdapter
-                = new TelephonyServiceAdapter(this, response.getCustomValues().getTelephonyServices());
-        voiceServiceListView.setAdapter(voiceServiceAdapter);
-
-        View headerView= navigationView.getHeaderView(0);
-        TextView nav_name = headerView.findViewById(R.id.nav_full_name);
-        nav_name.setText(response.getCustomValues().getFullName());
-        TextView nav_email = headerView.findViewById(R.id.nav_email);
-        nav_email.setText(response.getCustomValues().getEmailAddresses());
-
+    public void onMenuClicked(View view){
+        drawer.openDrawer(GravityCompat.START, true);
     }
 
     @Override
@@ -93,27 +74,7 @@ public class ManageServiceActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.service_plan, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -127,13 +88,17 @@ public class ManageServiceActivity extends AppCompatActivity
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_payment_history) {
+            Intent i = new Intent(this, TransactionHistoryActivity.class);
+            startActivity(i);
 
         } else if (id == R.id.nav_feedback) {
+            Intent i = new Intent(this, FeedbackActivity.class);
+            startActivity(i);
 
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_faq) {
-            Intent i = new Intent(this, TestActivity.class);
+            Intent i = new Intent(this, FAQActivity.class);
             startActivity(i);
 
         }
@@ -142,7 +107,7 @@ public class ManageServiceActivity extends AppCompatActivity
         return true;
     }
 
-    public void selectService(View view){
+    public void onMenuItemSelected(View view){
         Intent i;
         switch (view.getId()){
             case R.id.service_data_usage:

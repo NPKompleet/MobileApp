@@ -23,20 +23,9 @@ public class RenewPaymentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_renew_payment);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         Passport.overrideApiBase(Passport.QA_API_BASE);
         Payment.overrideApiBase(Payment.QA_API_BASE);
 
-//        FloatingActionButton fab = findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void makePayment(View view){
@@ -46,8 +35,10 @@ public class RenewPaymentActivity extends AppCompatActivity {
         RequestOptions options = RequestOptions.builder()
 //                .setClientId("IKIA9614B82064D632E9B6418DF358A6A4AEA84D7218")
                 .setClientId("IKIAF8F70479A6902D4BFF4E443EBF15D1D6CB19E232")
+//                .setClientId("IKIAA74F4FDA133BDB2712DD1A6D3DA4503CBE745674")
 //                .setClientSecret("XCTiBtLy1G9chAnyg0z3BcaFK4cVpwDg/GTw2EmjTZ8=")
                 .setClientSecret("ugsmiXPXOOvks9MR7+IFHSQSdk8ZzvwQMGvd0GJva30=")
+//                .setClientSecret("secret")
                 .build();
         PayWithCard payWithCard = new PayWithCard(this, "1407002510", "desc", "100",
                 "NGN", transRef, options, paymentCallback);
@@ -56,13 +47,12 @@ public class RenewPaymentActivity extends AppCompatActivity {
         Toast.makeText(RenewPaymentActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:
-                finish();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
+
+    public void cancelPayment(View view){
+
+    }
+
+    public void onBackClicked(View view){
+        finish();
     }
 }

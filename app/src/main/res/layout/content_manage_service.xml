@@ -1,188 +1,243 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    android:orientation="vertical"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ManageServiceActivity"
-    tools:showIn="@layout/app_bar_manage_service">
+    tools:context=".ManageServiceActivity">
 
-
-    <ScrollView
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_margin="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="150dp">
 
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp">
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:maxWidth="250dp"
+                android:text="Advantage Basic"
+                android:textColor="@color/black_text"
+                android:textSize="18sp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:text="Balance:"
+                    android:textColor="@color/black_text" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:text="N45,000"
+                    android:textColor="@color/beige" />
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="8dp"
+                android:background="@color/main_grey" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/data_menu_blue"
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true"
+                    app:contentPadding="0dp">
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="4dp"
-                        android:text="Data Services"
+                        android:id="@+id/service_renew"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="4dp"
+                        android:drawableTop="@drawable/ic_renew"
                         android:gravity="center"
-                        android:textColor="@color/black_text"
-                        android:background="@color/main_grey" />
+                        android:onClick="onMenuItemSelected"
+                        android:padding="8dp"
+                        android:scaleType="centerInside"
+                        android:text="Renew Subscription"
+                        android:textColor="@color/white" />
+                </android.support.v7.widget.CardView>
 
-                    <ListView
-                        android:id="@+id/internet_service_list"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        tools:listitem="@layout/item_data_service_list">
-                    </ListView>
-
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <android.support.v7.widget.CardView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="18dp"
-                        android:background="@color/main_grey" />
-
-                    <TableLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="24dp"
-                        android:stretchColumns="*">
-
-                        <TableRow
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="40dp">
-
-                            <TextView
-                                android:id="@+id/service_renew"
-                                style="@style/ManagedServicesTextTheme"
-                                android:drawableTop="@drawable/ic_renew2"
-                                android:onClick="selectService"
-                                android:text="Renew" />
-
-                            <TextView
-                                android:id="@+id/service_data_usage"
-                                style="@style/ManagedServicesTextTheme"
-                                android:drawableTop="@drawable/ic_data_usage2"
-                                android:onClick="selectService"
-                                android:text="View Data Usage" />
-
-                            <TextView
-                                android:id="@+id/service_manage_settings"
-                                style="@style/ManagedServicesTextTheme"
-                                android:drawableTop="@drawable/ic_settings2"
-                                android:onClick="selectService"
-                                android:text="Manage Settings" />
-                        </TableRow>
-
-                        <TableRow>
-
-                            <TextView
-                                style="@style/ManagedServicesTextTheme"
-                                android:drawableTop="@drawable/ic_exchange2"
-                                android:text="Change Service Plan" />
-
-                            <TextView
-                                style="@style/ManagedServicesTextTheme"
-                                android:drawableTop="@drawable/ic_change_password2"
-                                android:text="Change WiFi Password" />
-                            <!-- A Placeholder view -->
-                            <View
-                                android:layout_width="0dp"
-                                android:layout_height="0dp"
-                                android:layout_weight="1" />
-
-                        </TableRow>
-                    </TableLayout>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    app:cardBackgroundColor="@color/data_menu_cyan"
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true"
+                    app:contentPadding="0dp">
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="4dp"
-                        android:text="Voice Services"
+                        android:id="@+id/service_data_usage"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="4dp"
+                        android:drawableTop="@drawable/ic_view_data_usage"
+                        android:elevation="5dp"
                         android:gravity="center"
-                        android:textColor="@color/black_text"
-                        android:background="@color/main_grey" />
+                        android:onClick="onMenuItemSelected"
+                        android:padding="4dp"
+                        android:text="View Data Usage"
+                        android:textColor="@color/white" />
+                </android.support.v7.widget.CardView>
 
-                    <ListView
-                        android:id="@+id/voice_service_list"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        tools:listitem="@layout/item_voice_service_list">
-                    </ListView>
+                <android.support.v7.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/data_menu_green"
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true"
+                    app:contentPadding="0dp">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/white"
-                        android:padding="14dp">
+                    <TextView
+                        android:id="@+id/service_change_wifi_password"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="4dp"
+                        android:drawableTop="@drawable/ic_password"
+                        android:gravity="center"
+                        android:onClick="onMenuItemSelected"
+                        android:padding="8dp"
+                        android:text="Change Wifi Password"
+                        android:textColor="@color/white" />
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
 
-                        <Button
-                            android:id="@+id/topup_button"
-                            android:layout_width="120dp"
-                            android:layout_height="32dp"
-                            android:layout_marginTop="16dp"
-                            android:background="@drawable/topup_button"
-                            android:text="Top-Up"
-                            android:textColor="@color/signin_button_text"
-                            android:textSize="16sp" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="40dp">
 
-                        <Button
-                            android:id="@+id/view_cdr_button"
-                            android:layout_width="120dp"
-                            android:layout_height="32dp"
-                            android:layout_below="@+id/topup_button"
-                            android:layout_marginTop="16dp"
-                            android:background="@drawable/view_cdr_button"
-                            android:text="View CDR"
-                            android:textColor="@color/white"
-                            android:textSize="16sp" />
+                <android.support.v7.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/orange"
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true"
+                    app:contentPadding="0dp">
 
-                    </RelativeLayout>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
+                    <TextView
+                        android:id="@+id/service_change_plan"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="4dp"
+                        android:drawableTop="@drawable/ic_change_plan"
+                        android:gravity="center"
+                        android:onClick="onMenuItemSelected"
+                        android:padding="8dp"
+                        android:text="Change Service Plan"
+                        android:textColor="@color/white" />
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/beige"
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true"
+                    app:contentPadding="0dp">
+
+                    <TextView
+                        android:id="@+id/service_manage_settings"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="4dp"
+                        android:drawableTop="@drawable/ic_settings"
+                        android:gravity="center"
+                        android:onClick="onMenuItemSelected"
+                        android:padding="8dp"
+                        android:text="Manage Settings"
+                        android:textColor="@color/white" />
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/data_menu_orange"
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true"
+                    app:contentPadding="0dp">
+
+                    <TextView
+                        android:id="@+id/service_choose_plan"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="4dp"
+                        android:drawableTop="@drawable/ic_choose_plan"
+                        android:gravity="center"
+                        android:onClick="onMenuItemSelected"
+                        android:padding="8dp"
+                        android:text="Choose Plan"
+                        android:textColor="@color/white" />
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="8dp"
+                android:background="@color/main_grey" />
 
         </LinearLayout>
+    </android.support.v7.widget.CardView>
 
-    </ScrollView>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/main_grey" />
-</LinearLayout>
+    <ImageView
+        android:id="@+id/imageView5"
+        style="@style/StyledTopImageView" />
+
+    <ImageView
+        android:id="@+id/home_button"
+        style="@style/PageBackButton"
+        android:onClick="onMenuClicked"
+        android:src="@drawable/ic_menu" />
+
+    <TextView
+        android:id="@+id/page_title"
+        style="@style/PageTitle"
+        android:text="Manage Service" />
+
+    <TextView
+        android:id="@+id/page_subtitle"
+        style="@style/PageSubTitle"
+        android:text="User ID: 100112952" />
+
+</android.support.constraint.ConstraintLayout>
