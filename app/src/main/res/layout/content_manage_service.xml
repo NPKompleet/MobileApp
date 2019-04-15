@@ -86,7 +86,8 @@
                         android:padding="8dp"
                         android:scaleType="centerInside"
                         android:text="Renew Subscription"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:background="@drawable/click_indicator"/>
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
@@ -109,7 +110,8 @@
                         android:onClick="onMenuItemSelected"
                         android:padding="4dp"
                         android:text="View Data Usage"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:background="@drawable/click_indicator"/>
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
@@ -131,7 +133,8 @@
                         android:onClick="onMenuItemSelected"
                         android:padding="8dp"
                         android:text="Change Wifi Password"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:background="@drawable/click_indicator"/>
                 </android.support.v7.widget.CardView>
             </LinearLayout>
 
@@ -160,7 +163,8 @@
                         android:onClick="onMenuItemSelected"
                         android:padding="8dp"
                         android:text="Change Service Plan"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:background="@drawable/click_indicator"/>
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
@@ -182,7 +186,8 @@
                         android:onClick="onMenuItemSelected"
                         android:padding="8dp"
                         android:text="Manage Settings"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:background="@drawable/click_indicator"/>
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
@@ -204,7 +209,8 @@
                         android:onClick="onMenuItemSelected"
                         android:padding="8dp"
                         android:text="Choose Plan"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:background="@drawable/click_indicator"/>
                 </android.support.v7.widget.CardView>
             </LinearLayout>
 

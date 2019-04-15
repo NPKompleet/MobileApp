@@ -112,16 +112,14 @@
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp">
                     <TextView
-                        style="@style/DateTextViewTheme"
-                        android:layout_width="0dp"
-                        android:layout_weight="1.5"
+                        android:id="@+id/data_date_from"
+                        style="@style/DateTextViewStyle"
                         android:text="2019-02-01"
                         android:layout_marginEnd="2dp"
                         android:layout_marginRight="2dp"/>
                     <TextView
-                        style="@style/DateTextViewTheme"
-                        android:layout_width="0dp"
-                        android:layout_weight="1.5"
+                        android:id="@+id/data_date_to"
+                        style="@style/DateTextViewStyle"
                         android:text="2019-02-01"
                         android:layout_marginStart="2dp"
                         android:layout_marginLeft="2dp"/>

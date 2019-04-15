@@ -8,10 +8,7 @@
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_user"
             android:title="Profile" />
-        <item
-            android:id="@+id/nav_sub_settings"
-            android:icon="@drawable/ic_settings"
-            android:title="Subscription Settings" />
+
         <item
             android:id="@+id/nav_choose_plan"
             android:icon="@drawable/ic_choose_plan"

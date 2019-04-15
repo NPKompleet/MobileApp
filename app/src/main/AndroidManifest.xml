@@ -51,7 +51,7 @@
                 android:value="com.ipnx.ipnxmobile.ManageServiceActivity" />
         </activity>
         <activity
-            android:name=".ManageSettingsActivity"
+            android:name=".SubscriptionSettingsActivity"
             android:label="@string/title_activity_manage_settings"
             android:parentActivityName=".ManageServiceActivity"
             android:screenOrientation="portrait"

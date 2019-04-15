@@ -22,4 +22,5 @@
     <color name="data_menu_green">#31E2A6</color>
     <color name="data_menu_red">#E95F5F</color>
     <color name="data_menu_orange">#FF5E00</color>
+    <color name="click_grey">#55DDDDDD</color>
 </resources>

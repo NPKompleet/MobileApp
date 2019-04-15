@@ -61,9 +61,10 @@
         <item name="android:tint">@color/main_red</item>
     </style>
 
-    <style name="DateTextViewTheme">
+    <style name="DateTextViewStyle">
         <item name="android:layout_height">30dp</item>
-        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1.5</item>
         <item name="android:textColor">#AAAAAA</item>
         <item name="android:textSize">12sp</item>
         <item name="android:layout_gravity">center</item>
@@ -72,6 +73,7 @@
         <item name="android:drawableEnd">@drawable/ic_calendar</item>
         <item name="android:padding">4dp</item>
         <item name="android:background">@drawable/grey_border_rect_shape</item>
+        <item name="android:onClick">onDateClicked</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -165,6 +167,8 @@
         <item name="android:src">@drawable/ic_back</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="android:background">@drawable/click_indicator</item>
     </style>
 
     <style name="StyledTopImageView">

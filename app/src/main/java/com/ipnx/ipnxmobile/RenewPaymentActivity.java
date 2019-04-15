@@ -34,10 +34,10 @@ public class RenewPaymentActivity extends AppCompatActivity {
         System.out.println(transRef);
         RequestOptions options = RequestOptions.builder()
 //                .setClientId("IKIA9614B82064D632E9B6418DF358A6A4AEA84D7218")
-                .setClientId("IKIAF8F70479A6902D4BFF4E443EBF15D1D6CB19E232")
+                .setClientId("IKIA67A8FBB81191FC4F1226098245E9541711B3E959")
 //                .setClientId("IKIAA74F4FDA133BDB2712DD1A6D3DA4503CBE745674")
 //                .setClientSecret("XCTiBtLy1G9chAnyg0z3BcaFK4cVpwDg/GTw2EmjTZ8=")
-                .setClientSecret("ugsmiXPXOOvks9MR7+IFHSQSdk8ZzvwQMGvd0GJva30=")
+                .setClientSecret("FQ+X6B28Y/HJZdsDa1SsbKI23W+pIOLcyxBhGgb8Q9U=")
 //                .setClientSecret("secret")
                 .build();
         PayWithCard payWithCard = new PayWithCard(this, "1407002510", "desc", "100",

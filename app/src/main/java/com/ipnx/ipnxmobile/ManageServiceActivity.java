@@ -5,10 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -85,7 +82,8 @@ public class ManageServiceActivity extends AppCompatActivity
         if (id == R.id.nav_wifi_analyzer) {
             Intent i = new Intent(this, WifiAnalyzerActivity.class);
             startActivity(i);
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_choose_plan) {
+            finish();
 
         } else if (id == R.id.nav_payment_history) {
             Intent i = new Intent(this, TransactionHistoryActivity.class);
@@ -115,12 +113,15 @@ public class ManageServiceActivity extends AppCompatActivity
                 startActivity(i);
                 break;
             case R.id.service_manage_settings:
-                i = new Intent(this, ManageSettingsActivity.class);
+                i = new Intent(this, SubscriptionSettingsActivity.class);
                 startActivity(i);
                 break;
             case R.id.service_renew:
                 i = new Intent(this, RenewPaymentActivity.class);
                 startActivity(i);
+                break;
+            case R.id.service_choose_plan:
+                finish();
                 break;
         }
     }

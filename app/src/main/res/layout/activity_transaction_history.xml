@@ -54,19 +54,17 @@
                 android:paddingRight="16dp">
 
                 <TextView
-                    style="@style/DateTextViewTheme"
-                    android:layout_width="0dp"
+                    android:id="@+id/transaction_date_from"
+                    style="@style/DateTextViewStyle"
                     android:layout_marginEnd="2dp"
                     android:layout_marginRight="2dp"
-                    android:layout_weight="1.5"
                     android:text="2019-02-01" />
 
                 <TextView
-                    style="@style/DateTextViewTheme"
-                    android:layout_width="0dp"
+                    android:id="@+id/transaction_date_to"
+                    style="@style/DateTextViewStyle"
                     android:layout_marginStart="2dp"
                     android:layout_marginLeft="2dp"
-                    android:layout_weight="1.5"
                     android:text="2019-02-01" />
 
                 <Button
@@ -153,7 +151,7 @@
     <TextView
         android:id="@+id/page_title"
         style="@style/PageTitle"
-        android:text="Manage Settings" />
+        android:text="Transaction History" />
 
     <TextView
         android:id="@+id/page_subtitle"

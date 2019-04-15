@@ -63,7 +63,8 @@ public class TopUpActivity extends AppCompatActivity
         if (id == R.id.nav_wifi_analyzer) {
             Intent i = new Intent(this, WifiAnalyzerActivity.class);
             startActivity(i);
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_choose_plan) {
+            finish();
 
         } else if (id == R.id.nav_payment_history) {
             Intent i = new Intent(this, TransactionHistoryActivity.class);

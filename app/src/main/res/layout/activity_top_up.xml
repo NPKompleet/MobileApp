@@ -20,7 +20,7 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_manage_service"
-        app:menu="@menu/activity_service_plan_drawer"
+        app:menu="@menu/activity_topup_plan_drawer"
         app:itemTextColor="@color/white"
         app:itemIconTint="@color/white"
         android:background="@color/nav_grey"/>

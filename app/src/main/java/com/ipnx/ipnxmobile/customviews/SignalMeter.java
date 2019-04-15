@@ -18,8 +18,9 @@ import com.ipnx.ipnxmobile.R;
 import com.nineoldandroids.animation.ObjectAnimator;
 
 /**
- * This MeterView was adapted from the MeterView at https://github.com/noohkvm/MeterView
- * It was adapted to account for the negative meter values of wifi signal strength in this project
+ * This SignalMeter view was adapted from the MeterView inn this same project by Philip Okonkwo.
+ * It was adapted to account for the negative meter values of wifi signal strength in this project.
+ * I just wrote a new interface for it. Most of the functions are basically the same.
  */
 public class SignalMeter extends View {
     // ===========================================================
