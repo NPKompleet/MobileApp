@@ -9,11 +9,14 @@ import android.widget.ListView;
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 import com.ipnx.ipnxmobile.adapters.InternetServiceAdapter;
 import com.ipnx.ipnxmobile.adapters.TelephonyServiceAdapter;
-import com.ipnx.ipnxmobile.models.responses.LoginResponse;
+import com.ipnx.ipnxmobile.models.requests.LoginRequestValues;
+import com.ipnx.ipnxmobile.models.responses.login.LoginCustomValues;
+import com.ipnx.ipnxmobile.models.responses.login.LoginResponse;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_LOGIN;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_RESPONSE;
 
 public class ServicesMenuActivity extends AppCompatActivity {
@@ -38,9 +41,11 @@ public class ServicesMenuActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         LoginResponse response = getIntent().getParcelableExtra(EXTRA_KEY_RESPONSE);
+        LoginRequestValues loginValues = getIntent().getParcelableExtra(EXTRA_KEY_LOGIN);
 
         InternetServiceAdapter internetServiceAdapter
-                = new InternetServiceAdapter(this, response.getCustomValues().getInternetServices());
+                = new InternetServiceAdapter(this,
+                response.getCustomValues().getInternetServices(), response, loginValues);
         internetServiceListView.setAdapter(internetServiceAdapter);
 
         TelephonyServiceAdapter voiceServiceAdapter

@@ -23,10 +23,9 @@ import android.widget.Toast;
 
 import com.ipnx.ipnxmobile.models.requests.LoginRequestValues;
 import com.ipnx.ipnxmobile.models.requests.Request;
-import com.ipnx.ipnxmobile.models.responses.LoginResponse;
+import com.ipnx.ipnxmobile.models.responses.login.LoginResponse;
 import com.ipnx.ipnxmobile.retrofit.MyApiEndpointInterface;
 import com.ipnx.ipnxmobile.retrofit.RetrofitUtils;
-import com.ipnx.ipnxmobile.wifianalyzer.WifiAnalyzerActivity;
 
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.*;
 
@@ -87,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
         linearLayout.setVisibility(View.INVISIBLE);
 
         Request loginRequest = new Request();
-        LoginRequestValues loginValues = new LoginRequestValues();
+        final LoginRequestValues loginValues = new LoginRequestValues();
         loginValues.setCUsername(username.getText().toString());
         loginValues.setCPassword(password.getText().toString());
 
@@ -107,6 +106,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (returnedResponse.getResponseCode().equals("0")){
                     Intent i = new Intent(LoginActivity.this, ServicesMenuActivity.class);
                     i.putExtra(EXTRA_KEY_RESPONSE, returnedResponse);
+                    i.putExtra(EXTRA_KEY_LOGIN, loginValues);
                     startActivity(i);
                     closeActivity();
                 }else{

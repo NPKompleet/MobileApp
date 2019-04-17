@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+import com.ipnx.ipnxmobile.customviews.DataChartView;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -31,6 +33,9 @@ public class DataUsageActivity extends AppCompatActivity {
     @BindView(R.id.data_date_to)
     TextView dateTo;
 
+    @BindView(R.id.data_chart)
+    DataChartView dataChartView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +47,12 @@ public class DataUsageActivity extends AppCompatActivity {
         String dateString = dateFormat.format(date);
         dateFrom.setText(dateString);
         dateTo.setText(dateString);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        dataChartView.moveTo(500, 350);
     }
 
     public void onDateClicked(View view){

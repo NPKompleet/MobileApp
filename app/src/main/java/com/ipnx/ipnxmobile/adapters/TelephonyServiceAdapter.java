@@ -10,11 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.ipnx.ipnxmobile.ManageServiceActivity;
 import com.ipnx.ipnxmobile.R;
 import com.ipnx.ipnxmobile.TopUpActivity;
-import com.ipnx.ipnxmobile.models.responses.InternetService;
-import com.ipnx.ipnxmobile.models.responses.TelephonyService;
+import com.ipnx.ipnxmobile.models.responses.login.TelephonyService;
 
 import java.util.List;
 

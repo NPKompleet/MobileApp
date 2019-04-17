@@ -20,7 +20,7 @@ public class PaymentCallback extends IswCallback<PurchaseResponse> {
     @Override
     public void onError(Exception error) {
         // Handle error.
-        // Payment not successful.
+        // TransactionPayment not successful.
         Toast.makeText(context, "Error: "+ error.getMessage(), Toast.LENGTH_SHORT).show();
         System.out.println(error.getMessage());
     }
@@ -28,7 +28,7 @@ public class PaymentCallback extends IswCallback<PurchaseResponse> {
     @Override
     public void onSuccess(PurchaseResponse response) {
         /* Handle success.
-           Payment successful. The response object contains fields transactionIdentifier,
+           TransactionPayment successful. The response object contains fields transactionIdentifier,
            message, amount, token, tokenExpiryDate, panLast4Digits, transactionRef and cardType.
            Save the token, tokenExpiryDate, cardType and panLast4Digits
            in order to pay with the token in the future.

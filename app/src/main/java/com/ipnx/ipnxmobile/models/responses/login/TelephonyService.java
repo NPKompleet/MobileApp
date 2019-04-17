@@ -1,13 +1,13 @@
-package com.ipnx.ipnxmobile.models.responses;
+package com.ipnx.ipnxmobile.models.responses.login;
 
+import java.util.List;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-
-public class InternetService implements Parcelable
+public class TelephonyService implements Parcelable
 {
 
     @SerializedName("activation_date")
@@ -31,21 +31,15 @@ public class InternetService implements Parcelable
     @SerializedName("recurring_fee")
     @Expose
     private String recurringFee;
-    @SerializedName("change_locationnum")
-    @Expose
-    private long changeLocationnum;
     @SerializedName("activation_date_epoch")
     @Expose
-    private long activationDateEpoch;
+    private String activationDateEpoch;
     @SerializedName("pkgpart")
     @Expose
     private long pkgpart;
     @SerializedName("subscription_id")
     @Expose
     private long subscriptionId;
-    @SerializedName("last_bill")
-    @Expose
-    private long lastBill;
     @SerializedName("svcpart")
     @Expose
     private long svcpart;
@@ -55,6 +49,9 @@ public class InternetService implements Parcelable
     @SerializedName("custnum")
     @Expose
     private long custnum;
+    @SerializedName("voice_api_response")
+    @Expose
+    private List<Object> voiceApiResponse = null;
     @SerializedName("reason")
     @Expose
     private String reason;
@@ -75,7 +72,7 @@ public class InternetService implements Parcelable
     private String packageBalance;
     @SerializedName("start_date_epoch")
     @Expose
-    private String startDateEpoch;
+    private long startDateEpoch;
     @SerializedName("fos_package")
     @Expose
     private long fosPackage;
@@ -103,21 +100,15 @@ public class InternetService implements Parcelable
     @SerializedName("package_level_owed")
     @Expose
     private String packageLevelOwed;
-    @SerializedName("package_level_unapplied_payments")
+    @SerializedName("phone_name")
     @Expose
-    private String packageLevelUnappliedPayments;
+    private String phoneName;
     @SerializedName("usernum")
     @Expose
     private long usernum;
-    @SerializedName("quantity")
+    @SerializedName("package_level_unapplied_payments")
     @Expose
-    private long quantity;
-    @SerializedName("change_pkgnum")
-    @Expose
-    private long changePkgnum;
-    @SerializedName("change_date")
-    @Expose
-    private long changeDate;
+    private String packageLevelUnappliedPayments;
     @SerializedName("package_name")
     @Expose
     private String packageName;
@@ -130,36 +121,27 @@ public class InternetService implements Parcelable
     @SerializedName("setup")
     @Expose
     private long setup;
-    @SerializedName("totalbytes")
-    @Expose
-    private String totalbytes;
     @SerializedName("package_class")
     @Expose
     private String packageClass;
-    @SerializedName("change_pkgpart")
-    @Expose
-    private long changePkgpart;
-    @SerializedName("bill")
-    @Expose
-    private long bill;
-    public final static Parcelable.Creator<InternetService> CREATOR = new Creator<InternetService>() {
+    public final static Parcelable.Creator<TelephonyService> CREATOR = new Creator<TelephonyService>() {
 
 
         @SuppressWarnings({
                 "unchecked"
         })
-        public InternetService createFromParcel(Parcel in) {
-            return new InternetService(in);
+        public TelephonyService createFromParcel(Parcel in) {
+            return new TelephonyService(in);
         }
 
-        public InternetService[] newArray(int size) {
-            return (new InternetService[size]);
+        public TelephonyService[] newArray(int size) {
+            return (new TelephonyService[size]);
         }
 
     }
             ;
 
-    protected InternetService(Parcel in) {
+    protected TelephonyService(Parcel in) {
         this.activationDate = ((String) in.readValue((String.class.getClassLoader())));
         this.subscriptionStartDate = ((String) in.readValue((String.class.getClassLoader())));
         this.className = ((String) in.readValue((String.class.getClassLoader())));
@@ -167,21 +149,20 @@ public class InternetService implements Parcelable
         this.svcnum = ((long) in.readValue((long.class.getClassLoader())));
         this.fullPackageName = ((String) in.readValue((String.class.getClassLoader())));
         this.recurringFee = ((String) in.readValue((String.class.getClassLoader())));
-        this.changeLocationnum = ((long) in.readValue((long.class.getClassLoader())));
-        this.activationDateEpoch = ((long) in.readValue((long.class.getClassLoader())));
+        this.activationDateEpoch = ((String) in.readValue((String.class.getClassLoader())));
         this.pkgpart = ((long) in.readValue((long.class.getClassLoader())));
         this.subscriptionId = ((long) in.readValue((long.class.getClassLoader())));
-        this.lastBill = ((long) in.readValue((long.class.getClassLoader())));
         this.svcpart = ((long) in.readValue((long.class.getClassLoader())));
         this.locationnum = ((long) in.readValue((long.class.getClassLoader())));
         this.custnum = ((long) in.readValue((long.class.getClassLoader())));
+        in.readList(this.voiceApiResponse, (java.lang.Object.class.getClassLoader()));
         this.reason = ((String) in.readValue((String.class.getClassLoader())));
         this.username = ((String) in.readValue((String.class.getClassLoader())));
         this.serviceLocation = ((String) in.readValue((String.class.getClassLoader())));
         this.delayedSuspensionDate = ((String) in.readValue((String.class.getClassLoader())));
         this.orderDate = ((String) in.readValue((String.class.getClassLoader())));
         this.packageBalance = ((String) in.readValue((String.class.getClassLoader())));
-        this.startDateEpoch = ((String) in.readValue((String.class.getClassLoader())));
+        this.startDateEpoch = ((long) in.readValue((long.class.getClassLoader())));
         this.fosPackage = ((long) in.readValue((long.class.getClassLoader())));
         this.lastBillDate = ((String) in.readValue((String.class.getClassLoader())));
         this.status = ((String) in.readValue((String.class.getClassLoader())));
@@ -191,22 +172,17 @@ public class InternetService implements Parcelable
         this.packageLevelUnappliedCredits = ((String) in.readValue((String.class.getClassLoader())));
         this.primaryService = ((String) in.readValue((String.class.getClassLoader())));
         this.packageLevelOwed = ((String) in.readValue((String.class.getClassLoader())));
-        this.packageLevelUnappliedPayments = ((String) in.readValue((String.class.getClassLoader())));
+        this.phoneName = ((String) in.readValue((String.class.getClassLoader())));
         this.usernum = ((long) in.readValue((long.class.getClassLoader())));
-        this.quantity = ((long) in.readValue((long.class.getClassLoader())));
-        this.changePkgnum = ((long) in.readValue((long.class.getClassLoader())));
-        this.changeDate = ((long) in.readValue((long.class.getClassLoader())));
+        this.packageLevelUnappliedPayments = ((String) in.readValue((String.class.getClassLoader())));
         this.packageName = ((String) in.readValue((String.class.getClassLoader())));
         this.expiryDate = ((String) in.readValue((String.class.getClassLoader())));
         this.amount = ((String) in.readValue((String.class.getClassLoader())));
         this.setup = ((long) in.readValue((long.class.getClassLoader())));
-        this.totalbytes = ((String) in.readValue((String.class.getClassLoader())));
         this.packageClass = ((String) in.readValue((String.class.getClassLoader())));
-        this.changePkgpart = ((long) in.readValue((long.class.getClassLoader())));
-        this.bill = ((long) in.readValue((long.class.getClassLoader())));
     }
 
-    public InternetService() {
+    public TelephonyService() {
     }
 
     public String getActivationDate() {
@@ -265,19 +241,11 @@ public class InternetService implements Parcelable
         this.recurringFee = recurringFee;
     }
 
-    public long getChangeLocationnum() {
-        return changeLocationnum;
-    }
-
-    public void setChangeLocationnum(long changeLocationnum) {
-        this.changeLocationnum = changeLocationnum;
-    }
-
-    public long getActivationDateEpoch() {
+    public String getActivationDateEpoch() {
         return activationDateEpoch;
     }
 
-    public void setActivationDateEpoch(long activationDateEpoch) {
+    public void setActivationDateEpoch(String activationDateEpoch) {
         this.activationDateEpoch = activationDateEpoch;
     }
 
@@ -295,14 +263,6 @@ public class InternetService implements Parcelable
 
     public void setSubscriptionId(long subscriptionId) {
         this.subscriptionId = subscriptionId;
-    }
-
-    public long getLastBill() {
-        return lastBill;
-    }
-
-    public void setLastBill(long lastBill) {
-        this.lastBill = lastBill;
     }
 
     public long getSvcpart() {
@@ -327,6 +287,14 @@ public class InternetService implements Parcelable
 
     public void setCustnum(long custnum) {
         this.custnum = custnum;
+    }
+
+    public List<Object> getVoiceApiResponse() {
+        return voiceApiResponse;
+    }
+
+    public void setVoiceApiResponse(List<Object> voiceApiResponse) {
+        this.voiceApiResponse = voiceApiResponse;
     }
 
     public String getReason() {
@@ -377,11 +345,11 @@ public class InternetService implements Parcelable
         this.packageBalance = packageBalance;
     }
 
-    public String getStartDateEpoch() {
+    public long getStartDateEpoch() {
         return startDateEpoch;
     }
 
-    public void setStartDateEpoch(String startDateEpoch) {
+    public void setStartDateEpoch(long startDateEpoch) {
         this.startDateEpoch = startDateEpoch;
     }
 
@@ -457,12 +425,12 @@ public class InternetService implements Parcelable
         this.packageLevelOwed = packageLevelOwed;
     }
 
-    public String getPackageLevelUnappliedPayments() {
-        return packageLevelUnappliedPayments;
+    public String getPhoneName() {
+        return phoneName;
     }
 
-    public void setPackageLevelUnappliedPayments(String packageLevelUnappliedPayments) {
-        this.packageLevelUnappliedPayments = packageLevelUnappliedPayments;
+    public void setPhoneName(String phoneName) {
+        this.phoneName = phoneName;
     }
 
     public long getUsernum() {
@@ -473,28 +441,12 @@ public class InternetService implements Parcelable
         this.usernum = usernum;
     }
 
-    public long getQuantity() {
-        return quantity;
+    public String getPackageLevelUnappliedPayments() {
+        return packageLevelUnappliedPayments;
     }
 
-    public void setQuantity(long quantity) {
-        this.quantity = quantity;
-    }
-
-    public long getChangePkgnum() {
-        return changePkgnum;
-    }
-
-    public void setChangePkgnum(long changePkgnum) {
-        this.changePkgnum = changePkgnum;
-    }
-
-    public long getChangeDate() {
-        return changeDate;
-    }
-
-    public void setChangeDate(long changeDate) {
-        this.changeDate = changeDate;
+    public void setPackageLevelUnappliedPayments(String packageLevelUnappliedPayments) {
+        this.packageLevelUnappliedPayments = packageLevelUnappliedPayments;
     }
 
     public String getPackageName() {
@@ -529,36 +481,12 @@ public class InternetService implements Parcelable
         this.setup = setup;
     }
 
-    public String getTotalbytes() {
-        return totalbytes;
-    }
-
-    public void setTotalbytes(String totalbytes) {
-        this.totalbytes = totalbytes;
-    }
-
     public String getPackageClass() {
         return packageClass;
     }
 
     public void setPackageClass(String packageClass) {
         this.packageClass = packageClass;
-    }
-
-    public long getChangePkgpart() {
-        return changePkgpart;
-    }
-
-    public void setChangePkgpart(long changePkgpart) {
-        this.changePkgpart = changePkgpart;
-    }
-
-    public long getBill() {
-        return bill;
-    }
-
-    public void setBill(long bill) {
-        this.bill = bill;
     }
 
     public void writeToParcel(Parcel dest, int flags) {
@@ -569,14 +497,13 @@ public class InternetService implements Parcelable
         dest.writeValue(svcnum);
         dest.writeValue(fullPackageName);
         dest.writeValue(recurringFee);
-        dest.writeValue(changeLocationnum);
         dest.writeValue(activationDateEpoch);
         dest.writeValue(pkgpart);
         dest.writeValue(subscriptionId);
-        dest.writeValue(lastBill);
         dest.writeValue(svcpart);
         dest.writeValue(locationnum);
         dest.writeValue(custnum);
+        dest.writeList(voiceApiResponse);
         dest.writeValue(reason);
         dest.writeValue(username);
         dest.writeValue(serviceLocation);
@@ -593,19 +520,14 @@ public class InternetService implements Parcelable
         dest.writeValue(packageLevelUnappliedCredits);
         dest.writeValue(primaryService);
         dest.writeValue(packageLevelOwed);
-        dest.writeValue(packageLevelUnappliedPayments);
+        dest.writeValue(phoneName);
         dest.writeValue(usernum);
-        dest.writeValue(quantity);
-        dest.writeValue(changePkgnum);
-        dest.writeValue(changeDate);
+        dest.writeValue(packageLevelUnappliedPayments);
         dest.writeValue(packageName);
         dest.writeValue(expiryDate);
         dest.writeValue(amount);
         dest.writeValue(setup);
-        dest.writeValue(totalbytes);
         dest.writeValue(packageClass);
-        dest.writeValue(changePkgpart);
-        dest.writeValue(bill);
     }
 
     public int describeContents() {

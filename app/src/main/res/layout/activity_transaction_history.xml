@@ -127,8 +127,10 @@
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_transaction"
                 android:layout_width="match_parent"
-                android:layout_height="500dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 tools:itemCount="5"
                 tools:listitem="@layout/item_transaction_history">
 

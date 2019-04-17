@@ -26,4 +26,28 @@
     <string name="feedack_string">Are we meeting your expectations?\nDo you have any feedback or suggestions on how to serve you better?
         We would like to hear it.\nKindly tell us in the box below.
     </string>
+
+    <string name="faq_signUp_answer">
+        You can sign up for self-service portal by clicking the Signup button on the home page or
+        the activation link sent in the email you received when you signed up for service with ipNX.
+        The following are the steps to sign up.\n
+        1. Enter your customer ID.\n
+        2. Enter the email you provided when signing up for service with ipNX.\n
+        3. Enter the username you would prefer to use on the portal.\n
+        4. Enter your choice of password.\n
+        5. Click on Submit button.\n
+        6. A secret code will be sent to the email address you entered.\n
+        7. Enter the secret code sent in your email in the input field.\n
+        8. Click on Submit button.
+    </string>
+    
+    <string name="faq_changePassword_answer">
+        You can change your password following the steps below:\n
+        1. Click on My Profile.\n
+        2. Click on Change Password.\n
+        3. Enter Current Passsword.\n
+        4. Enter New Password.\n
+        5. Enter Password Confirmation.\n
+        6. Click Change Password button.
+    </string>
 </resources>

@@ -2,7 +2,6 @@ package com.ipnx.ipnxmobile.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -13,19 +12,29 @@ import android.widget.TextView;
 
 import com.ipnx.ipnxmobile.ManageServiceActivity;
 import com.ipnx.ipnxmobile.R;
-import com.ipnx.ipnxmobile.models.responses.InternetService;
+import com.ipnx.ipnxmobile.models.requests.LoginRequestValues;
+import com.ipnx.ipnxmobile.models.responses.login.InternetService;
+import com.ipnx.ipnxmobile.models.responses.login.LoginCustomValues;
+import com.ipnx.ipnxmobile.models.responses.login.LoginResponse;
 
 import java.util.List;
+
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_INTERNET_SERVICE;
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_LOGIN;
 
 public class InternetServiceAdapter extends ArrayAdapter<InternetService> {
     private Context context;
     private List<InternetService> serviceList;
+    private LoginResponse response;
+    private LoginRequestValues loginValues;
 
-    public InternetServiceAdapter(@NonNull Context context, List<InternetService> list) {
+    public InternetServiceAdapter(@NonNull Context context, List<InternetService> list,
+                                  LoginResponse response, LoginRequestValues loginValues) {
         super(context, 0, list);
         this.context = context;
         this.serviceList = list;
-
+        this.response = response;
+        this.loginValues = loginValues;
     }
 
 
@@ -62,6 +71,9 @@ public class InternetServiceAdapter extends ArrayAdapter<InternetService> {
 
     private void startManageServiceActivity(InternetService service){
         Intent i = new Intent(context, ManageServiceActivity.class);
+        i.putExtra(EXTRA_KEY_LOGIN, response);
+        i.putExtra(EXTRA_KEY_INTERNET_SERVICE, service);
+        i.putExtra(EXTRA_KEY_LOGIN, loginValues);
         context.startActivity(i);
     }
 }

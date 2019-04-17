@@ -3,7 +3,8 @@ package com.ipnx.ipnxmobile.models.responses;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
+import com.ipnx.ipnxmobile.models.responses.login.InternetService;
+
 import java.util.List;
 
 public class TestClass1 implements Parcelable {

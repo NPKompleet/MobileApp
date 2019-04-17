@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
 public class ScanListAdapter extends RecyclerView.Adapter<ScanListAdapter.ScanHolder>{
     private Context context;
     private List<ScanResult> scanResultList;
-    String currentWifiBssID;
+    private String currentWifiBssID;
 
     public ScanListAdapter(List<ScanResult> scanResultList) {
         this.scanResultList = scanResultList;
@@ -54,7 +54,6 @@ public class ScanListAdapter extends RecyclerView.Adapter<ScanListAdapter.ScanHo
         holder.ssId.setText(item.SSID);
         if(item.BSSID.equals(currentWifiBssID)){
             Drawable img = context.getResources().getDrawable( R.drawable.ic_wifi );
-//            img.setBounds( 0, 0, 8, 0 );
             holder.ssId.setCompoundDrawablesWithIntrinsicBounds( img, null, null, null);
         }
         holder.bssId.setText(item.BSSID);

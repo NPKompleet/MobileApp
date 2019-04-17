@@ -9,10 +9,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.ipnx.ipnxmobile.models.requests.LoginRequestValues;
+import com.ipnx.ipnxmobile.models.responses.login.InternetService;
+import com.ipnx.ipnxmobile.models.responses.login.LoginCustomValues;
+import com.ipnx.ipnxmobile.models.responses.login.LoginResponse;
 import com.ipnx.ipnxmobile.wifianalyzer.WifiAnalyzerActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_INTERNET_SERVICE;
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_LOGIN;
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_RESPONSE;
 
 public class ManageServiceActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -26,35 +34,21 @@ public class ManageServiceActivity extends AppCompatActivity
     @BindView(R.id.nav_view)
     NavigationView navigationView;
 
+    LoginRequestValues loginValues;
+    LoginResponse response;
+    InternetService service;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_service);
         ButterKnife.bind(this);
-//        setSupportActionBar(toolbar);
-
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-//                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        drawer.addDrawerListener(toggle);
-//        toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
 
-//        LoginResponse response = getIntent().getParcelableExtra(EXTRA_KEY_RESPONSE);
-//
-//        InternetServiceAdapter internetServiceAdapter
-//                = new InternetServiceAdapter(this, response.getCustomValues().getInternetServices());
-//        internetServiceListView.setAdapter(internetServiceAdapter);
-//
-//        TelephonyServiceAdapter voiceServiceAdapter
-//                = new TelephonyServiceAdapter(this, response.getCustomValues().getTelephonyServices());
-//        voiceServiceListView.setAdapter(voiceServiceAdapter);
-//
-//        View headerView= navigationView.getHeaderView(0);
-//        TextView nav_name = headerView.findViewById(R.id.nav_full_name);
-//        nav_name.setText(response.getCustomValues().getFullName());
-//        TextView nav_email = headerView.findViewById(R.id.nav_email);
-//        nav_email.setText(response.getCustomValues().getEmailAddresses());
+        response = getIntent().getParcelableExtra(EXTRA_KEY_RESPONSE);
+        loginValues = getIntent().getParcelableExtra(EXTRA_KEY_LOGIN);
+        service = getIntent().getParcelableExtra(EXTRA_KEY_INTERNET_SERVICE);
 
     }
 
@@ -87,6 +81,7 @@ public class ManageServiceActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_payment_history) {
             Intent i = new Intent(this, TransactionHistoryActivity.class);
+            i.putExtra(EXTRA_KEY_LOGIN, loginValues);
             startActivity(i);
 
         } else if (id == R.id.nav_feedback) {

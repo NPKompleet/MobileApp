@@ -7,9 +7,12 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.animation.Interpolator;
 
 import com.ipnx.ipnxmobile.R;
+import com.nineoldandroids.animation.ObjectAnimator;
 
 import static java.lang.Math.min;
 
@@ -19,6 +22,9 @@ public class DataChartView extends View {
     private float totalDataValue, usedDataValue;
     private Paint totalDataPaint, usedDataPaint, centerPaint;
     RectF rect = new RectF();
+
+    ObjectAnimator animator;
+    private Interpolator interpolator;
 
     public DataChartView(Context context) {
         super(context);
@@ -68,11 +74,48 @@ public class DataChartView extends View {
         rect.right = width;
         rect.bottom = height;
 
-        canvas.drawCircle(radius, centerY, radius - 15, totalDataPaint);
-        canvas.drawCircle(radius, centerY, radius/2 + 15, centerPaint);
-        canvas.drawArc(rect, 180.0f, 75.0f, true, usedDataPaint);
+        canvas.drawCircle(radius, centerY, radius - dpToPx(8), totalDataPaint);
+        canvas.drawCircle(radius, centerY, radius/2 + dpToPx(8), centerPaint);
+        canvas.drawArc(rect, 180.0f, usedDataValue/totalDataValue * 360, true, usedDataPaint);
 //        usedDataPaint.setColor(Color.BLUE);
 //        canvas.drawArc(rect, 255.0f, 75.0f, true, usedDataPaint);
         canvas.drawCircle(radius, centerY, radius/2, centerPaint);
+    }
+
+    private int dpToPx(int dp) {
+        DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
+        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+    }
+
+    public void setInterpolator(Interpolator i){
+        interpolator=i;
+    }
+
+    public void moveTo(float totalValue, float value) {
+        if(animator!=null&&animator.isRunning()){
+            animator.cancel();
+        }
+        this.totalDataValue = totalValue;
+        this.usedDataValue = value;
+        move();
+    }
+
+    private void move() {
+        animator = ObjectAnimator.ofFloat(this, "usedDataValue", 0.0f, usedDataValue);
+//        int duration=(int)((Math.abs(value-currentPoint)/maxValue)*4000);
+        animator.setDuration(1500);
+        if(interpolator!=null){
+            animator.setInterpolator(interpolator);
+        }
+        animator.start();
+    }
+
+    public float getUsedDataValue() {
+        return usedDataValue;
+    }
+
+    public void setUsedDataValue(float usedDataValue) {
+        this.usedDataValue = usedDataValue;
+        invalidate();
     }
 }

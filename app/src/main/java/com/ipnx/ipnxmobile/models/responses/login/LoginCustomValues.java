@@ -1,4 +1,4 @@
-package com.ipnx.ipnxmobile.models.responses;
+package com.ipnx.ipnxmobile.models.responses.login;
 
 import android.os.Parcel;
 import android.os.Parcelable;
