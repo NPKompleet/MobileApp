@@ -8,8 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,20 +19,19 @@ import com.ipnx.ipnxmobile.adapters.TransactionHistoryAdapter;
 import com.ipnx.ipnxmobile.models.requests.LoginRequestValues;
 import com.ipnx.ipnxmobile.models.requests.Request;
 import com.ipnx.ipnxmobile.models.requests.TransactionRequestValues;
-import com.ipnx.ipnxmobile.models.responses.login.LoginCustomValues;
-import com.ipnx.ipnxmobile.models.responses.login.LoginResponse;
 import com.ipnx.ipnxmobile.models.responses.transactionhistory.TransactionPayment;
 import com.ipnx.ipnxmobile.models.responses.transactionhistory.TransactionResponse;
 import com.ipnx.ipnxmobile.retrofit.MyApiEndpointInterface;
 import com.ipnx.ipnxmobile.retrofit.RetrofitUtils;
-import com.ipnx.ipnxmobile.wifianalyzer.ScanListAdapter;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,7 +39,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.ipnx.ipnxmobile.utils.ApplicationUtils.ACTION_LOGIN;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.ACTION_TRANSACTION_HISTORY;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.DEVICE_ID;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_LOGIN;
@@ -61,10 +61,18 @@ public class TransactionHistoryActivity extends AppCompatActivity {
     @BindView(R.id.rv_transaction)
     RecyclerView recyclerView;
 
+    @BindView(R.id.transaction_progress_bar)
+    ProgressBar progressBar;
+
+    @BindView(R.id.transaction_status_text)
+    TextView statusText;
+
     LoginRequestValues loginValues;
     MyApiEndpointInterface myApi;
     TransactionHistoryAdapter adapter;
     List<TransactionPayment> paymentList = new ArrayList<>();
+
+    Date startDate, endDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +96,11 @@ public class TransactionHistoryActivity extends AppCompatActivity {
     }
 
     private void getTransactionHistory() {
+        if (!networkActive()){
+            Toast.makeText(this, "Please connect to a network", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Request transactionRequest = new Request();
         final TransactionRequestValues transactionRequestValues = new TransactionRequestValues();
         transactionRequestValues.setCUsername(loginValues.getCUsername());
@@ -97,8 +110,6 @@ public class TransactionHistoryActivity extends AppCompatActivity {
         transactionRequest.setCustomValues(transactionRequestValues);
         transactionRequest.setDid(DEVICE_ID);
 
-        Toast.makeText(TransactionHistoryActivity.this, transactionRequestValues.getCPassword(), Toast.LENGTH_SHORT).show();
-
         myApi= RetrofitUtils.getService();
         Call<TransactionResponse> call = myApi.fetchTransactionHistory(transactionRequest);
         call.enqueue(new Callback<TransactionResponse>() {
@@ -106,8 +117,17 @@ public class TransactionHistoryActivity extends AppCompatActivity {
             public void onResponse(Call<TransactionResponse> call, Response<TransactionResponse> response) {
                 Toast.makeText(TransactionHistoryActivity.this, "Successful", Toast.LENGTH_SHORT).show();
                 TransactionResponse transactionResponse = response.body();
-                List<TransactionPayment> paymentList = transactionResponse.getCustomValues().getPayments();
+                if (transactionResponse != null) {
+                    paymentList = transactionResponse.getCustomValues().getPayments();
+                }
+
                 adapter.setData(paymentList);
+                progressBar.setVisibility(View.INVISIBLE);
+                if (paymentList.isEmpty()){
+                    statusText.setText("There are no records to show");
+                }else {
+                    statusText.setVisibility(View.INVISIBLE);
+                }
             }
 
             @Override
@@ -127,8 +147,10 @@ public class TransactionHistoryActivity extends AppCompatActivity {
                 day = calendar.get(Calendar.DAY_OF_MONTH);
 
 
-                datePicker = new DatePickerDialog(TransactionHistoryActivity.this, new DatePickerDialog.OnDateSetListener() {
-                    public void onDateSet(DatePicker datepicker, int selectedYear, int selectedMonth, int selectedDay) {
+                datePicker = new DatePickerDialog(TransactionHistoryActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                    public void onDateSet(
+                            DatePicker datepicker, int selectedYear, int selectedMonth, int selectedDay) {
                         selectedMonth = selectedMonth + 1;
                         dateFrom.setText(selectedYear + "-" + selectedMonth + "-" + selectedDay);
                     }
@@ -144,7 +166,8 @@ public class TransactionHistoryActivity extends AppCompatActivity {
                 day = calendar.get(Calendar.DAY_OF_MONTH);
 
 
-                datePicker = new DatePickerDialog(TransactionHistoryActivity.this, new DatePickerDialog.OnDateSetListener() {
+                datePicker = new DatePickerDialog(TransactionHistoryActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
                     public void onDateSet(DatePicker datepicker, int selectedYear, int selectedMonth, int selectedDay) {
                         selectedMonth = selectedMonth + 1;
                         dateTo.setText(selectedYear + "-" + selectedMonth + "-" + selectedDay);
@@ -156,7 +179,45 @@ public class TransactionHistoryActivity extends AppCompatActivity {
         }
     }
 
+    private boolean anyDateFieldIsEmpty(){
+        return  (TextUtils.isEmpty(dateFrom.getText().toString()) || TextUtils.isEmpty(dateTo.getText().toString()));
+    }
+
     public void onSubmitClicked(View view){
+        if (anyDateFieldIsEmpty()){
+            Toast.makeText(this, "Date fields cannot be empty", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String startDateString = dateFrom.getText().toString();
+        String endDateString = dateTo.getText().toString();
+        startDate = formatDate(startDateString, "yyyy-MM-dd");
+        endDate = formatDate(endDateString, "yyyy-MM-dd");
+
+        System.out.println(startDate);
+        System.out.println(endDate);
+
+        List<TransactionPayment> sortedPaymentList = new ArrayList<>();
+
+        for(TransactionPayment payment : paymentList){
+            Date paymentDate = formatDate(payment.getDate(), "MMMM dd, yyyy");
+            if ((paymentDate.after(startDate) || paymentDate.equals(startDate)) &&
+                    (paymentDate.before(endDate) || paymentDate.equals(endDate))){
+                sortedPaymentList.add(payment);
+            }
+        }
+
+        adapter.setData(sortedPaymentList);
+    }
+
+    private Date formatDate(String dateString, String pattern){
+        Date date = new Date();
+        DateFormat format = new SimpleDateFormat(pattern, Locale.ENGLISH);
+        try {
+            date = format.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
     }
 
     public void onBackClicked(View view){
