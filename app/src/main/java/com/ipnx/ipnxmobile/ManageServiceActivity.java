@@ -25,8 +25,6 @@ import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_RESPONSE;
 public class ManageServiceActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-//    @BindView(R.id.toolbar)
-//    Toolbar toolbar;
 
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
@@ -50,9 +48,10 @@ public class ManageServiceActivity extends AppCompatActivity
         loginValues = getIntent().getParcelableExtra(EXTRA_KEY_LOGIN);
         service = getIntent().getParcelableExtra(EXTRA_KEY_INTERNET_SERVICE);
 
+
     }
 
-    public void onMenuClicked(View view){
+    public void onMenuClicked(View view) {
         drawer.openDrawer(GravityCompat.START, true);
     }
 
@@ -66,7 +65,6 @@ public class ManageServiceActivity extends AppCompatActivity
     }
 
 
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -76,6 +74,11 @@ public class ManageServiceActivity extends AppCompatActivity
         if (id == R.id.nav_wifi_analyzer) {
             Intent i = new Intent(this, WifiAnalyzerActivity.class);
             startActivity(i);
+        } else if (id == R.id.nav_sub_settings) {
+            Intent i = new Intent(this, SubscriptionSettingsActivity.class);
+            i.putExtra(EXTRA_KEY_INTERNET_SERVICE, service);
+            startActivity(i);
+
         } else if (id == R.id.nav_choose_plan) {
             finish();
 
@@ -100,15 +103,16 @@ public class ManageServiceActivity extends AppCompatActivity
         return true;
     }
 
-    public void onMenuItemSelected(View view){
+    public void onMenuItemSelected(View view) {
         Intent i;
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.service_data_usage:
                 i = new Intent(this, DataUsageActivity.class);
                 startActivity(i);
                 break;
             case R.id.service_manage_settings:
                 i = new Intent(this, SubscriptionSettingsActivity.class);
+                i.putExtra(EXTRA_KEY_INTERNET_SERVICE, service);
                 startActivity(i);
                 break;
             case R.id.service_renew:

@@ -103,6 +103,15 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 Toast.makeText(LoginActivity.this, "deviceId: "+ DEVICE_ID, Toast.LENGTH_SHORT).show();
                 LoginResponse returnedResponse = response.body();
+                if (returnedResponse == null){
+                    Toast.makeText(LoginActivity.this, "Network error. Please try again", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.INVISIBLE);
+                    loginStatus.setVisibility(View.INVISIBLE);
+                    linearLayout.setVisibility(View.VISIBLE);
+                    return;
+                }
+
+                // Checks if the user is validated. 0 means valid response
                 if (returnedResponse.getResponseCode().equals("0")){
                     Intent i = new Intent(LoginActivity.this, ServicesMenuActivity.class);
                     i.putExtra(EXTRA_KEY_RESPONSE, returnedResponse);
@@ -115,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
                     linearLayout.setVisibility(View.VISIBLE);
 
                     Snackbar.make(linearLayout, returnedResponse.getResponseMessage(), Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                            .setAction("Wrong Email or Password.", null).show();
                 }
 
             }
@@ -128,13 +137,18 @@ public class LoginActivity extends AppCompatActivity {
                 linearLayout.setVisibility(View.VISIBLE);
 
                 //
-                Intent i = new Intent(LoginActivity.this, ServicesMenuActivity.class);
-                startActivity(i);
+//                Intent i = new Intent(LoginActivity.this, ServicesMenuActivity.class);
+//                startActivity(i);
                 //
 
             }
         });
 
+    }
+
+    public void onForgotPasswordClicked(View view){
+        Intent i = new Intent(this, ForgotPasswordActivity.class);
+        startActivity(i);
     }
 
     private void closeActivity() {

@@ -1,6 +1,8 @@
 package com.ipnx.ipnxmobile.retrofit;
 
 
+import com.ipnx.ipnxmobile.models.responses.Response;
+import com.ipnx.ipnxmobile.models.responses.forgotpassword.ForgotPasswordResponse;
 import com.ipnx.ipnxmobile.models.responses.login.LoginResponse;
 import com.ipnx.ipnxmobile.models.requests.Request;
 import com.ipnx.ipnxmobile.models.responses.transactionhistory.TransactionResponse;
@@ -9,9 +11,6 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
-/**
- * Created by PHENOMENON on 2/11/2018.
- */
 
 public interface MyApiEndpointInterface {
     // Request method and URL specified in the annotation
@@ -27,4 +26,9 @@ public interface MyApiEndpointInterface {
     @POST("transaction")
     Call<TransactionResponse> fetchTransactionHistory(@Body Request transactionRequest);
 
+    @POST("forgotpass")
+    Call<ForgotPasswordResponse> requestPasswordToken(@Body Request forgotPasswordRequest);
+
+    @POST("resetpass")
+    Call<Response> resetPassword(@Body Request resetPasswordRequest);
 }

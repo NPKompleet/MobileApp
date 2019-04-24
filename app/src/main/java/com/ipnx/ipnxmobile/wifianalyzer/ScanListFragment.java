@@ -112,12 +112,12 @@ public class ScanListFragment extends Fragment implements SwipeRefreshLayout.OnR
 
 
     public void printLength(){
-        Toast.makeText(this.getContext(), "Scan result: "+ scanResults.size(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this.getContext(), "Scan result: "+ scanResults.size(), Toast.LENGTH_SHORT).show();
     }
 
     public void getScans(){
         wifiManager.startScan();
-        Toast.makeText(this.getContext(), "Scanning WiFi ...", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this.getContext(), "Scanning WiFi ...", Toast.LENGTH_SHORT).show();
     }
 
     BroadcastReceiver wifiReceiver = new BroadcastReceiver() {

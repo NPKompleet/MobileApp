@@ -1,14 +1,14 @@
 package com.ipnx.ipnxmobile.models.responses;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.ipnx.ipnxmobile.models.CustomValues;
 
-public class Response {
+public class Response implements Parcelable {
 
-    @SerializedName("response_message")
-    @Expose
-    private String responseMessage;
     @SerializedName("ver")
     @Expose
     private String ver;
@@ -18,23 +18,54 @@ public class Response {
     @SerializedName("action")
     @Expose
     private String action;
-    @SerializedName("client-ip")
+    @SerializedName("client_ip")
     @Expose
     private String clientIp;
-    @SerializedName("custom_values")
-    @Expose
-    private CustomValues customValues;
+//    @SerializedName("custom_values")
+//    @Expose
+//    private CustomValues customValues;
     @SerializedName("response_code")
     @Expose
     private String responseCode;
+    @SerializedName("response_message")
+    @Expose
+    private String responseMessage;
 
-    public String getResponseMessage() {
-        return responseMessage;
+    protected Response(Parcel in) {
+        ver = in.readString();
+        hash = in.readString();
+        action = in.readString();
+        clientIp = in.readString();
+        responseCode = in.readString();
+        responseMessage = in.readString();
     }
 
-    public void setResponseMessage(String responseMessage) {
-        this.responseMessage = responseMessage;
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(ver);
+        dest.writeString(hash);
+        dest.writeString(action);
+        dest.writeString(clientIp);
+        dest.writeString(responseCode);
+        dest.writeString(responseMessage);
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Response> CREATOR = new Creator<Response>() {
+        @Override
+        public Response createFromParcel(Parcel in) {
+            return new Response(in);
+        }
+
+        @Override
+        public Response[] newArray(int size) {
+            return new Response[size];
+        }
+    };
 
     public String getVer() {
         return ver;
@@ -68,13 +99,13 @@ public class Response {
         this.clientIp = clientIp;
     }
 
-    public CustomValues getCustomValues() {
-        return customValues;
-    }
-
-    public void setCustomValues(CustomValues customValues) {
-        this.customValues = customValues;
-    }
+//    public CustomValues getCustomValues() {
+//        return customValues;
+//    }
+//
+//    public void setCustomValues(CustomValues customValues) {
+//        this.customValues = customValues;
+//    }
 
     public String getResponseCode() {
         return responseCode;
@@ -82,6 +113,14 @@ public class Response {
 
     public void setResponseCode(String responseCode) {
         this.responseCode = responseCode;
+    }
+
+    public String getResponseMessage() {
+        return responseMessage;
+    }
+
+    public void setResponseMessage(String responseMessage) {
+        this.responseMessage = responseMessage;
     }
 
 }

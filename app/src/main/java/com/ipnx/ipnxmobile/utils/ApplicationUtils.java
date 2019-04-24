@@ -17,11 +17,13 @@ public class ApplicationUtils {
     public static final String APP_NAME = "ipnxmobile";
     public static final String NETWORK = "wifi";
     public static String DEVICE_ID = "";
-    public static final String ACTION_LOGIN ="login";
-    public static final String ACTION_TRANSACTION_HISTORY ="get transaction history";
-    public static final String EXTRA_KEY_RESPONSE ="response";
-    public static final String EXTRA_KEY_LOGIN ="loginValues";
-    public static final String EXTRA_KEY_INTERNET_SERVICE ="internetService";
+    public static final String ACTION_LOGIN = "login";
+    public static final String ACTION_TRANSACTION_HISTORY = "get transaction history";
+    public static final String ACTION_FORGOT_PASSWORD = "Recover user password";
+    public static final String EXTRA_KEY_RESPONSE = "response";
+    public static final String EXTRA_KEY_LOGIN = "loginValues";
+    public static final String EXTRA_KEY_USERNAME = "userID";
+    public static final String EXTRA_KEY_INTERNET_SERVICE = "internetService";
 
     public static Bitmap getBitmapFromView(View view) {
         //Define a bitmap with the same size as the view

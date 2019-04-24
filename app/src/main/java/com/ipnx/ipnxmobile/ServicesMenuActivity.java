@@ -52,8 +52,8 @@ public class ServicesMenuActivity extends AppCompatActivity {
                 = new TelephonyServiceAdapter(this, response.getCustomValues().getTelephonyServices());
         voiceServiceListView.setAdapter(voiceServiceAdapter);
 
-        if(dataLayout.isExpanded()) dataLayout.collapse();
-        if(voiceLayout.isExpanded()) voiceLayout.collapse();
+        dataLayout.collapse();
+        voiceLayout.collapse();
     }
 
     public void onMenuButtonClicked(View view){

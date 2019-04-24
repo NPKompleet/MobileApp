@@ -23,6 +23,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/sub_settings_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -33,6 +34,7 @@
                     android:textSize="18sp" />
 
                 <TextView
+                    android:id="@+id/sub_settings_dev_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -74,6 +76,7 @@
                         android:layout_gravity="center_vertical"/>
 
                     <Switch
+                        android:id="@+id/sub_settings_switch_analytics"
                         android:layout_height="12dp"
                         android:layout_width="wrap_content"
                         android:layout_weight="1"
@@ -101,6 +104,7 @@
                         android:layout_gravity="center_vertical"/>
 
                     <Switch
+                        android:id="@+id/sub_settings_switch_renewal"
                         android:layout_height="12dp"
                         android:layout_width="wrap_content"
                         android:layout_weight="1"

@@ -174,9 +174,9 @@
         style="@style/PageTitle"
         android:text="Transaction History" />
 
-    <TextView
-        android:id="@+id/page_subtitle"
-        style="@style/PageSubTitle"
-        android:text="Service Plan: Advantage Basic" />
+    <!--<TextView-->
+        <!--android:id="@+id/page_subtitle"-->
+        <!--style="@style/PageSubTitle"-->
+        <!--android:text="Service Plan: Advantage Basic" />-->
 
 </android.support.constraint.ConstraintLayout>
