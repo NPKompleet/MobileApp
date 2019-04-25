@@ -42,6 +42,8 @@ import retrofit2.Response;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.ACTION_TRANSACTION_HISTORY;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.DEVICE_ID;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_LOGIN;
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.formatDate;
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.networkActive;
 
 public class TransactionHistoryActivity extends AppCompatActivity {
 
@@ -96,7 +98,7 @@ public class TransactionHistoryActivity extends AppCompatActivity {
     }
 
     private void getTransactionHistory() {
-        if (!networkActive()){
+        if (!networkActive(this)){
             Toast.makeText(this, "Please connect to a network", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -209,25 +211,9 @@ public class TransactionHistoryActivity extends AppCompatActivity {
         adapter.setData(sortedPaymentList);
     }
 
-    private Date formatDate(String dateString, String pattern){
-        Date date = new Date();
-        DateFormat format = new SimpleDateFormat(pattern, Locale.ENGLISH);
-        try {
-            date = format.parse(dateString);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return date;
-    }
 
     public void onBackClicked(View view){
         finish();
     }
 
-    // Checks for network availability
-    public boolean networkActive() {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-        return networkInfo != null && networkInfo.isConnected();
-    }
 }

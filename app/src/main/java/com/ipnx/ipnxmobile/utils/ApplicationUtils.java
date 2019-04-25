@@ -5,11 +5,18 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.view.View;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class ApplicationUtils {
     public static final String VERSION = "1.0";
@@ -56,5 +63,23 @@ public class ApplicationUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Date formatDate(String dateString, String pattern){
+        Date date = new Date();
+        DateFormat format = new SimpleDateFormat(pattern, Locale.ENGLISH);
+        try {
+            date = format.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
+
+    // Checks for network availability
+    public static boolean networkActive(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isConnected();
     }
 }

@@ -54,7 +54,7 @@
             android:drawableRight="@drawable/ic_padlock"
             android:hint="@string/password"
             android:inputType="textPassword"
-            android:text="Ade@0987" />
+            android:text="Ade@2019" />
 
         <Button
             android:layout_width="match_parent"

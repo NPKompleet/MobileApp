@@ -10,11 +10,14 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.ipnx.ipnxmobile.wifianalyzer.WifiAnalyzerActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.networkActive;
 
 public class TopUpActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -35,6 +38,10 @@ public class TopUpActivity extends AppCompatActivity
     }
 
     public void makePayment(View view){
+        if (!networkActive(this)){
+            Toast.makeText(this, "Network is unavailable", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
     }
 

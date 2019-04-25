@@ -23,6 +23,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_USERNAME;
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.networkActive;
 
 public class ForgotPasswordConfirmActivity extends AppCompatActivity {
     @BindView(R.id.forgot_password_message)
@@ -57,7 +58,7 @@ public class ForgotPasswordConfirmActivity extends AppCompatActivity {
             return;
         }
 
-        if (!networkActive()){
+        if (!networkActive(this)){
             Toast.makeText(this, "Network is unavailable", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -115,10 +116,4 @@ public class ForgotPasswordConfirmActivity extends AppCompatActivity {
                 TextUtils.isEmpty(confirmNewPassword.getText().toString()));
     }
 
-    // Checks for network availability
-    public boolean networkActive() {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-        return networkInfo != null && networkInfo.isConnected();
-    }
 }

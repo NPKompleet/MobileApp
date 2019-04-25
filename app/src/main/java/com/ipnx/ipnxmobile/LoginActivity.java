@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        if (!networkActive()){
+        if (!networkActive(this)){
             Snackbar.make(linearLayout, "No network available. Check your network", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
             return;
@@ -160,12 +160,6 @@ public class LoginActivity extends AppCompatActivity {
         return  (TextUtils.isEmpty(username.getText().toString()) || TextUtils.isEmpty(password.getText().toString()));
     }
 
-    // Checks for network availability
-    public boolean networkActive() {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-        return networkInfo != null && networkInfo.isConnected();
-    }
 
     private void checkLocationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {  // Only ask for these permissions on runtime when running Android 6.0 or higher

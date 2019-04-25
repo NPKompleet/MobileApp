@@ -11,29 +11,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class FAQActivity extends AppCompatActivity {
-//    @BindView(R.id.faq1)
-//    TextView faq1;
-//
-//    @BindView(R.id.faq2)
-//    TextView faq2;
-//
-//    @BindView(R.id.faq3)
-//    TextView faq3;
-//
-//    @BindView(R.id.faq4)
-//    TextView faq4;
-//
-//    @BindView(R.id.faq5)
-//    TextView faq5;
-//
-//    @BindView(R.id.faq6)
-//    TextView faq6;
-//
-//    @BindView(R.id.faq7)
-//    TextView faq7;
-//
-//    @BindView(R.id.faq8)
-//    TextView faq8;
 
     @BindView(R.id.faq_answer1)
     ExpandableRelativeLayout layout1;
@@ -65,6 +42,17 @@ public class FAQActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faq);
         ButterKnife.bind(this);
+
+        // Collapse Expandable layouts in case of android versions
+        // where it is always open by default
+        layout1.collapse();
+        layout2.collapse();
+        layout3.collapse();
+        layout4.collapse();
+        layout5.collapse();
+        layout6.collapse();
+        layout7.collapse();
+        layout8.collapse();
     }
 
     public void onFaqClicked(View view){

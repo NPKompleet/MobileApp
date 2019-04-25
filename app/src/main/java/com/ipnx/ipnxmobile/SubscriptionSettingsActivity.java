@@ -16,6 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_INTERNET_SERVICE;
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.networkActive;
 
 public class SubscriptionSettingsActivity extends AppCompatActivity {
     public static final String AppPREFERENCES = "AppPrefs" ;
@@ -65,6 +66,12 @@ public class SubscriptionSettingsActivity extends AppCompatActivity {
         setViewAnalytics.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (!networkActive(SubscriptionSettingsActivity.this)){
+                    Toast.makeText(SubscriptionSettingsActivity.this,
+                            "Network is unavailable", Toast.LENGTH_SHORT).show();
+                    setViewAnalytics.setChecked(!isChecked);
+                    return;
+                }
                 if (isChecked){
                     editor.putBoolean(Analytics, true);
                     makeToastNotification("Analytics", "ON");
@@ -79,6 +86,12 @@ public class SubscriptionSettingsActivity extends AppCompatActivity {
         setAutoRenewal.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (!networkActive(SubscriptionSettingsActivity.this)){
+                    Toast.makeText(SubscriptionSettingsActivity.this,
+                            "Network is unavailable", Toast.LENGTH_SHORT).show();
+                    setAutoRenewal.setChecked(!isChecked);
+                    return;
+                }
                 if (isChecked){
                     editor.putBoolean(AutoRenewal, true);
                     makeToastNotification("Auto-Renewal", "ON");

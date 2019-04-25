@@ -19,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ForgotPasswordConfirmActivity"></activity>
+        <activity android:name=".ViewCDRActivity"></activity>
+        <activity android:name=".ForgotPasswordConfirmActivity" />
         <activity android:name=".ForgotPasswordActivity" />
         <activity
             android:name=".TransactionHistoryActivity"

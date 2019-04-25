@@ -17,6 +17,8 @@ import com.interswitchng.sdk.payment.android.inapp.PayWithCard;
 import com.interswitchng.sdk.util.RandomString;
 import com.ipnx.ipnxmobile.payment.PaymentCallback;
 
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.networkActive;
+
 public class RenewPaymentActivity extends AppCompatActivity {
 
     @Override
@@ -29,6 +31,10 @@ public class RenewPaymentActivity extends AppCompatActivity {
     }
 
     public void makePayment(View view){
+        if (!networkActive(this)){
+            Toast.makeText(this, "Network is unavailable", Toast.LENGTH_SHORT).show();
+            return;
+        }
         String transRef = RandomString.numeric(12);
         PaymentCallback paymentCallback = new PaymentCallback(RenewPaymentActivity.this, transRef);
         System.out.println(transRef);
