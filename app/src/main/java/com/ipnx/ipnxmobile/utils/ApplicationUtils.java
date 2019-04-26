@@ -7,7 +7,10 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -27,10 +30,13 @@ public class ApplicationUtils {
     public static final String ACTION_LOGIN = "login";
     public static final String ACTION_TRANSACTION_HISTORY = "get transaction history";
     public static final String ACTION_FORGOT_PASSWORD = "Recover user password";
+    public static final String ACTION_VIEW_CDR = "view call detail records";
     public static final String EXTRA_KEY_RESPONSE = "response";
     public static final String EXTRA_KEY_LOGIN = "loginValues";
     public static final String EXTRA_KEY_USERNAME = "userID";
     public static final String EXTRA_KEY_INTERNET_SERVICE = "internetService";
+    public static final String EXTRA_KEY_VOICE_SERVICE = "voiceService";
+    public static final String EXTRA_KEY_PHONE_NUMBER = "phoneumber";
 
     public static Bitmap getBitmapFromView(View view) {
         //Define a bitmap with the same size as the view
@@ -81,5 +87,16 @@ public class ApplicationUtils {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = cm.getActiveNetworkInfo();
         return networkInfo != null && networkInfo.isConnected();
+    }
+
+
+    // Since EditTexts inherits from TextView
+    public static boolean anyFieldIsEmpty(TextView[] views){
+        boolean oneIsEmpty = false;
+        for (TextView view : views){
+            oneIsEmpty = TextUtils.isEmpty(view.getText().toString());
+            if (oneIsEmpty) break;
+        }
+        return oneIsEmpty;
     }
 }

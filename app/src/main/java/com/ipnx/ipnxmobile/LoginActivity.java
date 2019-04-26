@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void openMainView(View view){
-        if (anyFieldIsEmpty()){
+        if (anyFieldIsEmpty(new TextView[]{username, password})){
             Snackbar.make(linearLayout, "UserId or Password cannot be empty", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
             return;
@@ -131,9 +131,10 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Network Error.", Toast.LENGTH_SHORT).show();
                 t.printStackTrace();
                 progressBar.setVisibility(View.INVISIBLE);
+                loginStatus.setVisibility(View.INVISIBLE);
                 linearLayout.setVisibility(View.VISIBLE);
 
                 //
@@ -156,9 +157,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // Checks if the email or password fields are empty
-    private boolean anyFieldIsEmpty(){
-        return  (TextUtils.isEmpty(username.getText().toString()) || TextUtils.isEmpty(password.getText().toString()));
-    }
+//    private boolean anyFieldIsEmpty(){
+//        return  (TextUtils.isEmpty(username.getText().toString()) || TextUtils.isEmpty(password.getText().toString()));
+//    }
 
 
     private void checkLocationPermission() {

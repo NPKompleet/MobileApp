@@ -33,7 +33,6 @@ public class ManageServiceActivity extends AppCompatActivity
     NavigationView navigationView;
 
     LoginRequestValues loginValues;
-    LoginResponse response;
     InternetService service;
 
     @Override
@@ -44,7 +43,6 @@ public class ManageServiceActivity extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
-        response = getIntent().getParcelableExtra(EXTRA_KEY_RESPONSE);
         loginValues = getIntent().getParcelableExtra(EXTRA_KEY_LOGIN);
         service = getIntent().getParcelableExtra(EXTRA_KEY_INTERNET_SERVICE);
 

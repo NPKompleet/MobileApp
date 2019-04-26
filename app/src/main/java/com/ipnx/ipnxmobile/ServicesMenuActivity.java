@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
@@ -32,6 +33,12 @@ public class ServicesMenuActivity extends AppCompatActivity {
 
     @BindView(R.id.voice_layout)
     ExpandableRelativeLayout voiceLayout;
+    
+    @BindView(R.id.data_menu)
+    Button dataButton;
+
+    @BindView(R.id.voice_menu)
+    Button voiceButton;
 
 
     @Override
@@ -43,32 +50,43 @@ public class ServicesMenuActivity extends AppCompatActivity {
         LoginResponse response = getIntent().getParcelableExtra(EXTRA_KEY_RESPONSE);
         LoginRequestValues loginValues = getIntent().getParcelableExtra(EXTRA_KEY_LOGIN);
 
-        InternetServiceAdapter internetServiceAdapter
-                = new InternetServiceAdapter(this,
-                response.getCustomValues().getInternetServices(), response, loginValues);
-        internetServiceListView.setAdapter(internetServiceAdapter);
+        if (response.getCustomValues().getInternetServices() != null && 
+                !response.getCustomValues().getInternetServices().isEmpty()) {
+            InternetServiceAdapter internetServiceAdapter
+                    = new InternetServiceAdapter(this,
+                    response.getCustomValues().getInternetServices(), loginValues);
+            internetServiceListView.setAdapter(internetServiceAdapter);
+            // Collapse Expandable layouts in case of android versions
+            // where it is always open by default
+            dataLayout.collapse();
+        }else {
+            dataButton.setVisibility(View.GONE);
+            dataLayout.setVisibility(View.GONE);
+        }
+        
+        if (response.getCustomValues().getTelephonyServices() != null &&
+                !response.getCustomValues().getTelephonyServices().isEmpty()) {
+            TelephonyServiceAdapter voiceServiceAdapter
+                    = new TelephonyServiceAdapter(this,
+                    response.getCustomValues().getTelephonyServices(), loginValues);
+            voiceServiceListView.setAdapter(voiceServiceAdapter);
+            // Collapse Expandable layouts in case of android versions
+            // where it is always open by default
+            voiceLayout.collapse();
+        }else {
+            voiceButton.setVisibility(View.GONE);
+            voiceLayout.setVisibility(View.GONE);
+        }
 
-        TelephonyServiceAdapter voiceServiceAdapter
-                = new TelephonyServiceAdapter(this, response.getCustomValues().getTelephonyServices());
-        voiceServiceListView.setAdapter(voiceServiceAdapter);
-
-        // Collapse Expandable layouts in case of android versions
-        // where it is always open by default
-        dataLayout.collapse();
-        voiceLayout.collapse();
     }
 
     public void onMenuButtonClicked(View view){
         Intent i;
         switch (view.getId()) {
             case R.id.data_menu:
-//                i = new Intent(this, ManageServiceActivity.class);
-//                startActivity(i);
                 dataLayout.toggle();
                 break;
             case R.id.voice_menu:
-//                i = new Intent(this, TopUpActivity.class);
-//                startActivity(i);
                 voiceLayout.toggle();
                 break;
         }

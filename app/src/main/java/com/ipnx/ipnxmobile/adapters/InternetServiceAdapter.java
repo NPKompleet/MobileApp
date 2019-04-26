@@ -25,15 +25,13 @@ import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_LOGIN;
 public class InternetServiceAdapter extends ArrayAdapter<InternetService> {
     private Context context;
     private List<InternetService> serviceList;
-    private LoginResponse response;
     private LoginRequestValues loginValues;
 
-    public InternetServiceAdapter(@NonNull Context context, List<InternetService> list,
-                                  LoginResponse response, LoginRequestValues loginValues) {
+public InternetServiceAdapter(@NonNull Context context, List<InternetService> list,
+                              LoginRequestValues loginValues) {
         super(context, 0, list);
         this.context = context;
         this.serviceList = list;
-        this.response = response;
         this.loginValues = loginValues;
     }
 
@@ -71,7 +69,6 @@ public class InternetServiceAdapter extends ArrayAdapter<InternetService> {
 
     private void startManageServiceActivity(InternetService service){
         Intent i = new Intent(context, ManageServiceActivity.class);
-        i.putExtra(EXTRA_KEY_LOGIN, response);
         i.putExtra(EXTRA_KEY_INTERNET_SERVICE, service);
         i.putExtra(EXTRA_KEY_LOGIN, loginValues);
         context.startActivity(i);

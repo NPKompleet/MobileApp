@@ -23,6 +23,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/voice_package_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -38,11 +39,11 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginLeft="24dp"
                     android:background="@drawable/indigo_fill_button"
-                    android:onClick="makePayment"
+                    android:onClick="viewCDR"
                     android:text="View CDR"
                     android:layout_marginTop="20dp"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"/>
 
                 <View
                     android:layout_width="match_parent"

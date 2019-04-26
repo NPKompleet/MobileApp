@@ -2,6 +2,7 @@ package com.ipnx.ipnxmobile.retrofit;
 
 
 import com.ipnx.ipnxmobile.models.responses.Response;
+import com.ipnx.ipnxmobile.models.responses.cdr.CallRecordResponse;
 import com.ipnx.ipnxmobile.models.responses.forgotpassword.ForgotPasswordResponse;
 import com.ipnx.ipnxmobile.models.responses.login.LoginResponse;
 import com.ipnx.ipnxmobile.models.requests.Request;
@@ -31,4 +32,7 @@ public interface MyApiEndpointInterface {
 
     @POST("resetpass")
     Call<Response> resetPassword(@Body Request resetPasswordRequest);
+
+    @POST("cdr")
+    Call<CallRecordResponse> fetchCallDetailRecord(@Body Request viewCDRRequest);
 }

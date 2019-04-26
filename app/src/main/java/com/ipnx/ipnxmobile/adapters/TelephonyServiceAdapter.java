@@ -12,19 +12,26 @@ import android.widget.TextView;
 
 import com.ipnx.ipnxmobile.R;
 import com.ipnx.ipnxmobile.TopUpActivity;
+import com.ipnx.ipnxmobile.models.requests.LoginRequestValues;
 import com.ipnx.ipnxmobile.models.responses.login.TelephonyService;
 
 import java.util.List;
+
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_LOGIN;
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_VOICE_SERVICE;
 
 public class TelephonyServiceAdapter extends ArrayAdapter<TelephonyService> {
     private Context context;
     private List<TelephonyService> serviceList;
 
-    public TelephonyServiceAdapter(@NonNull Context context, List<TelephonyService> list) {
+    private LoginRequestValues loginValues;
+
+    public TelephonyServiceAdapter(@NonNull Context context, List<TelephonyService> list,
+                                   LoginRequestValues loginValues) {
         super(context, 0, list);
         this.context = context;
         this.serviceList = list;
-
+        this.loginValues = loginValues;
     }
     
 
@@ -44,7 +51,8 @@ public class TelephonyServiceAdapter extends ArrayAdapter<TelephonyService> {
 
         final TelephonyService service = serviceList.get(position);
         packageName.setText(service.getPackageName());
-        packageStatus.setText(service.getStatus().equals("")?"Unknown" : service.getStatus());
+        packageStatus.setText(service.getStatus().equals("")?"Inact" : service.getStatus());
+
 
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +66,8 @@ public class TelephonyServiceAdapter extends ArrayAdapter<TelephonyService> {
 
     private void startVoiceServiceActivity(TelephonyService service){
         Intent i = new Intent(context, TopUpActivity.class);
+        i.putExtra(EXTRA_KEY_VOICE_SERVICE, service);
+        i.putExtra(EXTRA_KEY_LOGIN, loginValues);
         context.startActivity(i);
     }
 }

@@ -21,9 +21,6 @@ public class Response implements Parcelable {
     @SerializedName("client_ip")
     @Expose
     private String clientIp;
-//    @SerializedName("custom_values")
-//    @Expose
-//    private CustomValues customValues;
     @SerializedName("response_code")
     @Expose
     private String responseCode;
@@ -98,14 +95,6 @@ public class Response implements Parcelable {
     public void setClientIp(String clientIp) {
         this.clientIp = clientIp;
     }
-
-//    public CustomValues getCustomValues() {
-//        return customValues;
-//    }
-//
-//    public void setCustomValues(CustomValues customValues) {
-//        this.customValues = customValues;
-//    }
 
     public String getResponseCode() {
         return responseCode;

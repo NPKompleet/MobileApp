@@ -97,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Date"
+                    android:text="Start Date"
                     android:textColor="@color/black_text" />
 
                 <TextView
@@ -105,7 +105,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Amount"
+                    android:text="End Date"
                     android:textColor="@color/black_text" />
 
                 <TextView
@@ -113,7 +113,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Payment Method"
+                    android:text="Duration"
                     android:textColor="@color/black_text" />
 
                 <TextView
@@ -121,7 +121,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Package"
+                    android:text="Price"
                     android:textColor="@color/black_text" />
 
             </LinearLayout>
@@ -136,21 +136,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     tools:itemCount="5"
-                    tools:listitem="@layout/item_cdr_history" />
+                    tools:listitem="@layout/item_cdr" />
 
                 <ProgressBar
                     android:id="@+id/cdr_progress_bar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true" />
+                    android:layout_centerInParent="true"
+                    android:visibility="invisible"/>
 
                 <TextView
                     android:id="@+id/cdr_status_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/cdr_progress_bar"
+                    android:padding="16dp"
                     android:gravity="center"
-                    android:text="...Fetching cdr history"
+                    android:text="Select dates and click on 'Submit' to view record"
                     android:textColor="@color/beige"
                     android:textSize="16sp" />
 
