@@ -3,19 +3,42 @@ package com.ipnx.ipnxmobile;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.ipnx.ipnxmobile.adapters.DataHistoryAdapter;
 import com.ipnx.ipnxmobile.customviews.DataChartView;
+import com.ipnx.ipnxmobile.models.requests.DataHistoryRequestValues;
+import com.ipnx.ipnxmobile.models.requests.Request;
+import com.ipnx.ipnxmobile.models.requests.ViewDataRequestValues;
+import com.ipnx.ipnxmobile.models.responses.datausage.DataHistoryResponse;
+import com.ipnx.ipnxmobile.models.responses.datausage.DataUsageResponse;
+import com.ipnx.ipnxmobile.retrofit.MyApiEndpointInterface;
+import com.ipnx.ipnxmobile.retrofit.RetrofitUtils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.ACTION_DATA_HISTORY;
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.ACTION_DATA_USAGE;
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.DEVICE_ID;
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_ONT_SERIAL;
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_PACKAGE_CLASS_COMMENT;
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_SERVICE_PLAN;
 
 public class DataUsageActivity extends AppCompatActivity {
 
@@ -36,17 +59,94 @@ public class DataUsageActivity extends AppCompatActivity {
     @BindView(R.id.data_chart)
     DataChartView dataChartView;
 
+    @BindView(R.id.rv_data_history)
+    RecyclerView recyclerView;
+
+    @BindView(R.id.data_progress_bar)
+    ProgressBar progressBar;
+
+    @BindView(R.id.data_status_text)
+    TextView statusText;
+
+    @BindView(R.id.page_subtitle)
+    TextView pageSubtitle;
+
+    String ontSerial, packageComment;
+    MyApiEndpointInterface myApi;
+
+    DataHistoryAdapter adapter;
+    List<List<String>> dataHistoryList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_usage);
         ButterKnife.bind(this);
 
+        ontSerial = getIntent().getStringExtra(EXTRA_KEY_ONT_SERIAL);
+        packageComment = getIntent().getStringExtra(EXTRA_KEY_PACKAGE_CLASS_COMMENT);
+        String plan = getIntent().getStringExtra(EXTRA_KEY_SERVICE_PLAN);
+
+        pageSubtitle.setText("Service Plan: " + plan.split("  ")[0]);
+
         DateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd");
         date= new Date();
         String dateString = dateFormat.format(date);
         dateFrom.setText(dateString);
         dateTo.setText(dateString);
+
+        getDataInfo();
+        getDataHistory();
+    }
+
+    private void getDataInfo() {
+        Request dataRequest = new Request();
+        ViewDataRequestValues requestValues = new ViewDataRequestValues();
+        requestValues.setCOntSerial(ontSerial);
+        requestValues.setCPackageName(packageComment);
+        requestValues.setCRegime("peak");
+
+        dataRequest.setAction(ACTION_DATA_USAGE);
+        dataRequest.setCustomValues(requestValues);
+        dataRequest.setDid(DEVICE_ID);
+
+        myApi= RetrofitUtils.getService();
+        Call<DataUsageResponse> call = myApi.fetchDataInfo(dataRequest);
+        call.enqueue(new Callback<DataUsageResponse>() {
+            @Override
+            public void onResponse(Call<DataUsageResponse> call, Response<DataUsageResponse> response) {
+                Toast.makeText(DataUsageActivity.this, "successful " + response.body().getCustomValues().getCycleUsage().getCycleMbUsed(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<DataUsageResponse> call, Throwable t) {
+                Toast.makeText(DataUsageActivity.this, "failure", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void getDataHistory() {
+        Request dataHistoryRequest = new Request();
+        DataHistoryRequestValues requestValues = new DataHistoryRequestValues();
+        requestValues.setCOntSerial(ontSerial);
+
+        dataHistoryRequest.setAction(ACTION_DATA_HISTORY);
+        dataHistoryRequest.setCustomValues(requestValues);
+        dataHistoryRequest.setDid(DEVICE_ID);
+
+        myApi= RetrofitUtils.getService();
+        Call<DataHistoryResponse> call = myApi.fetchDataHistory(dataHistoryRequest);
+        call.enqueue(new Callback<DataHistoryResponse>() {
+            @Override
+            public void onResponse(Call<DataHistoryResponse> call, Response<DataHistoryResponse> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<DataHistoryResponse> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override

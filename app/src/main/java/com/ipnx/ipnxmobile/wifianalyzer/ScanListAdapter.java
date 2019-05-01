@@ -22,13 +22,17 @@ public class ScanListAdapter extends RecyclerView.Adapter<ScanListAdapter.ScanHo
     private Context context;
     private List<ScanResult> scanResultList;
     private String currentWifiBssID;
+    private String currentWifiSSID;
+    Drawable img;
 
     public ScanListAdapter(List<ScanResult> scanResultList) {
         this.scanResultList = scanResultList;
+//        img = context.getResources().getDrawable( R.drawable.ic_wifi );
     }
 
-    public void setData(List<ScanResult> scans, String bssID){
+    public void setData(List<ScanResult> scans, String ssID, String bssID){
         this.scanResultList= scans;
+        this.currentWifiSSID = ssID;
         this.currentWifiBssID = bssID;
         notifyDataSetChanged();
     }
@@ -52,10 +56,10 @@ public class ScanListAdapter extends RecyclerView.Adapter<ScanListAdapter.ScanHo
     public void onBindViewHolder(@NonNull ScanHolder holder, int position) {
         ScanResult item = scanResultList.get(position);
         holder.ssId.setText(item.SSID);
-        if(item.BSSID.equals(currentWifiBssID)){
-            Drawable img = context.getResources().getDrawable( R.drawable.ic_wifi );
-            holder.ssId.setCompoundDrawablesWithIntrinsicBounds( img, null, null, null);
-        }
+//        if(item.SSID.equals(currentWifiSSID) && item.BSSID.equals(currentWifiBssID)){
+//            Drawable img = context.getResources().getDrawable( R.drawable.ic_wifi );
+//            holder.ssId.setCompoundDrawablesWithIntrinsicBounds( img, null, null, null);
+//        }
         holder.bssId.setText(item.BSSID);
         holder.frequency.setText(item.frequency + "MHz");
         holder.level.setText(item.level + "dBm");

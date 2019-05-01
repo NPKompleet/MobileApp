@@ -26,18 +26,21 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_scan_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                tools:itemCount="5"
+                tools:listitem="@layout/item_scan_list"/>
 
         </android.support.v4.widget.SwipeRefreshLayout>
 
         <TextView
-            android:id="@+id/section_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/scan_list_message"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:text="Hello World!"
-            android:textColor="#ffffff"
-            android:visibility="invisible"
+            android:textColor="@color/black_text"
+            android:textStyle="bold"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

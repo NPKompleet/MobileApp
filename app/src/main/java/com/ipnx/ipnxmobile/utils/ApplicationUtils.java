@@ -7,10 +7,14 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.ipnx.ipnxmobile.models.Profile;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -22,6 +26,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class ApplicationUtils {
+    public static final Profile userProfile = new Profile();
     public static final String VERSION = "1.0";
     public static final String APP_BUNDLE = "com.ipnx.ipnxmobile";
     public static final String APP_NAME = "ipnxmobile";
@@ -31,12 +36,17 @@ public class ApplicationUtils {
     public static final String ACTION_TRANSACTION_HISTORY = "get transaction history";
     public static final String ACTION_FORGOT_PASSWORD = "Recover user password";
     public static final String ACTION_VIEW_CDR = "view call detail records";
+    public static final String ACTION_DATA_USAGE = "View data usage records";
+    public static final String ACTION_DATA_HISTORY = "get historical data";
     public static final String EXTRA_KEY_RESPONSE = "response";
     public static final String EXTRA_KEY_LOGIN = "loginValues";
     public static final String EXTRA_KEY_USERNAME = "userID";
     public static final String EXTRA_KEY_INTERNET_SERVICE = "internetService";
     public static final String EXTRA_KEY_VOICE_SERVICE = "voiceService";
     public static final String EXTRA_KEY_PHONE_NUMBER = "phoneumber";
+    public static final String EXTRA_KEY_ONT_SERIAL = "ontSerial";
+    public static final String EXTRA_KEY_PACKAGE_CLASS_COMMENT = "packageComment";
+    public static final String EXTRA_KEY_SERVICE_PLAN = "servicePlan";
 
     public static Bitmap getBitmapFromView(View view) {
         //Define a bitmap with the same size as the view
@@ -98,5 +108,24 @@ public class ApplicationUtils {
             if (oneIsEmpty) break;
         }
         return oneIsEmpty;
+    }
+
+    public static boolean isLocationEnabled(Context context) {
+        int locationMode = 0;
+        String locationProviders;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+            try {
+                locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
+            } catch (Settings.SettingNotFoundException e) {
+                e.printStackTrace();
+                return false;
+            }
+            return locationMode != Settings.Secure.LOCATION_MODE_OFF;
+
+        }else{
+            locationProviders = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+            return !TextUtils.isEmpty(locationProviders);
+        }
     }
 }

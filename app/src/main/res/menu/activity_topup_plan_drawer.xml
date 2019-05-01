@@ -10,9 +10,15 @@
             android:title="Profile" />
 
         <item
+            android:id="@+id/nav_password"
+            android:icon="@drawable/ic_padlock"
+            android:title="Change Password" />
+
+        <item
             android:id="@+id/nav_choose_plan"
             android:icon="@drawable/ic_choose_plan"
             android:title="Choose plan" />
+
         <item
             android:id="@+id/nav_payment_history"
             android:icon="@drawable/ic_payment_history"

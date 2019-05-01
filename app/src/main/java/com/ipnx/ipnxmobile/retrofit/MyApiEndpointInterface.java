@@ -3,6 +3,8 @@ package com.ipnx.ipnxmobile.retrofit;
 
 import com.ipnx.ipnxmobile.models.responses.Response;
 import com.ipnx.ipnxmobile.models.responses.cdr.CallRecordResponse;
+import com.ipnx.ipnxmobile.models.responses.datausage.DataHistoryResponse;
+import com.ipnx.ipnxmobile.models.responses.datausage.DataUsageResponse;
 import com.ipnx.ipnxmobile.models.responses.forgotpassword.ForgotPasswordResponse;
 import com.ipnx.ipnxmobile.models.responses.login.LoginResponse;
 import com.ipnx.ipnxmobile.models.requests.Request;
@@ -33,6 +35,21 @@ public interface MyApiEndpointInterface {
     @POST("resetpass")
     Call<Response> resetPassword(@Body Request resetPasswordRequest);
 
+    @POST("changepass")
+    Call<Response> changePassword(@Body Request changePasswordRequest);
+
     @POST("cdr")
     Call<CallRecordResponse> fetchCallDetailRecord(@Body Request viewCDRRequest);
+
+    @POST("data_usage")
+    Call<DataUsageResponse> fetchDataInfo(@Body Request dataRequest);
+
+    @POST("history")
+    Call<DataHistoryResponse> fetchDataHistory(@Body Request dataHistoryRequest);
+
+    @POST("feedback")
+    Call<Response> sendFeedback(@Body Request feedbackRequest);
+
+    @POST("addcash")
+    Call<Response> addPayment(@Body Request addPaymentRequest);
 }

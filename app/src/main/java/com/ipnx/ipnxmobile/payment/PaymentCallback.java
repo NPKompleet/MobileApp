@@ -34,7 +34,23 @@ public class PaymentCallback extends IswCallback<PurchaseResponse> {
            in order to pay with the token in the future.
         */
         Toast.makeText(context, "Successful: "+ response + " show", Toast.LENGTH_SHORT).show();
-        System.out.println(response);
+        System.out.println(response.getACSUrl());
+        System.out.println(response.getAmount());
+        System.out.println(response.getCardType());
+        System.out.println(response.getEciFlag());
+        System.out.println(response.getMD());
+        System.out.println(response.getMessage());
+        System.out.println(response.getOtpTransactionIdentifier());
+        System.out.println(response.getPanLast4Digits());
+        System.out.println(response.getPaReq());
+        System.out.println(response.getPaymentId());
+        System.out.println(response.getResponseCode());
+        System.out.println(response.getTermUrl());
+        System.out.println(response.getToken());
+        System.out.println(response.getTokenExpiryDate());
+        System.out.println(response.getTransactionId());
+        System.out.println(response.getTransactionIdentifier());
+        System.out.println(response.getTransactionRef());
         System.out.println(ref);
     }
 }

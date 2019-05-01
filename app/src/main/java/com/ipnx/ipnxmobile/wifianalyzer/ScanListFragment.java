@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -29,12 +30,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.isLocationEnabled;
+
 public class ScanListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
-    /**
-     * The fragment argument representing the section number for this
-     * fragment.
-     */
-    private static final String ARG_SECTION_NUMBER = "section_number";
 
     Unbinder unbinder;
     List<ScanResult> scanResults = new ArrayList<>();
@@ -42,37 +40,26 @@ public class ScanListFragment extends Fragment implements SwipeRefreshLayout.OnR
     RecyclerView recyclerView;
     @BindView(R.id.swipe_scan_list)
     SwipeRefreshLayout swipeRefreshLayout;
-    @BindView(R.id.section_label)
-    TextView textView;
+    @BindView(R.id.scan_list_message)
+    TextView message;
 
     ScanListAdapter adapter;
     WifiManager wifiManager;
     Handler customHandler;
 
-    FloatingActionButton fab;
-
     public ScanListFragment() {
     }
 
-    /**
-     * Returns a new instance of this fragment for the given section
-     * number.
-     */
-    public static ScanListFragment newInstance(int sectionNumber) {
-        ScanListFragment fragment = new ScanListFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-        fragment.setArguments(args);
-        return fragment;
+    public static ScanListFragment newInstance() {
+        return new ScanListFragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_scan_list, container, false);
-//        TextView textView = (TextView) rootView.findViewById(R.id.section_label);
         unbinder = ButterKnife.bind(this, rootView);
-        textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+//        message.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
         return rootView;
     }
 
@@ -83,7 +70,6 @@ public class ScanListFragment extends Fragment implements SwipeRefreshLayout.OnR
         adapter= new ScanListAdapter(scanResults);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
         recyclerView.setAdapter(adapter);
-//        onRefresh();
     }
 
     @Override
@@ -94,8 +80,6 @@ public class ScanListFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onResume() {
         super.onResume();
-//        fab = getActivity().findViewById(R.id.fab);
-//        fab.hide();
         wifiManager = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         getActivity().registerReceiver(wifiReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
         customHandler = new Handler();
@@ -110,22 +94,26 @@ public class ScanListFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     }
 
-
-    public void printLength(){
-//        Toast.makeText(this.getContext(), "Scan result: "+ scanResults.size(), Toast.LENGTH_SHORT).show();
-    }
-
     public void getScans(){
         wifiManager.startScan();
-//        Toast.makeText(this.getContext(), "Scanning WiFi ...", Toast.LENGTH_SHORT).show();
     }
 
     BroadcastReceiver wifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             scanResults = wifiManager.getScanResults();
-            printLength();
-            adapter.setData(scanResults, wifiManager.getConnectionInfo().getBSSID());
+            if (scanResults.isEmpty()) {
+                message.setVisibility(View.VISIBLE);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !isLocationEnabled(context)) {
+                    message.setText("To enable Scanning, please turn on your location settings.");
+                    return;
+                }
+                message.setText("There are no Wifi sources available");
+                return;
+            }
+            message.setVisibility(View.INVISIBLE);
+            adapter.setData(scanResults, wifiManager.getConnectionInfo().getSSID(),
+            wifiManager.getConnectionInfo().getBSSID());
         }
     };
 
@@ -142,7 +130,11 @@ public class ScanListFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onPause() {
         customHandler.removeCallbacks(updateScanThread);
-        getActivity().unregisterReceiver(wifiReceiver);
+        try {
+            getActivity().unregisterReceiver(wifiReceiver);
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
         super.onPause();
     }
 

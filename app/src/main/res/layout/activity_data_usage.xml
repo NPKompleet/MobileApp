@@ -19,8 +19,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="150dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingTop="150dp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -28,8 +28,8 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginLeft="24dp"
                     android:gravity="center"
-                    android:text="Expiry Date: February 22, 2019"
                     android:maxWidth="250dp"
+                    android:text="Expiry Date: February 22, 2019"
                     android:textColor="@color/black_text"
                     android:textSize="18sp" />
 
@@ -40,71 +40,74 @@
                     android:layout_height="200dp"
                     android:layout_gravity="center"
                     android:layout_margin="8dp"
+                    app:centerColor="@color/white"
                     app:totalDataColor="@color/data_menu_blue"
-                    app:usedDataColor="@color/orange"
-                    app:centerColor="@color/data_menu_green"
                     app:totalDataValue="500.0"
-                    app:usedDataValue="500.0"/>
+                    app:usedDataColor="@color/orange"
+                    app:usedDataValue="500.0" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black_text"
-                    android:textSize="16sp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="8dp"
                     android:text="Data Allowance: 100GB"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginTop="8dp"/>
+                    android:textColor="@color/black_text"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black_text"
-                    android:textSize="16sp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="8dp"
                     android:text="Data Rolled Over: 0.00GB"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginTop="8dp"/>
+                    android:textColor="@color/black_text"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black_text"
-                    android:textSize="16sp"
-                    android:text="Total Data: 100GB"
                     android:layout_marginStart="32dp"
                     android:layout_marginLeft="32dp"
-                    android:layout_marginTop="8dp"/>
+                    android:layout_marginTop="8dp"
+                    android:text="Total Data: 100GB"
+                    android:textColor="@color/black_text"
+                    android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/grey"
-                    android:layout_margin="16dp"/>
+                    android:layout_margin="16dp"
+                    android:background="@color/grey" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp">
+
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1.5"
+                        android:gravity="center"
                         android:text="From"
-                        android:gravity="center"
-                        android:textColor="@color/indigo"/>
+                        android:textColor="@color/indigo" />
+
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1.5"
-                        android:text="To"
                         android:gravity="center"
-                        android:textColor="@color/indigo"/>
+                        android:text="To"
+                        android:textColor="@color/indigo" />
+
                     <View
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -112,79 +115,100 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp">
+
                     <TextView
                         android:id="@+id/data_date_from"
                         style="@style/DateTextViewStyle"
-                        android:text="2019-02-01"
                         android:layout_marginEnd="2dp"
-                        android:layout_marginRight="2dp"/>
+                        android:layout_marginRight="2dp"
+                        android:text="2019-02-01" />
+
                     <TextView
                         android:id="@+id/data_date_to"
                         style="@style/DateTextViewStyle"
-                        android:text="2019-02-01"
                         android:layout_marginStart="2dp"
-                        android:layout_marginLeft="2dp"/>
+                        android:layout_marginLeft="2dp"
+                        android:text="2019-02-01" />
 
                     <Button
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="30dp"
                         android:layout_marginStart="4dp"
                         android:layout_marginLeft="4dp"
+                        android:layout_weight="1"
                         android:background="@drawable/indigo_fill_button"
                         android:onClick="onSubmitClicked"
                         android:text="Submit"
                         android:textColor="@color/white"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
-                    android:text="Historical Usage"
                     android:background="@color/orange"
                     android:elevation="5dp"
+                    android:gravity="center"
+                    android:text="Historical Usage"
                     android:textColor="@color/black_text"
-                    android:textSize="20sp"
-                    android:gravity="center"/>
+                    android:textSize="20sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="#EFEFEF"
+                    android:gravity="center_vertical"
                     android:paddingLeft="32dp"
-                    android:paddingRight="32dp"
-                    android:gravity="center_vertical">
+                    android:paddingRight="32dp">
 
                     <TextView
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="Month"
-                        android:textSize="18sp"
-                        android:textColor="@color/black_text"/>
+                        android:textColor="@color/black_text"
+                        android:textSize="18sp" />
 
                     <TextView
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="Data"
+                        android:layout_weight="1"
                         android:gravity="end"
-                        android:textSize="18sp"
-                        android:textColor="@color/black_text"/>
+                        android:text="Data"
+                        android:textColor="@color/black_text"
+                        android:textSize="18sp" />
 
                 </LinearLayout>
 
-
-                <android.support.v7.widget.RecyclerView
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="500dp"
-                    tools:listitem="@layout/item_data_usage"
-                    tools:itemCount="5">
+                    android:layout_height="wrap_content">
 
-                </android.support.v7.widget.RecyclerView>
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_data_history"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        tools:itemCount="5"
+                        tools:listitem="@layout/item_data_usage" />
 
+                    <ProgressBar
+                        android:id="@+id/data_progress_bar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true" />
+
+                    <TextView
+                        android:id="@+id/data_status_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/data_progress_bar"
+                        android:gravity="center"
+                        android:text="...Fetching data usage history"
+                        android:textColor="@color/beige"
+                        android:textSize="16sp" />
+
+                </RelativeLayout>
 
             </LinearLayout>
 
@@ -199,12 +223,12 @@
     <ImageView
         android:id="@+id/home_button"
         style="@style/PageBackButton"
-        android:onClick="onBackClicked"/>
+        android:onClick="onBackClicked" />
 
     <TextView
         android:id="@+id/page_title"
         style="@style/PageTitle"
-        android:text="Data Usage"/>
+        android:text="Data Usage" />
 
     <TextView
         android:id="@+id/page_subtitle"

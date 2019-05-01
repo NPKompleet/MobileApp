@@ -74,12 +74,14 @@ public class DataChartView extends View {
         rect.right = width;
         rect.bottom = height;
 
-        canvas.drawCircle(radius, centerY, radius - dpToPx(8), totalDataPaint);
-        canvas.drawCircle(radius, centerY, radius/2 + dpToPx(8), centerPaint);
+//        canvas.drawCircle(radius, centerY, radius - dpToPx(8), totalDataPaint);
+        canvas.drawCircle(radius, centerY, radius, totalDataPaint);
+//        canvas.drawCircle(radius, centerY, radius/2 + dpToPx(8), centerPaint);
         canvas.drawArc(rect, 180.0f, usedDataValue/totalDataValue * 360, true, usedDataPaint);
 //        usedDataPaint.setColor(Color.BLUE);
 //        canvas.drawArc(rect, 255.0f, 75.0f, true, usedDataPaint);
-        canvas.drawCircle(radius, centerY, radius/2, centerPaint);
+//        canvas.drawCircle(radius, centerY, radius/2, centerPaint);
+        canvas.drawCircle(radius, centerY, 3*radius/4, centerPaint);
     }
 
     private int dpToPx(int dp) {

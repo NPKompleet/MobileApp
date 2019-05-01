@@ -12,11 +12,15 @@
         android:layout_height="500dp"
         android:layout_marginBottom="8dp"/>
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/channel_graph_message"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/hello_blank_fragment"
+        android:gravity="center"
+        android:background="@color/white"
+        android:textColor="@color/black_text"
+        android:textStyle="bold"
         android:visibility="invisible"/>
 
     <android.support.design.widget.FloatingActionButton

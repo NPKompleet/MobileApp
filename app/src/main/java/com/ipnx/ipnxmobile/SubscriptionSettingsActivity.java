@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
@@ -35,10 +36,10 @@ public class SubscriptionSettingsActivity extends AppCompatActivity {
     TextView deviceNumber;
 
     @BindView(R.id.sub_settings_switch_analytics)
-    Switch setViewAnalytics;
+    SwitchCompat setViewAnalytics;
 
     @BindView(R.id.sub_settings_switch_renewal)
-    Switch setAutoRenewal;
+    SwitchCompat setAutoRenewal;
 
     SharedPreferences sharedpreferences;
 

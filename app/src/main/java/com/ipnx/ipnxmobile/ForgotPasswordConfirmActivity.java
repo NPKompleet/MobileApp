@@ -1,11 +1,7 @@
 package com.ipnx.ipnxmobile;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -23,6 +19,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_USERNAME;
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.anyFieldIsEmpty;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.networkActive;
 
 public class ForgotPasswordConfirmActivity extends AppCompatActivity {
@@ -53,7 +50,7 @@ public class ForgotPasswordConfirmActivity extends AppCompatActivity {
     }
 
     public void onSubmitClicked(View view){
-        if (anyFieldIsEmpty()){
+        if (anyFieldIsEmpty(new TextView[]{token, newPassword, confirmNewPassword})){
             Toast.makeText(this, "All fields should be filled", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -109,11 +106,5 @@ public class ForgotPasswordConfirmActivity extends AppCompatActivity {
         finish();
     }
 
-    // Checks if the email or password fields are empty
-    private boolean anyFieldIsEmpty(){
-        return  (TextUtils.isEmpty(token.getText().toString()) ||
-                TextUtils.isEmpty(newPassword.getText().toString()) ||
-                TextUtils.isEmpty(confirmNewPassword.getText().toString()));
-    }
 
 }

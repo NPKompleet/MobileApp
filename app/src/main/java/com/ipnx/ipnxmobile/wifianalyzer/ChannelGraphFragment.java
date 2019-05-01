@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -18,6 +19,7 @@ import android.support.v4.content.FileProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ipnx.ipnxmobile.R;
@@ -34,6 +36,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.isLocationEnabled;
 import static com.ipnx.ipnxmobile.utils.ChannelGraphUtils.addAlpha;
 import static com.ipnx.ipnxmobile.utils.ChannelGraphUtils.channelColors;
 import static com.ipnx.ipnxmobile.utils.ChannelGraphUtils.channelMap;
@@ -48,14 +51,6 @@ import static com.ipnx.ipnxmobile.utils.ChannelGraphUtils.createDataPoints;
  * create an instance of this fragment.
  */
 public class ChannelGraphFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
@@ -71,36 +66,22 @@ public class ChannelGraphFragment extends Fragment {
     @BindView(R.id.fab_channel_graph)
     FloatingActionButton fab;
 
+    @BindView(R.id.channel_graph_message)
+    TextView message;
+
 
     public ChannelGraphFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ChannelGraphFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ChannelGraphFragment newInstance(String param1, String param2) {
-        ChannelGraphFragment fragment = new ChannelGraphFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+
+    public static ChannelGraphFragment newInstance() {
+        return new ChannelGraphFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -185,15 +166,8 @@ public class ChannelGraphFragment extends Fragment {
     }
 
     public void getScans(){
-//        getActivity().registerReceiver(wifiReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
         wifiManager.startScan();
 //        Toast.makeText(this.getContext(), "Scanning WiFi ...", Toast.LENGTH_SHORT).show();
-    }
-
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
 
@@ -210,7 +184,16 @@ public class ChannelGraphFragment extends Fragment {
         @Override
         public void onReceive(Context context, Intent intent) {
             scanResults = wifiManager.getScanResults();
-//            getActivity().unregisterReceiver(this);
+            if (scanResults.isEmpty()) {
+                message.setVisibility(View.VISIBLE);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !isLocationEnabled(context)) {
+                    message.setText("To enable Scanning, please turn on your location settings.");
+                    return;
+                }
+                message.setText("There are no Wifi sources available");
+                return;
+            }
+            message.setVisibility(View.INVISIBLE);
             updateGraph();
         }
     };
@@ -281,8 +264,6 @@ public class ChannelGraphFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-//        void onFragmentInteraction();
     }
 }

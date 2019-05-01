@@ -13,18 +13,31 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/appicon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/appicon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ChangeWifiPasswordActivity"></activity>
-        <activity android:name=".ChangePasswordActivity" />
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".ViewCDRActivity" />
-        <activity android:name=".ForgotPasswordConfirmActivity" />
-        <activity android:name=".ForgotPasswordActivity" />
+        <activity android:name=".PushNotificationActivity"></activity>
+        <activity
+            android:name=".ChangeWifiPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ChangePasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ViewCDRActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ForgotPasswordConfirmActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".TransactionHistoryActivity"
             android:screenOrientation="portrait" />

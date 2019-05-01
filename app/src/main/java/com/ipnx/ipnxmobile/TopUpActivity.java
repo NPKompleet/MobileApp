@@ -20,6 +20,7 @@ import butterknife.ButterKnife;
 
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_LOGIN;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_PHONE_NUMBER;
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_USERNAME;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_VOICE_SERVICE;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.networkActive;
 
@@ -35,6 +36,9 @@ public class TopUpActivity extends AppCompatActivity
     @BindView(R.id.voice_package_name)
     TextView packageName;
 
+    @BindView(R.id.page_subtitle)
+    TextView pageSubtitle;
+
     LoginRequestValues loginValues;
     TelephonyService service;
 
@@ -49,6 +53,7 @@ public class TopUpActivity extends AppCompatActivity
         loginValues = getIntent().getParcelableExtra(EXTRA_KEY_LOGIN);
 
         packageName.setText(service.getPackageName());
+        pageSubtitle.setText(service.getPackageName().split("  ")[0]);
     }
 
     public void makePayment(View view){
@@ -93,7 +98,13 @@ public class TopUpActivity extends AppCompatActivity
             startActivity(i);
         } else if (id == R.id.nav_choose_plan) {
             finish();
-
+        } else if (id == R.id.nav_profile) {
+            Intent i = new Intent(this, ProfileActivity.class);
+            startActivity(i);
+        } else if (id == R.id.nav_password) {
+            Intent i = new Intent(this, ChangePasswordActivity.class);
+            i.putExtra(EXTRA_KEY_USERNAME, loginValues.getCUsername());
+            startActivity(i);
         } else if (id == R.id.nav_payment_history) {
             Intent i = new Intent(this, TransactionHistoryActivity.class);
             i.putExtra(EXTRA_KEY_LOGIN, loginValues);

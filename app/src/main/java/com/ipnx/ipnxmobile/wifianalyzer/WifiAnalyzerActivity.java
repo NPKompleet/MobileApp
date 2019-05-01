@@ -115,11 +115,11 @@ public class WifiAnalyzerActivity extends AppCompatActivity
             // Return a ScanListFragment (defined as a static inner class below).
             switch (position){
                 case 0:
-                    return ScanListFragment.newInstance(position + 1);
+                    return ScanListFragment.newInstance();
                 case 1:
-                    return ChannelGraphFragment.newInstance("Fragment:", position+1+"");
+                    return ChannelGraphFragment.newInstance();
                 case 2:
-                    return SignalMeterFragment.newInstance("Fragment:", position+1+"");
+                    return SignalMeterFragment.newInstance();
 
             }
             return null;

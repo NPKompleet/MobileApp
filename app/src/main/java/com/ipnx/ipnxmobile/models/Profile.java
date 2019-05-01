@@ -1,106 +1,59 @@
-package com.ipnx.ipnxmobile.models.responses.login;
+package com.ipnx.ipnxmobile.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.ipnx.ipnxmobile.models.responses.login.InternetService;
+import com.ipnx.ipnxmobile.models.responses.login.ServiceAddress;
+import com.ipnx.ipnxmobile.models.responses.login.TelephonyService;
 
 import java.util.List;
 
-public class LoginCustomValues implements Parcelable
+public class Profile implements Parcelable
 {
-
-    @SerializedName("mobile")
-    @Expose
     private String mobile;
-    @SerializedName("last_name")
-    @Expose
     private String lastName;
-    @SerializedName("address")
-    @Expose
     private String address;
-    @SerializedName("id")
-    @Expose
     private long id;
-    @SerializedName("company")
-    @Expose
     private String company;
-    @SerializedName("phone_numbers")
-    @Expose
     private String phoneNumbers;
-    @SerializedName("success")
-    @Expose
     private long success;
-    @SerializedName("email_address")
-    @Expose
     private Object emailAddress;
-    @SerializedName("customer_status")
-    @Expose
     private String customerStatus;
-    @SerializedName("due")
-    @Expose
     private String due;
-    @SerializedName("night")
-    @Expose
     private String night;
-    @SerializedName("phone_number")
-    @Expose
     private String phoneNumber;
-    @SerializedName("customer_status_color")
-    @Expose
     private String customerStatusColor;
-    @SerializedName("full_name")
-    @Expose
     private String fullName;
-    @SerializedName("message")
-    @Expose
     private String message;
-    @SerializedName("service_address")
-    @Expose
     private ServiceAddress serviceAddress;
-    @SerializedName("email_addresses")
-    @Expose
     private String emailAddresses;
-    @SerializedName("balance")
-    @Expose
     private String balance;
-    @SerializedName("type")
-    @Expose
     private String type;
-    @SerializedName("address_full")
-    @Expose
     private String addressFull;
-    @SerializedName("customer_number")
-    @Expose
     private String customerNumber;
-    @SerializedName("first_name")
-    @Expose
     private String firstName;
-    @SerializedName("Internet_services")
-    @Expose
-    private List<InternetService> internetServices;
-    @SerializedName("Telephony_services")
-    @Expose
-    private List<TelephonyService> telephonyServices;
-    public final static Parcelable.Creator<LoginCustomValues> CREATOR = new Creator<LoginCustomValues>() {
+
+    public final static Creator<Profile> CREATOR = new Creator<Profile>() {
 
 
         @SuppressWarnings({
                 "unchecked"
         })
-        public LoginCustomValues createFromParcel(Parcel in) {
-            return new LoginCustomValues(in);
+        public Profile createFromParcel(Parcel in) {
+            return new Profile(in);
         }
 
-        public LoginCustomValues[] newArray(int size) {
-            return (new LoginCustomValues[size]);
+        public Profile[] newArray(int size) {
+            return (new Profile[size]);
         }
 
     }
             ;
 
-    protected LoginCustomValues(Parcel in) {
+    protected Profile(Parcel in) {
         this.mobile = ((String) in.readValue((String.class.getClassLoader())));
         this.lastName = ((String) in.readValue((String.class.getClassLoader())));
         this.address = ((String) in.readValue((String.class.getClassLoader())));
@@ -123,11 +76,9 @@ public class LoginCustomValues implements Parcelable
         this.addressFull = ((String) in.readValue((String.class.getClassLoader())));
         this.customerNumber = ((String) in.readValue((String.class.getClassLoader())));
         this.firstName = ((String) in.readValue((String.class.getClassLoader())));
-        this.internetServices = in.createTypedArrayList(InternetService.CREATOR);
-        this.telephonyServices = in.createTypedArrayList(TelephonyService.CREATOR);
     }
 
-    public LoginCustomValues() {
+    public Profile() {
     }
 
     public String getMobile() {
@@ -306,21 +257,6 @@ public class LoginCustomValues implements Parcelable
         this.firstName = firstName;
     }
 
-    public List<InternetService> getInternetServices() {
-        return internetServices;
-    }
-
-    public void setInternetServices(List<InternetService> internetServices) {
-        this.internetServices = internetServices;
-    }
-
-    public List<TelephonyService> getTelephonyServices() {
-        return telephonyServices;
-    }
-
-    public void setTelephonyServices(List<TelephonyService> telephonyServices) {
-        this.telephonyServices = telephonyServices;
-    }
 
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(mobile);
@@ -345,8 +281,6 @@ public class LoginCustomValues implements Parcelable
         dest.writeValue(addressFull);
         dest.writeValue(customerNumber);
         dest.writeValue(firstName);
-        dest.writeTypedList(internetServices);
-        dest.writeTypedList(telephonyServices);
     }
 
     public int describeContents() {

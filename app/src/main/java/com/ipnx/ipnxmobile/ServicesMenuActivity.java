@@ -81,7 +81,6 @@ public class ServicesMenuActivity extends AppCompatActivity {
     }
 
     public void onMenuButtonClicked(View view){
-        Intent i;
         switch (view.getId()) {
             case R.id.data_menu:
                 dataLayout.toggle();

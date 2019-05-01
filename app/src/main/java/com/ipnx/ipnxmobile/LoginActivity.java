@@ -23,9 +23,11 @@ import android.widget.Toast;
 
 import com.ipnx.ipnxmobile.models.requests.LoginRequestValues;
 import com.ipnx.ipnxmobile.models.requests.Request;
+import com.ipnx.ipnxmobile.models.responses.login.LoginCustomValues;
 import com.ipnx.ipnxmobile.models.responses.login.LoginResponse;
 import com.ipnx.ipnxmobile.retrofit.MyApiEndpointInterface;
 import com.ipnx.ipnxmobile.retrofit.RetrofitUtils;
+import com.ipnx.ipnxmobile.wifianalyzer.WifiAnalyzerActivity;
 
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.*;
 
@@ -111,6 +113,7 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
+                setProfile(returnedResponse.getCustomValues());
                 // Checks if the user is validated. 0 means valid response
                 if (returnedResponse.getResponseCode().equals("0")){
                     Intent i = new Intent(LoginActivity.this, ServicesMenuActivity.class);
@@ -137,14 +140,20 @@ public class LoginActivity extends AppCompatActivity {
                 loginStatus.setVisibility(View.INVISIBLE);
                 linearLayout.setVisibility(View.VISIBLE);
 
-                //
-//                Intent i = new Intent(LoginActivity.this, ServicesMenuActivity.class);
-//                startActivity(i);
-                //
+                Intent i = new Intent(LoginActivity.this, WifiAnalyzerActivity.class);
+                startActivity(i);
 
             }
         });
 
+    }
+
+    private void setProfile(LoginCustomValues values) {
+        userProfile.setFullName(values.getFullName());
+        userProfile.setAddress(values.getAddress());
+        userProfile.setEmailAddress(values.getEmailAddress());
+        userProfile.setPhoneNumber(values.getPhoneNumber());
+        userProfile.setId(values.getId());
     }
 
     public void onForgotPasswordClicked(View view){
@@ -155,12 +164,6 @@ public class LoginActivity extends AppCompatActivity {
     private void closeActivity() {
         finish();
     }
-
-    // Checks if the email or password fields are empty
-//    private boolean anyFieldIsEmpty(){
-//        return  (TextUtils.isEmpty(username.getText().toString()) || TextUtils.isEmpty(password.getText().toString()));
-//    }
-
 
     private void checkLocationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {  // Only ask for these permissions on runtime when running Android 6.0 or higher

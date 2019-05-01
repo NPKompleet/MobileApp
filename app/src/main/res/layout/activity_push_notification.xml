@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".FeedbackActivity">
+    tools:context=".PushNotificationActivity">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -21,41 +21,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="150dp"
                 android:orientation="vertical">
-
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:text="@string/feedack_string"
-                    android:textColor="@color/black_text"
-                    android:textSize="20sp" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_margin="16dp"
-                    android:background="@drawable/grey_border_square_shape"
-                    android:elevation="10dp"
-                    android:gravity="top"
-                    android:hint="Type your message here"
-                    android:inputType="textMultiLine"
-                    android:padding="8dp" />
-
-                <Button
-                    android:layout_width="120dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:background="@drawable/indigo_fill_button"
-                    android:onClick="onSubmitClicked"
-                    android:text="Submit"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="This feature is not available yet."/>
             </LinearLayout>
         </ScrollView>
     </android.support.v7.widget.CardView>
-
 
     <ImageView style="@style/StyledTopImageView" />
 
@@ -66,6 +39,6 @@
 
     <TextView
         style="@style/PageTitle"
-        android:text="Feedback" />
+        android:text="Push Notifications" />
 
 </android.support.constraint.ConstraintLayout>
