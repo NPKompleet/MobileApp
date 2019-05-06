@@ -19,6 +19,7 @@
             android:paddingTop="150dp">
 
             <TextView
+                android:id="@+id/service_plan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -41,11 +42,34 @@
                     android:textColor="@color/black_text" />
 
                 <TextView
+                    android:id="@+id/balance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
                     android:text="N45,000"
+                    android:textColor="@color/beige" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Expiry Date:"
+                    android:textColor="@color/black_text" />
+
+                <TextView
+                    android:id="@+id/expiryDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:text="May 1, 2019"
                     android:textColor="@color/beige" />
 
             </LinearLayout>

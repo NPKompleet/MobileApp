@@ -3,6 +3,7 @@ package com.ipnx.ipnxmobile;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.DatePicker;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ipnx.ipnxmobile.adapters.DataHistoryAdapter;
+import com.ipnx.ipnxmobile.adapters.TransactionHistoryAdapter;
 import com.ipnx.ipnxmobile.customviews.DataChartView;
 import com.ipnx.ipnxmobile.models.requests.DataHistoryRequestValues;
 import com.ipnx.ipnxmobile.models.requests.Request;
@@ -36,6 +38,7 @@ import retrofit2.Response;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.ACTION_DATA_HISTORY;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.ACTION_DATA_USAGE;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.DEVICE_ID;
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_EXPIRY_DATE;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_ONT_SERIAL;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_PACKAGE_CLASS_COMMENT;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_SERVICE_PLAN;
@@ -68,6 +71,21 @@ public class DataUsageActivity extends AppCompatActivity {
     @BindView(R.id.data_status_text)
     TextView statusText;
 
+    @BindView(R.id.data_exp_date)
+    TextView expiryDate;
+
+    @BindView(R.id.data_data_allowance)
+    TextView allowance;
+
+    @BindView(R.id.data_rollOver)
+    TextView rollOver;
+
+    @BindView(R.id.data_usedData)
+    TextView usedData;
+
+    @BindView(R.id.data_totalData)
+    TextView totalData;
+
     @BindView(R.id.page_subtitle)
     TextView pageSubtitle;
 
@@ -86,8 +104,10 @@ public class DataUsageActivity extends AppCompatActivity {
         ontSerial = getIntent().getStringExtra(EXTRA_KEY_ONT_SERIAL);
         packageComment = getIntent().getStringExtra(EXTRA_KEY_PACKAGE_CLASS_COMMENT);
         String plan = getIntent().getStringExtra(EXTRA_KEY_SERVICE_PLAN);
+        String expDate = getIntent().getStringExtra(EXTRA_KEY_EXPIRY_DATE);
 
         pageSubtitle.setText("Service Plan: " + plan.split("  ")[0]);
+        expiryDate.setText("Expiry Date: " + expDate);
 
         DateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd");
         date= new Date();
@@ -96,6 +116,11 @@ public class DataUsageActivity extends AppCompatActivity {
         dateTo.setText(dateString);
 
         getDataInfo();
+
+        adapter= new DataHistoryAdapter(dataHistoryList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+
         getDataHistory();
     }
 
@@ -110,17 +135,36 @@ public class DataUsageActivity extends AppCompatActivity {
         dataRequest.setCustomValues(requestValues);
         dataRequest.setDid(DEVICE_ID);
 
+        final long oneGigaByte = 1073741824;
         myApi= RetrofitUtils.getService();
         Call<DataUsageResponse> call = myApi.fetchDataInfo(dataRequest);
         call.enqueue(new Callback<DataUsageResponse>() {
             @Override
             public void onResponse(Call<DataUsageResponse> call, Response<DataUsageResponse> response) {
-                Toast.makeText(DataUsageActivity.this, "successful " + response.body().getCustomValues().getCycleUsage().getCycleMbUsed(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(DataUsageActivity.this, "successful", Toast.LENGTH_SHORT).show();
+                DataUsageResponse usageResponse = response.body();
+                if (usageResponse == null){
+                    Toast.makeText(DataUsageActivity.this, "Network Error", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (usageResponse.getResponseCode().equals("0")){
+                    long dataRollOver = Long.parseLong(usageResponse.getCustomValues().getRollover().getDataRolledover());
+                    long dataAllowance = Long.parseLong(usageResponse.getCustomValues().getDataAllowance().getPeak());
+                    long dataUsed = Long.parseLong(usageResponse.getCustomValues().getCycleUsage().getCycleMbUsed()+"");
+                    long dataTotal = dataRollOver + dataAllowance;
+                    rollOver.setText("Data Rolled Over: "+ dataRollOver/oneGigaByte + "GB");
+                    allowance.setText("Data Allowance: " + dataAllowance/oneGigaByte+ "GB");
+                    usedData.setText("Used Data: " + dataUsed/oneGigaByte + "GB");
+                    totalData.setText("Total Allowed: " + (dataTotal)/oneGigaByte + "GB");
+                    dataChartView.moveTo(dataTotal, dataUsed);
+                    return;
+                }
+                Toast.makeText(DataUsageActivity.this, usageResponse.getResponseMessage(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<DataUsageResponse> call, Throwable t) {
-                Toast.makeText(DataUsageActivity.this, "failure", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DataUsageActivity.this, "Network Failure", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -139,7 +183,17 @@ public class DataUsageActivity extends AppCompatActivity {
         call.enqueue(new Callback<DataHistoryResponse>() {
             @Override
             public void onResponse(Call<DataHistoryResponse> call, Response<DataHistoryResponse> response) {
-
+                DataHistoryResponse historyResponse = response.body();
+                if (historyResponse != null){
+                    dataHistoryList = historyResponse.getCustomValues().getHistory();
+                }
+                adapter.setData(dataHistoryList);
+                progressBar.setVisibility(View.INVISIBLE);
+                if (dataHistoryList.isEmpty()){
+                    statusText.setText("There are no records to show");
+                }else {
+                    statusText.setVisibility(View.INVISIBLE);
+                }
             }
 
             @Override
@@ -152,7 +206,7 @@ public class DataUsageActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        dataChartView.moveTo(500, 350);
+//        dataChartView.moveTo(500, 350);
     }
 
     public void onDateClicked(View view){

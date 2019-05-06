@@ -103,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
         call.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                Toast.makeText(LoginActivity.this, "deviceId: "+ DEVICE_ID, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(LoginActivity.this, "deviceId: "+ DEVICE_ID, Toast.LENGTH_SHORT).show();
                 LoginResponse returnedResponse = response.body();
                 if (returnedResponse == null){
                     Toast.makeText(LoginActivity.this, "Network error. Please try again", Toast.LENGTH_SHORT).show();
@@ -117,6 +117,8 @@ public class LoginActivity extends AppCompatActivity {
                 // Checks if the user is validated. 0 means valid response
                 if (returnedResponse.getResponseCode().equals("0")){
                     Intent i = new Intent(LoginActivity.this, ServicesMenuActivity.class);
+                    userProfile.setUserName(loginValues.getCUsername());
+                    userProfile.setPassword(loginValues.getCPassword());
                     i.putExtra(EXTRA_KEY_RESPONSE, returnedResponse);
                     i.putExtra(EXTRA_KEY_LOGIN, loginValues);
                     startActivity(i);
@@ -140,8 +142,8 @@ public class LoginActivity extends AppCompatActivity {
                 loginStatus.setVisibility(View.INVISIBLE);
                 linearLayout.setVisibility(View.VISIBLE);
 
-                Intent i = new Intent(LoginActivity.this, WifiAnalyzerActivity.class);
-                startActivity(i);
+//                Intent i = new Intent(LoginActivity.this, WifiAnalyzerActivity.class);
+//                startActivity(i);
 
             }
         });
@@ -154,6 +156,10 @@ public class LoginActivity extends AppCompatActivity {
         userProfile.setEmailAddress(values.getEmailAddress());
         userProfile.setPhoneNumber(values.getPhoneNumber());
         userProfile.setId(values.getId());
+        userProfile.setFirstName(values.getFirstName());
+        userProfile.setLastName(values.getLastName());
+        userProfile.setPhoneNumber(values.getPhoneNumber());
+        userProfile.setCustomerNumber(values.getCustomerNumber());
     }
 
     public void onForgotPasswordClicked(View view){

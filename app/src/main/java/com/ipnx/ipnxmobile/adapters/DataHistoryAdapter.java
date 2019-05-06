@@ -1,11 +1,13 @@
 package com.ipnx.ipnxmobile.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ipnx.ipnxmobile.R;
@@ -44,7 +46,11 @@ public class DataHistoryAdapter extends
     public void onBindViewHolder(@NonNull HistoryHolder historyHolder, int position) {
         List<String> item = historyList.get(position);
         historyHolder.month.setText(item.get(0));
-        historyHolder.data.setText(item.get(1));
+        historyHolder.data.setText(item.get(1) + "GB");
+        if (position % 2 != 0){
+            historyHolder.layout.setBackgroundColor(Color.parseColor("#EFEFEF"));
+//            historyHolder.layout.set
+        }
 
     }
 
@@ -58,6 +64,8 @@ public class DataHistoryAdapter extends
         TextView month;
         @BindView(R.id.data)
         TextView data;
+        @BindView(R.id.item_layout)
+        LinearLayout layout;
 
         public HistoryHolder(@NonNull View itemView) {
             super(itemView);

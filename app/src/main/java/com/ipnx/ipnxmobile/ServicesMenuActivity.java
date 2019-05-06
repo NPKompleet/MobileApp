@@ -1,18 +1,19 @@
 package com.ipnx.ipnxmobile;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 import com.ipnx.ipnxmobile.adapters.InternetServiceAdapter;
 import com.ipnx.ipnxmobile.adapters.TelephonyServiceAdapter;
 import com.ipnx.ipnxmobile.models.requests.LoginRequestValues;
-import com.ipnx.ipnxmobile.models.responses.login.LoginCustomValues;
 import com.ipnx.ipnxmobile.models.responses.login.LoginResponse;
+
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,6 +40,9 @@ public class ServicesMenuActivity extends AppCompatActivity {
 
     @BindView(R.id.voice_menu)
     Button voiceButton;
+
+    boolean backAlreadyPressed = false;
+    long timeFirstPressed;
 
 
     @Override
@@ -89,5 +93,24 @@ public class ServicesMenuActivity extends AppCompatActivity {
                 voiceLayout.toggle();
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Date currentDateTime = new Date();
+        if (!backAlreadyPressed){
+            Toast.makeText(this, "Press Back again to exit app", Toast.LENGTH_SHORT).show();
+            timeFirstPressed = currentDateTime.getTime();
+            backAlreadyPressed = true;
+            return;
+        }else {
+            if (currentDateTime.getTime() - timeFirstPressed > 2000){
+                Toast.makeText(this, "Press Back again to exit app", Toast.LENGTH_SHORT).show();
+                timeFirstPressed = currentDateTime.getTime();
+                backAlreadyPressed = true;
+                return;
+            }
+        }
+        super.onBackPressed();
     }
 }

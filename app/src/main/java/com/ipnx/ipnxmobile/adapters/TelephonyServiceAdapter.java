@@ -45,13 +45,11 @@ public class TelephonyServiceAdapter extends ArrayAdapter<TelephonyService> {
         }
 
         TextView packageName = rowView.findViewById(R.id.voice_list_type);
-        TextView packageStatus = rowView.findViewById(R.id.voice_list_status);
         View line = (View) rowView.findViewById(R.id.voice_divider);
         line.setVisibility(position == serviceList.size() - 1 ? View.INVISIBLE : View.VISIBLE);
 
         final TelephonyService service = serviceList.get(position);
-        packageName.setText(service.getPackageName());
-        packageStatus.setText(service.getStatus().equals("")?"Inact" : service.getStatus());
+        packageName.setText(service.getPackageName().split("  ")[0]);
 
 
         rowView.setOnClickListener(new View.OnClickListener() {

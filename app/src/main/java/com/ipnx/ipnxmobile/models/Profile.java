@@ -30,11 +30,30 @@ public class Profile implements Parcelable
     private String message;
     private ServiceAddress serviceAddress;
     private String emailAddresses;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     private String balance;
     private String type;
     private String addressFull;
     private String customerNumber;
     private String firstName;
+    private String userName;
+    private String password;
 
     public final static Creator<Profile> CREATOR = new Creator<Profile>() {
 

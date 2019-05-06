@@ -24,6 +24,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Random;
 
 public class ApplicationUtils {
     public static final Profile userProfile = new Profile();
@@ -38,6 +39,9 @@ public class ApplicationUtils {
     public static final String ACTION_VIEW_CDR = "view call detail records";
     public static final String ACTION_DATA_USAGE = "View data usage records";
     public static final String ACTION_DATA_HISTORY = "get historical data";
+    public static final String ACTION_FEEDBACK = "Get ipNXMobile customer feedback";
+    public static final String ACTION_ADD_PAYMENT = "Add cash payment";
+    public static final String ACTION_SUBSCRIPTION_SETTINGS = "fetch/change data usage settings";
     public static final String EXTRA_KEY_RESPONSE = "response";
     public static final String EXTRA_KEY_LOGIN = "loginValues";
     public static final String EXTRA_KEY_USERNAME = "userID";
@@ -47,6 +51,8 @@ public class ApplicationUtils {
     public static final String EXTRA_KEY_ONT_SERIAL = "ontSerial";
     public static final String EXTRA_KEY_PACKAGE_CLASS_COMMENT = "packageComment";
     public static final String EXTRA_KEY_SERVICE_PLAN = "servicePlan";
+    public static final String EXTRA_KEY_EXPIRY_DATE = "expiryDate";
+    public static final String APP_URL = "";
 
     public static Bitmap getBitmapFromView(View view) {
         //Define a bitmap with the same size as the view
@@ -127,5 +133,16 @@ public class ApplicationUtils {
             locationProviders = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
             return !TextUtils.isEmpty(locationProviders);
         }
+    }
+
+    public static String getRandomAlphabeticString(int stringLength) {
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < stringLength) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        return salt.toString();
     }
 }

@@ -19,6 +19,8 @@ import com.ipnx.ipnxmobile.wifianalyzer.WifiAnalyzerActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.APP_URL;
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_EXPIRY_DATE;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_INTERNET_SERVICE;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_LOGIN;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_ONT_SERIAL;
@@ -38,6 +40,15 @@ public class ManageServiceActivity extends AppCompatActivity
     @BindView(R.id.nav_view)
     NavigationView navigationView;
 
+    @BindView(R.id.service_plan)
+    TextView servicePlan;
+
+    @BindView(R.id.balance)
+    TextView balance;
+
+    @BindView(R.id.expiryDate)
+    TextView expiryDate;
+
     @BindView(R.id.page_subtitle)
     TextView pageSubtitle;
 
@@ -55,6 +66,15 @@ public class ManageServiceActivity extends AppCompatActivity
         loginValues = getIntent().getParcelableExtra(EXTRA_KEY_LOGIN);
         service = getIntent().getParcelableExtra(EXTRA_KEY_INTERNET_SERVICE);
         pageSubtitle.setText("User ID: " + userProfile.getId());
+        servicePlan.setText(service.getPackageName().split("  ")[0]);
+        balance.setText(service.getPackageBalance());
+        expiryDate.setText(service.getExpiryDate());
+
+        View headerView = navigationView.getHeaderView(0);
+        TextView navFullName = headerView.findViewById(R.id.nav_full_name);
+        TextView navEmail = headerView.findViewById(R.id.nav_email);
+        navFullName.setText(userProfile.getFullName());
+        navEmail.setText("" + userProfile.getId());
 
     }
 
@@ -72,7 +92,6 @@ public class ManageServiceActivity extends AppCompatActivity
     }
 
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -106,11 +125,19 @@ public class ManageServiceActivity extends AppCompatActivity
             startActivity(i);
 
         } else if (id == R.id.nav_share) {
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "Hello. Download ipNX Mobile app from here: " + APP_URL);
+            startActivity(shareIntent);
 
         } else if (id == R.id.nav_faq) {
             Intent i = new Intent(this, FAQActivity.class);
             startActivity(i);
 
+        } else if (id == R.id.nav_notification) {
+            Intent i = new Intent(this, PushNotificationActivity.class);
+            startActivity(i);
         }
 
         drawer.closeDrawer(GravityCompat.START);
@@ -125,6 +152,7 @@ public class ManageServiceActivity extends AppCompatActivity
                 i.putExtra(EXTRA_KEY_ONT_SERIAL, service.getUsername());
                 i.putExtra(EXTRA_KEY_PACKAGE_CLASS_COMMENT, service.getPackageClassComment());
                 i.putExtra(EXTRA_KEY_SERVICE_PLAN, service.getPackageName());
+                i.putExtra(EXTRA_KEY_EXPIRY_DATE, service.getExpiryDate());
                 startActivity(i);
                 break;
             case R.id.service_manage_settings:
@@ -134,10 +162,19 @@ public class ManageServiceActivity extends AppCompatActivity
                 break;
             case R.id.service_renew:
                 i = new Intent(this, RenewPaymentActivity.class);
+                i.putExtra(EXTRA_KEY_INTERNET_SERVICE, service);
                 startActivity(i);
                 break;
             case R.id.service_choose_plan:
                 finish();
+                break;
+            case R.id.service_change_wifi_password:
+                i = new Intent(this, ChangeWifiPasswordActivity.class);
+                startActivity(i);
+                break;
+            case R.id.service_change_plan:
+                i = new Intent(this, ChangeServicePlanActivity.class);
+                startActivity(i);
                 break;
         }
     }

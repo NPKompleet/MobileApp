@@ -11,9 +11,11 @@ public class PaymentCallback extends IswCallback<PurchaseResponse> {
 
         private transient Context context;
         private transient String ref;
+        private transient PostPaymentHandler handler;
 
-        public PaymentCallback(Context context, String ref) {
+        public PaymentCallback(Context context, PostPaymentHandler handler, String ref) {
             this.context = context;
+            this.handler = handler;
             this.ref = ref;
         }
 
@@ -52,5 +54,7 @@ public class PaymentCallback extends IswCallback<PurchaseResponse> {
         System.out.println(response.getTransactionIdentifier());
         System.out.println(response.getTransactionRef());
         System.out.println(ref);
+
+        handler.postPayment(response);
     }
 }

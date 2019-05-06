@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -22,6 +23,7 @@ public class DataChartView extends View {
     private float totalDataValue, usedDataValue;
     private Paint totalDataPaint, usedDataPaint, centerPaint;
     RectF rect = new RectF();
+    private Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
 
     ObjectAnimator animator;
     private Interpolator interpolator;
@@ -82,6 +84,21 @@ public class DataChartView extends View {
 //        canvas.drawArc(rect, 255.0f, 75.0f, true, usedDataPaint);
 //        canvas.drawCircle(radius, centerY, radius/2, centerPaint);
         canvas.drawCircle(radius, centerY, 3*radius/4, centerPaint);
+
+        // Draw value text
+        p.setColor(Color.parseColor("#000000"));
+        String text = ""+ Math.round(usedDataValue);
+        Rect bounds = new Rect();
+        p.setFakeBoldText(true);
+//        p.set
+        float textSize = dpToPx(50);
+        float textPadding = 0f;
+        p.setTextSize(textSize);
+        p.getTextBounds(text, 0, text.length(), bounds);
+        int textHeight = bounds.height();
+        int textWidth = bounds.width();
+        canvas.drawText(text, radius - textWidth / 2f, centerY + textHeight/4f, p);
+
     }
 
     private int dpToPx(int dp) {

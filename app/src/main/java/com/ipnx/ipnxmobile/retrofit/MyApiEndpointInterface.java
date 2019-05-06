@@ -2,12 +2,14 @@ package com.ipnx.ipnxmobile.retrofit;
 
 
 import com.ipnx.ipnxmobile.models.responses.Response;
+import com.ipnx.ipnxmobile.models.responses.addcash.AddCashResponse;
 import com.ipnx.ipnxmobile.models.responses.cdr.CallRecordResponse;
 import com.ipnx.ipnxmobile.models.responses.datausage.DataHistoryResponse;
 import com.ipnx.ipnxmobile.models.responses.datausage.DataUsageResponse;
 import com.ipnx.ipnxmobile.models.responses.forgotpassword.ForgotPasswordResponse;
 import com.ipnx.ipnxmobile.models.responses.login.LoginResponse;
 import com.ipnx.ipnxmobile.models.requests.Request;
+import com.ipnx.ipnxmobile.models.responses.subscriptionsettings.SubscriptionSettingsResponse;
 import com.ipnx.ipnxmobile.models.responses.transactionhistory.TransactionResponse;
 
 import retrofit2.Call;
@@ -51,5 +53,8 @@ public interface MyApiEndpointInterface {
     Call<Response> sendFeedback(@Body Request feedbackRequest);
 
     @POST("addcash")
-    Call<Response> addPayment(@Body Request addPaymentRequest);
+    Call<AddCashResponse> addPayment(@Body Request addPaymentRequest);
+
+    @POST("duasettings")
+    Call<SubscriptionSettingsResponse> subscriptionSettings(@Body Request subscriptionSettingsRequest);
 }

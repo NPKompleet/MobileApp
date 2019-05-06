@@ -11,13 +11,23 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ipnx.ipnxmobile.models.requests.Request;
+import com.ipnx.ipnxmobile.models.requests.SubscriptionSettingsRequestValues;
 import com.ipnx.ipnxmobile.models.responses.login.InternetService;
+import com.ipnx.ipnxmobile.models.responses.subscriptionsettings.SubscriptionSettingsResponse;
+import com.ipnx.ipnxmobile.retrofit.MyApiEndpointInterface;
+import com.ipnx.ipnxmobile.retrofit.RetrofitUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.ACTION_SUBSCRIPTION_SETTINGS;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_INTERNET_SERVICE;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.networkActive;
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.userProfile;
 
 public class SubscriptionSettingsActivity extends AppCompatActivity {
     public static final String AppPREFERENCES = "AppPrefs" ;
@@ -41,9 +51,14 @@ public class SubscriptionSettingsActivity extends AppCompatActivity {
     @BindView(R.id.sub_settings_switch_renewal)
     SwitchCompat setAutoRenewal;
 
+    MyApiEndpointInterface myApi;
+
     SharedPreferences sharedpreferences;
 
     SharedPreferences.Editor editor;
+
+    String analyticsState = "0";
+    String renewalState = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,17 +67,14 @@ public class SubscriptionSettingsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         service = getIntent().getParcelableExtra(EXTRA_KEY_INTERNET_SERVICE);
-        sharedpreferences = getSharedPreferences(AppPREFERENCES, Context.MODE_PRIVATE);
-        editor = sharedpreferences.edit();
-        boolean canViewAnalytics = sharedpreferences.getBoolean(Analytics, false);
-        boolean canAutoRenew = sharedpreferences.getBoolean(AutoRenewal, false);
-
         pageSubtitle.setText("Service Plan: " + service.getPackageName().split("  ")[0]);
         serviceAddress.setText("Service Address: " + service.getServiceLocation());
         deviceNumber.setText("Device Number: " + service.getUsername());
-        setViewAnalytics.setChecked(canViewAnalytics);
-        setAutoRenewal.setChecked(canAutoRenew);
-        
+
+        sharedpreferences = getSharedPreferences(AppPREFERENCES, Context.MODE_PRIVATE);
+        editor = sharedpreferences.edit();
+
+        getSettingsState();
 
         setViewAnalytics.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -73,13 +85,14 @@ public class SubscriptionSettingsActivity extends AppCompatActivity {
                     setViewAnalytics.setChecked(!isChecked);
                     return;
                 }
-                if (isChecked){
-                    editor.putBoolean(Analytics, true);
-                    makeToastNotification("Analytics", "ON");
-                }else {
-                    editor.putBoolean(Analytics, false);
-                    makeToastNotification("Analytics", "OFF");
-                }
+//                if (isChecked){
+//                    editor.putBoolean(Analytics, true);
+//                    makeToastNotification("Analytics", "ON");
+//                }else {
+//                    editor.putBoolean(Analytics, false);
+//                    makeToastNotification("Analytics", "OFF");
+//                }
+                editor.putBoolean(Analytics, isChecked);
                 editor.apply();
             }
         });
@@ -93,14 +106,64 @@ public class SubscriptionSettingsActivity extends AppCompatActivity {
                     setAutoRenewal.setChecked(!isChecked);
                     return;
                 }
-                if (isChecked){
-                    editor.putBoolean(AutoRenewal, true);
-                    makeToastNotification("Auto-Renewal", "ON");
-                }else {
-                    editor.putBoolean(AutoRenewal, false);
-                    makeToastNotification("Auto-Renewal", "OFF");
-                }
+//                if (isChecked){
+//                    editor.putBoolean(AutoRenewal, true);
+//                    makeToastNotification("Auto-Renewal", "ON");
+//                }else {
+//                    editor.putBoolean(AutoRenewal, false);
+//                    makeToastNotification("Auto-Renewal", "OFF");
+//                }
+                editor.putBoolean(AutoRenewal, isChecked);
                 editor.apply();
+            }
+        });
+    }
+
+    private void getSettingsState() {
+        Request subSettingsRequest = new Request();
+        SubscriptionSettingsRequestValues requestValues = new SubscriptionSettingsRequestValues();
+        requestValues.setCSettings("1");
+        requestValues.setCCustomerId(Long.parseLong(userProfile.getCustomerNumber()));
+        requestValues.setCServiceId(service.getUsername());
+        requestValues.setCPkgnum(service.getPkgnum());
+
+        subSettingsRequest.setCustomValues(requestValues);
+        subSettingsRequest.setAction(ACTION_SUBSCRIPTION_SETTINGS);
+
+        myApi = RetrofitUtils.getService();
+        Call<SubscriptionSettingsResponse> call = myApi.subscriptionSettings(subSettingsRequest);
+        call.enqueue(new Callback<SubscriptionSettingsResponse>() {
+            @Override
+            public void onResponse(Call<SubscriptionSettingsResponse> call, Response<SubscriptionSettingsResponse> response) {
+                SubscriptionSettingsResponse returnedResponse = response.body();
+                if (returnedResponse == null ){
+                    Toast.makeText(SubscriptionSettingsActivity.this, "Could not sync settings", Toast.LENGTH_SHORT).show();
+                    boolean canViewAnalytics = sharedpreferences.getBoolean(Analytics, false);
+                    boolean canAutoRenew = sharedpreferences.getBoolean(AutoRenewal, false);
+                    setViewAnalytics.setChecked(canViewAnalytics);
+                    setAutoRenewal.setChecked(canAutoRenew);
+                    return;
+                }
+                if (!returnedResponse.getResponseCode().equals("0")){
+                    Toast.makeText(SubscriptionSettingsActivity.this, returnedResponse.getResponseMessage(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+                editor.putBoolean(Analytics, returnedResponse.getCustomValues().getSettings().getAnalytics().equals("1"));
+                editor.putBoolean(AutoRenewal, returnedResponse.getCustomValues().getSettings().getAutoRenewal().equals("1"));
+                editor.apply();
+
+                boolean canViewAnalytics = sharedpreferences.getBoolean(Analytics, false);
+                boolean canAutoRenew = sharedpreferences.getBoolean(AutoRenewal, false);
+                setViewAnalytics.setChecked(canViewAnalytics);
+                setAutoRenewal.setChecked(canAutoRenew);
+
+            }
+
+            @Override
+            public void onFailure(Call<SubscriptionSettingsResponse> call, Throwable t) {
+                Toast.makeText(SubscriptionSettingsActivity.this, "Failure: Could not sync settings", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -112,6 +175,5 @@ public class SubscriptionSettingsActivity extends AppCompatActivity {
     public void onBackClicked(View view){
         finish();
     }
-    
-    
+
 }

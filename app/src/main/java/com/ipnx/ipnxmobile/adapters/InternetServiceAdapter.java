@@ -46,16 +46,11 @@ public InternetServiceAdapter(@NonNull Context context, List<InternetService> li
         }
 
         TextView packageName = rowView.findViewById(R.id.data_list_package);
-        TextView packageBalance = rowView.findViewById(R.id.data_list_balance);
-        TextView packageExpDate = rowView.findViewById(R.id.data_list_exp_date);
         View line = (View) rowView.findViewById(R.id.data_list_line);
         line.setVisibility(position == serviceList.size() - 1 ? View.INVISIBLE : View.VISIBLE);
 
         final InternetService service = serviceList.get(position);
-        packageName.setText(service.getPackageName());
-        packageBalance.setText(service.getPackageBalance());
-        packageExpDate.setText(service.getExpiryDate());
-
+        packageName.setText(service.getPackageName().split("  ")[0]);
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

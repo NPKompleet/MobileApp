@@ -11,16 +11,39 @@ import com.interswitchng.sdk.auth.Passport;
 import com.interswitchng.sdk.model.RequestOptions;
 import com.interswitchng.sdk.payment.Payment;
 import com.interswitchng.sdk.payment.android.inapp.PayWithCard;
+import com.interswitchng.sdk.payment.model.PurchaseResponse;
 import com.interswitchng.sdk.util.RandomString;
+import com.ipnx.ipnxmobile.models.requests.AddPaymentRequestValues;
+import com.ipnx.ipnxmobile.models.requests.Request;
+import com.ipnx.ipnxmobile.models.responses.Response;
+import com.ipnx.ipnxmobile.models.responses.addcash.AddCashResponse;
+import com.ipnx.ipnxmobile.models.responses.login.InternetService;
 import com.ipnx.ipnxmobile.payment.PaymentCallback;
+import com.ipnx.ipnxmobile.payment.PostPaymentHandler;
+import com.ipnx.ipnxmobile.retrofit.MyApiEndpointInterface;
+import com.ipnx.ipnxmobile.retrofit.RetrofitUtils;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.ACTION_ADD_PAYMENT;
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_INTERNET_SERVICE;
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.getRandomAlphabeticString;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.networkActive;
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.userProfile;
 
-public class RenewPaymentActivity extends AppCompatActivity {
+public class RenewPaymentActivity extends AppCompatActivity implements PostPaymentHandler {
 
     TextView balance;
     EditText amount;
     TextView pageSubtitle;
+    InternetService service;
+
+    MyApiEndpointInterface myApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,38 +56,90 @@ public class RenewPaymentActivity extends AppCompatActivity {
         amount = findViewById(R.id.renew_amount);
         pageSubtitle = findViewById(R.id.page_subtitle);
 
+        service = getIntent().getParcelableExtra(EXTRA_KEY_INTERNET_SERVICE);
+        pageSubtitle.setText("Service Plan: " + service.getPackageName().split("  ")[0]);
+
     }
 
-    public void makePayment(View view){
-        if (!networkActive(this)){
+    public void makePayment(View view) {
+        if (!networkActive(this)) {
             Toast.makeText(this, "Network is unavailable", Toast.LENGTH_SHORT).show();
             return;
         }
+        String amountToPay = amount.getText().toString();
+        if (amountToPay.isEmpty()){
+            Toast.makeText(this, "Amount cannot be empty", Toast.LENGTH_SHORT).show();
+            return;
+        }
         long unixTime = System.currentTimeMillis() / 1000L;
-        String transRef = RandomString.numeric(12);
-        PaymentCallback paymentCallback = new PaymentCallback(RenewPaymentActivity.this, transRef);
+        String customerNumber = userProfile.getCustomerNumber();
+        String idAndTime = customerNumber + unixTime;
+        String transRef = idAndTime + getRandomAlphabeticString(26-idAndTime.length());
+        System.out.println(customerNumber);
+        System.out.println(unixTime);
         System.out.println(transRef);
+        PaymentCallback paymentCallback = new PaymentCallback(RenewPaymentActivity.this, this, transRef);
         RequestOptions options = RequestOptions.builder()
-//                .setClientId("IKIA9614B82064D632E9B6418DF358A6A4AEA84D7218")
                 .setClientId("IKIA67A8FBB81191FC4F1226098245E9541711B3E959")
-//                .setClientId("IKIAA74F4FDA133BDB2712DD1A6D3DA4503CBE745674")
-//                .setClientSecret("XCTiBtLy1G9chAnyg0z3BcaFK4cVpwDg/GTw2EmjTZ8=")
                 .setClientSecret("FQ+X6B28Y/HJZdsDa1SsbKI23W+pIOLcyxBhGgb8Q9U=")
-//                .setClientSecret("secret")
                 .build();
-        PayWithCard payWithCard = new PayWithCard(this, "1407002510",
-                "desc", amount.getText().toString(), "NGN", transRef, options, paymentCallback);
+        PayWithCard payWithCard = new PayWithCard(this, customerNumber,
+                pageSubtitle.getText().toString(), amountToPay, "NGN", transRef, options, paymentCallback);
 
         payWithCard.start();
         Toast.makeText(RenewPaymentActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
     }
 
 
-    public void cancelPayment(View view){
+    public void cancelPayment(View view) {
 
     }
 
-    public void onBackClicked(View view){
+    public void onBackClicked(View view) {
         finish();
+    }
+
+    @Override
+    public void postPayment(PurchaseResponse response) {
+        Date date= new Date();
+        DateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateString = dateFormat.format(date);
+
+        Request addPaymentRequest = new Request();
+        AddPaymentRequestValues requestValues = new AddPaymentRequestValues();
+        requestValues.setCUsername(userProfile.getUserName());
+        requestValues.setCPassword(userProfile.getPassword());
+        requestValues.setCCustomerNumber(userProfile.getCustomerNumber());
+        requestValues.setCPackageNumber(service.getPkgnum() + "");
+        requestValues.setCMerchantReference(response.getTransactionRef());
+        requestValues.setCCardNumber(response.toString());
+        requestValues.setCRetrievalReferenceNumber(RandomString.numeric(12));
+        requestValues.setCPaymentReference(response.getTransactionIdentifier());
+        requestValues.setCAmount(Long.parseLong(response.getAmount()));
+        requestValues.setCTransactionDate(dateString);
+
+        addPaymentRequest.setCustomValues(requestValues);
+        addPaymentRequest.setAction(ACTION_ADD_PAYMENT);
+
+        myApi= RetrofitUtils.getService();
+        Call<AddCashResponse> call = myApi.addPayment(addPaymentRequest);
+        call.enqueue(new Callback<AddCashResponse>() {
+            @Override
+            public void onResponse(Call<AddCashResponse> call, retrofit2.Response<AddCashResponse> response) {
+                AddCashResponse returnedResponse = response.body();
+                if (returnedResponse == null) return;
+                if (returnedResponse.getResponseCode().equals("0")){
+                    Toast.makeText(RenewPaymentActivity.this, "Payment has been posted", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(RenewPaymentActivity.this, "Problem posting payment", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AddCashResponse> call, Throwable t) {
+                Toast.makeText(RenewPaymentActivity.this, "Problem posting payment", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 }

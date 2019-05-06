@@ -139,9 +139,6 @@ public class ViewCDRActivity extends AppCompatActivity {
         }
     }
 
-//    private boolean anyDateFieldIsEmpty(){
-//        return  (TextUtils.isEmpty(dateFrom.getText().toString()) || TextUtils.isEmpty(dateTo.getText().toString()));
-//    }
 
     public void onSubmitClicked(View view) {
         if (anyFieldIsEmpty(new TextView[]{dateFrom, dateTo})) {

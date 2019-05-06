@@ -14,9 +14,6 @@ public class AddPaymentRequestValues extends CustomValues {
     @SerializedName("c.password")
     @Expose
     private String cPassword;
-    @SerializedName("c.Amount")
-    @Expose
-    private long cAmount;
     @SerializedName("c.CardNumber")
     @Expose
     private String cCardNumber;
@@ -31,25 +28,28 @@ public class AddPaymentRequestValues extends CustomValues {
     private String cRetrievalReferenceNumber;
     @SerializedName("c.LeadBankCbnCode")
     @Expose
-    private String cLeadBankCbnCode;
+    private String cLeadBankCbnCode = "";
     @SerializedName("c.LeadBankName")
     @Expose
-    private String cLeadBankName;
+    private String cLeadBankName = "";
     @SerializedName("c.SplitAccounts")
     @Expose
     private List<Object> cSplitAccounts = null;
     @SerializedName("c.ResponseCode")
     @Expose
-    private String cResponseCode;
+    private String cResponseCode = "00";
     @SerializedName("c.ResponseDescription")
     @Expose
-    private String cResponseDescription;
+    private String cResponseDescription = "Approved Successful";
     @SerializedName("c.message")
     @Expose
-    private String cMessage;
+    private String cMessage = "Approved Successful";
+    @SerializedName("c.amount")
+    @Expose
+    private long cAmount;
     @SerializedName("c.payment_method")
     @Expose
-    private String cPaymentMethod;
+    private String cPaymentMethod = "CARD";
     @SerializedName("c.package_number")
     @Expose
     private String cPackageNumber;
@@ -61,7 +61,7 @@ public class AddPaymentRequestValues extends CustomValues {
     private String cTransactionDate;
     @SerializedName("c.number_of_months")
     @Expose
-    private String cNumberOfMonths;
+    private String cNumberOfMonths="";
 
     public String getCUsername() {
         return cUsername;
@@ -77,14 +77,6 @@ public class AddPaymentRequestValues extends CustomValues {
 
     public void setCPassword(String cPassword) {
         this.cPassword = cPassword;
-    }
-
-    public long getCAmount() {
-        return cAmount;
-    }
-
-    public void setCAmount(long cAmount) {
-        this.cAmount = cAmount;
     }
 
     public String getCCardNumber() {
@@ -165,6 +157,14 @@ public class AddPaymentRequestValues extends CustomValues {
 
     public void setCMessage(String cMessage) {
         this.cMessage = cMessage;
+    }
+
+    public long getCAmount() {
+        return cAmount;
+    }
+
+    public void setCAmount(long cAmount) {
+        this.cAmount = cAmount;
     }
 
     public String getCPaymentMethod() {

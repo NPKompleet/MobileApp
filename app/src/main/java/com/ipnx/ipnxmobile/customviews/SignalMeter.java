@@ -237,7 +237,7 @@ public class SignalMeter extends View {
             canvas.restore();
         }
 
-        //draw value text
+        // Draw value text
         p.setColor(textColor);
 //        String text = (int) (value - 100) + "";
         String text = "dBm";
