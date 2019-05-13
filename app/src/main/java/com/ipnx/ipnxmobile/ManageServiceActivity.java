@@ -65,7 +65,7 @@ public class ManageServiceActivity extends AppCompatActivity
 
         loginValues = getIntent().getParcelableExtra(EXTRA_KEY_LOGIN);
         service = getIntent().getParcelableExtra(EXTRA_KEY_INTERNET_SERVICE);
-        pageSubtitle.setText("User ID: " + userProfile.getId());
+        pageSubtitle.setText(service.getUsername());
         servicePlan.setText(service.getPackageName().split("  ")[0]);
         balance.setText(service.getPackageBalance());
         expiryDate.setText(service.getExpiryDate());
@@ -74,7 +74,7 @@ public class ManageServiceActivity extends AppCompatActivity
         TextView navFullName = headerView.findViewById(R.id.nav_full_name);
         TextView navEmail = headerView.findViewById(R.id.nav_email);
         navFullName.setText(userProfile.getFullName());
-        navEmail.setText("" + userProfile.getId());
+        navEmail.setText(userProfile.getCustomerNumber());
 
     }
 

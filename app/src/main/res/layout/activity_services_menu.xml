@@ -43,9 +43,10 @@
                 android:layout_height="60dp"
                 android:background="@drawable/menu_button1"
                 android:onClick="onMenuButtonClicked"
-                android:text="Show Data Plans"
+                android:text="Show My Data Plans"
                 android:textColor="@color/white"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:textAllCaps="false"/>
 
             <com.github.aakira.expandablelayout.ExpandableRelativeLayout
                 android:id="@+id/data_layout"
@@ -66,9 +67,10 @@
                 android:layout_height="60dp"
                 android:background="@drawable/menu_button2"
                 android:onClick="onMenuButtonClicked"
-                android:text="Show Voice Plans"
+                android:text="Show My Voice Plans"
                 android:textColor="@color/white"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:textAllCaps="false"/>
 
             <com.github.aakira.expandablelayout.ExpandableRelativeLayout
                 android:id="@+id/voice_layout"

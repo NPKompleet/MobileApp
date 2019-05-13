@@ -3,6 +3,7 @@ package com.ipnx.ipnxmobile;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.PopupMenu;
 
 public class ChangeWifiPasswordActivity extends AppCompatActivity {
 
@@ -14,5 +15,9 @@ public class ChangeWifiPasswordActivity extends AppCompatActivity {
 
     public void onBackClicked(View view){
         finish();
+    }
+
+    public void onNameClicked(View view){
+
     }
 }

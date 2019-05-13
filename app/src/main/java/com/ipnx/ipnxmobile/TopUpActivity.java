@@ -87,7 +87,7 @@ public class TopUpActivity extends AppCompatActivity
         TextView navFullName = headerView.findViewById(R.id.nav_full_name);
         TextView navEmail = headerView.findViewById(R.id.nav_email);
         navFullName.setText(userProfile.getFullName());
-        navEmail.setText(""+userProfile.getId());
+        navEmail.setText(userProfile.getCustomerNumber());
     }
 
     public void makePayment(View view){

@@ -167,7 +167,6 @@
         <item name="android:src">@drawable/ic_back</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
-        <item name="layout_constraintTop_toTopOf">parent</item>
         <item name="android:background">@drawable/click_indicator</item>
     </style>
 
@@ -205,6 +204,10 @@
         <item name="android:background">@drawable/grey_border_rect_shape</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
+    </style>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/background_splash</item>
     </style>
 
 </resources>
