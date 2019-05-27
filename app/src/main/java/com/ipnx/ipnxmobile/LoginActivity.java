@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -37,7 +38,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
     @BindView(R.id.login_linear_layout)
     LinearLayout linearLayout;
 
@@ -71,6 +72,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void openMainView(View view){
+        Location location = getLastBestLocation();
+
         if (anyFieldIsEmpty(new TextView[]{username, password})){
             Snackbar.make(linearLayout, "UserId or Password cannot be empty", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
@@ -97,6 +100,13 @@ public class LoginActivity extends AppCompatActivity {
 
         DEVICE_ID = Secure.getString(getApplicationContext().getContentResolver(), Secure.ANDROID_ID);
         loginRequest.setDid(DEVICE_ID);
+
+        if (location != null){
+            loginRequest.setLat("" + location.getLatitude());
+            loginRequest.setLon("" + location.getLongitude());
+            loginRequest.setLt(location.getProvider());
+            Toast.makeText(this, location.toString(), Toast.LENGTH_SHORT).show();
+        }
 
         myApi= RetrofitUtils.getService();
         Call<LoginResponse> call = myApi.loginUser(loginRequest);

@@ -30,9 +30,9 @@ import static com.ipnx.ipnxmobile.utils.ApplicationUtils.networkActive;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.userProfile;
 
 public class SubscriptionSettingsActivity extends AppCompatActivity {
-    public static final String AppPREFERENCES = "AppPrefs" ;
-    public static final String Analytics = "AnalyticsSettingsKey";
-    public static final String AutoRenewal = "AutoRenewalSettingsKey";
+    public final String AppPREFERENCES = "AppPrefs" ;
+    public final String Analytics = "AnalyticsSettingsKey";
+    public final String AutoRenewal = "AutoRenewalSettingsKey";
 
     InternetService service;
 

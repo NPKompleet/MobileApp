@@ -19,6 +19,9 @@ import com.ipnx.ipnxmobile.models.Profile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -42,6 +45,7 @@ public class ApplicationUtils {
     public static final String ACTION_FEEDBACK = "Get ipNXMobile customer feedback";
     public static final String ACTION_ADD_PAYMENT = "Add cash payment";
     public static final String ACTION_SUBSCRIPTION_SETTINGS = "fetch/change data usage settings";
+    public static final String ACTION_WIFI_PASSWORD = "fetch/change WiFi settings";
     public static final String EXTRA_KEY_RESPONSE = "response";
     public static final String EXTRA_KEY_LOGIN = "loginValues";
     public static final String EXTRA_KEY_USERNAME = "userID";
@@ -145,4 +149,31 @@ public class ApplicationUtils {
         }
         return salt.toString();
     }
+
+    public static String encryptThisString(String input)
+    {
+        try {
+            // getInstance() method is called with algorithm SHA-512
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
+            byte[] messageDigest = md.digest(input.getBytes());
+
+            // Convert byte array into signum representation
+            BigInteger no = new BigInteger(1, messageDigest);
+
+            // Convert message digest into hex value
+            String hashtext = no.toString(16);
+
+            // Add preceding 0s to make it 32 bit
+            while (hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
+            }
+
+            // return the HashText
+            return hashtext;
+        }
+        catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

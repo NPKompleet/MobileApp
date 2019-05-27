@@ -67,7 +67,10 @@ public class ManageServiceActivity extends AppCompatActivity
         service = getIntent().getParcelableExtra(EXTRA_KEY_INTERNET_SERVICE);
         pageSubtitle.setText(service.getUsername());
         servicePlan.setText(service.getPackageName().split("  ")[0]);
-        balance.setText(service.getPackageBalance());
+//        balance.setText(service.getPackageBalance());
+        float balanceCalculated = Float.parseFloat(service.getPackageLevelUnappliedCredits())+
+                Float.parseFloat(service.getPackageLevelUnappliedPayments());
+        balance.setText(balanceCalculated  +"");
         expiryDate.setText(service.getExpiryDate());
 
         View headerView = navigationView.getHeaderView(0);
@@ -170,6 +173,7 @@ public class ManageServiceActivity extends AppCompatActivity
                 break;
             case R.id.service_change_wifi_password:
                 i = new Intent(this, ChangeWifiPasswordActivity.class);
+                i.putExtra(EXTRA_KEY_ONT_SERIAL, service.getUsername());
                 startActivity(i);
                 break;
             case R.id.service_change_plan:

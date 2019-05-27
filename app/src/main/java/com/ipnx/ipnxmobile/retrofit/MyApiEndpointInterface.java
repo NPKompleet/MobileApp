@@ -11,6 +11,7 @@ import com.ipnx.ipnxmobile.models.responses.login.LoginResponse;
 import com.ipnx.ipnxmobile.models.requests.Request;
 import com.ipnx.ipnxmobile.models.responses.subscriptionsettings.SubscriptionSettingsResponse;
 import com.ipnx.ipnxmobile.models.responses.transactionhistory.TransactionResponse;
+import com.ipnx.ipnxmobile.models.responses.wifipassword.WifiPasswordResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -57,4 +58,7 @@ public interface MyApiEndpointInterface {
 
     @POST("duasettings")
     Call<SubscriptionSettingsResponse> subscriptionSettings(@Body Request subscriptionSettingsRequest);
+
+    @POST("changewifi")
+    Call<WifiPasswordResponse> changeWifiPassword(@Body Request wifiPasswordRequest);
 }
