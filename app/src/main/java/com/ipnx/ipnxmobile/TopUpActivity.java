@@ -121,7 +121,7 @@ public class TopUpActivity extends AppCompatActivity
     }
 
     public void cancelPayment(View view){
-
+        amount.setText("");
     }
 
     public void viewCDR(View view){

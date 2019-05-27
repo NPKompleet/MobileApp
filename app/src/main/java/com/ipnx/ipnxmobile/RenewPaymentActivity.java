@@ -92,7 +92,7 @@ public class RenewPaymentActivity extends AppCompatActivity implements PostPayme
 
 
     public void cancelPayment(View view) {
-
+        amount.setText("");
     }
 
     public void onBackClicked(View view) {
