@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".ManageVoiceServiceActivity">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="150dp">
+
+                <TextView
+                    android:id="@+id/voice_package_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/data_grey"
+                    android:fontFamily="@font/heebo_medium"
+                    android:paddingTop="8dp"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:text="Advantage Basic"
+                    android:textColor="@color/black_text"
+                    android:textSize="22sp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/data_grey"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:paddingBottom="8dp">
+
+                    <View
+                        android:id="@+id/line1"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@color/main_grey" />
+
+                    <TextView
+                        android:id="@+id/balance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/line1"
+                        android:text="₦45,000"
+                        android:textColor="@color/black_text"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/balance"
+                        android:text="Balance" />
+
+                    <TextView
+                        android:id="@+id/expiryDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/line1"
+                        android:layout_alignParentRight="true"
+                        android:text="May 1, 2019"
+                        android:textColor="@color/black_text"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/tv2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/expiryDate"
+                        android:layout_alignParentRight="true"
+                        android:text="Expiry Date" />
+
+                    <View
+                        android:id="@+id/line2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@+id/tv2"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@color/main_grey" />
+
+                    <TextView
+                        android:id="@+id/status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/line2"
+                        android:text="Active"
+                        android:textColor="@color/black_text"
+                        android:textSize="20sp"
+                        android:visibility="invisible"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/status"
+                        android:text="status"
+                        android:visibility="invisible"/>
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp">
+
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardBackgroundColor="@color/data_menu_green"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="5dp"
+                        app:cardUseCompatPadding="true"
+                        app:contentPadding="0dp">
+
+                        <TextView
+                            android:id="@+id/service_change_wifi_password"
+                            android:layout_width="94dp"
+                            android:layout_height="94dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/click_indicator"
+                            android:drawableTop="@drawable/ic_view_cdr"
+                            android:gravity="center"
+                            android:onClick="viewCDR"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="8dp"
+                            android:paddingRight="4dp"
+                            android:paddingBottom="4dp"
+                            android:text="View CDR"
+                            android:textColor="@color/white"
+                            android:textSize="13sp" />
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardBackgroundColor="@color/data_menu_orange"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="5dp"
+                        app:cardUseCompatPadding="true"
+                        app:contentPadding="0dp">
+
+                        <TextView
+                            android:id="@+id/service_add_funds"
+                            android:layout_width="94dp"
+                            android:layout_height="94dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/click_indicator"
+                            android:drawableTop="@drawable/ic_top_up"
+                            android:gravity="center"
+                            android:onClick="topUp"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="8dp"
+                            android:paddingRight="4dp"
+                            android:paddingBottom="4dp"
+                            android:text="Top Up"
+                            android:textColor="@color/white"
+                            android:textSize="13sp" />
+                    </android.support.v7.widget.CardView>
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@color/main_grey" />
+
+            </LinearLayout>
+        </ScrollView>
+    </android.support.v7.widget.CardView>
+
+
+    <ImageView
+        android:id="@+id/imageView5"
+        style="@style/StyledTopImageView" />
+
+    <ImageView
+        android:id="@+id/home_button"
+        style="@style/PageBackButton"
+        android:src="@drawable/ic_menu"
+        android:onClick="onMenuClicked"/>
+
+    <TextView
+        android:id="@+id/page_title"
+        style="@style/PageTitle"
+        android:text="Manage Voice Service"/>
+
+    <TextView
+        android:id="@+id/page_subtitle"
+        style="@style/PageSubTitle"
+        android:text="Advantage Basic" />
+
+    <include layout="@layout/bottom_nav_bar" />
+
+</android.support.constraint.ConstraintLayout>

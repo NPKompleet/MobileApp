@@ -51,4 +51,17 @@
         </menu>
     </item>
 
+    <item android:title="Contact Us">
+        <menu>
+            <item
+                android:id="@+id/contact_fb"
+                android:icon="@drawable/ic_facebook"
+                android:title="Facebook" />
+            <item
+                android:id="@+id/contact_tw"
+                android:icon="@drawable/twitter2"
+                android:title="Twitter" />
+        </menu>
+    </item>
+
 </menu>

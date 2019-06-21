@@ -2,8 +2,11 @@ package com.ipnx.ipnxmobile;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,12 +41,18 @@ import static com.ipnx.ipnxmobile.utils.ApplicationUtils.userProfile;
 
 public class RenewPaymentActivity extends AppCompatActivity implements PostPaymentHandler {
 
+    TextView planPrice;
     TextView balance;
     EditText amount;
+    EditText numOfMonths;
     TextView pageSubtitle;
     InternetService service;
 
     MyApiEndpointInterface myApi;
+    float balanceCalculated;
+
+    PopupMenu monthsPopUp;
+    int monthCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +61,46 @@ public class RenewPaymentActivity extends AppCompatActivity implements PostPayme
         Passport.overrideApiBase(Passport.QA_API_BASE);
         Payment.overrideApiBase(Payment.QA_API_BASE);
 
+        planPrice = findViewById(R.id.renew_plan_price);
         balance = findViewById(R.id.renew_balance);
         amount = findViewById(R.id.renew_amount);
+        numOfMonths = findViewById(R.id.renew_months);
         pageSubtitle = findViewById(R.id.page_subtitle);
 
         service = getIntent().getParcelableExtra(EXTRA_KEY_INTERNET_SERVICE);
         pageSubtitle.setText("Service Plan: " + service.getPackageName().split("  ")[0]);
+        planPrice.setText("₦" + service.getAmount());
+        balanceCalculated = Float.parseFloat(service.getPackageLevelUnappliedCredits()) +
+                Float.parseFloat(service.getPackageLevelUnappliedPayments());
+        balance.setText("₦" + Math.round(balanceCalculated));
 
+        monthsPopUp = new PopupMenu(this, numOfMonths);
+        createMonthsOptions();
+
+    }
+
+    private void createMonthsOptions() {
+        monthsPopUp.getMenu().add(Menu.NONE, 1, Menu.NONE,   "1 Month");
+        for (int i=2; i<= 12; i++){
+            monthsPopUp.getMenu().add(Menu.NONE, i, Menu.NONE, i + " Months");
+        }
+
+        monthsPopUp.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                numOfMonths.setText(menuItem.getTitle());
+                monthCount = menuItem.getItemId();
+                float currentBill= menuItem.getItemId() * Float.parseFloat(service.getAmount());
+                float amountPayable = balanceCalculated > currentBill? 0 : currentBill - balanceCalculated;
+                amount.setText(String.valueOf(Math.round(amountPayable)));
+                numOfMonths.setText(menuItem.getTitle());
+                return true;
+            }
+        });
+    }
+
+    public void onNumberOfMonthsClicked(View view){
+        monthsPopUp.show();
     }
 
     public void makePayment(View view) {
@@ -67,8 +109,8 @@ public class RenewPaymentActivity extends AppCompatActivity implements PostPayme
             return;
         }
         String amountToPay = amount.getText().toString();
-        if (amountToPay.isEmpty()){
-            Toast.makeText(this, "Amount cannot be empty", Toast.LENGTH_SHORT).show();
+        if (amountToPay.isEmpty() || amountToPay.equals("0")){
+            Toast.makeText(this, "Amount cannot be zero or empty", Toast.LENGTH_SHORT).show();
             return;
         }
         long unixTime = System.currentTimeMillis() / 1000L;
@@ -110,13 +152,14 @@ public class RenewPaymentActivity extends AppCompatActivity implements PostPayme
         requestValues.setCUsername(userProfile.getUserName());
         requestValues.setCPassword(userProfile.getPassword());
         requestValues.setCCustomerNumber(userProfile.getCustomerNumber());
-        requestValues.setCPackageNumber(service.getPkgnum() + "");
+        requestValues.setCPackageNumber(String.valueOf(service.getPkgnum()));
         requestValues.setCMerchantReference(response.getTransactionRef());
         requestValues.setCCardNumber(response.toString());
         requestValues.setCRetrievalReferenceNumber(RandomString.numeric(12));
         requestValues.setCPaymentReference(response.getTransactionIdentifier());
         requestValues.setCAmount(Long.parseLong(response.getAmount()));
         requestValues.setCTransactionDate(dateString);
+        requestValues.setCNumberOfMonths(String.valueOf(monthCount));
 
         addPaymentRequest.setCustomValues(requestValues);
         addPaymentRequest.setAction(ACTION_ADD_PAYMENT);

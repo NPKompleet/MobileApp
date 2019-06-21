@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +28,7 @@ import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_INTERNET_SERV
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.networkActive;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.userProfile;
 
-public class SubscriptionSettingsActivity extends AppCompatActivity {
+public class ManageSettingsActivity extends AppCompatActivity {
     public final String AppPREFERENCES = "AppPrefs" ;
     public final String Analytics = "AnalyticsSettingsKey";
     public final String AutoRenewal = "AutoRenewalSettingsKey";
@@ -63,13 +62,13 @@ public class SubscriptionSettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_subscription_settings);
+        setContentView(R.layout.activity_manage_settings);
         ButterKnife.bind(this);
 
         service = getIntent().getParcelableExtra(EXTRA_KEY_INTERNET_SERVICE);
         pageSubtitle.setText("Service Plan: " + service.getPackageName().split("  ")[0]);
-        serviceAddress.setText("Service Address: " + service.getServiceLocation());
-        deviceNumber.setText("Device Number: " + service.getUsername());
+        serviceAddress.setText(service.getServiceLocation());
+        deviceNumber.setText(service.getUsername());
 
         sharedpreferences = getSharedPreferences(AppPREFERENCES, Context.MODE_PRIVATE);
         editor = sharedpreferences.edit();
@@ -79,8 +78,8 @@ public class SubscriptionSettingsActivity extends AppCompatActivity {
         setViewAnalytics.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (!networkActive(SubscriptionSettingsActivity.this)){
-                    Toast.makeText(SubscriptionSettingsActivity.this,
+                if (!networkActive(ManageSettingsActivity.this)){
+                    Toast.makeText(ManageSettingsActivity.this,
                             "Network is unavailable", Toast.LENGTH_SHORT).show();
                     setViewAnalytics.setChecked(!isChecked);
                     return;
@@ -100,8 +99,8 @@ public class SubscriptionSettingsActivity extends AppCompatActivity {
         setAutoRenewal.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (!networkActive(SubscriptionSettingsActivity.this)){
-                    Toast.makeText(SubscriptionSettingsActivity.this,
+                if (!networkActive(ManageSettingsActivity.this)){
+                    Toast.makeText(ManageSettingsActivity.this,
                             "Network is unavailable", Toast.LENGTH_SHORT).show();
                     setAutoRenewal.setChecked(!isChecked);
                     return;
@@ -137,7 +136,7 @@ public class SubscriptionSettingsActivity extends AppCompatActivity {
             public void onResponse(Call<SubscriptionSettingsResponse> call, Response<SubscriptionSettingsResponse> response) {
                 SubscriptionSettingsResponse returnedResponse = response.body();
                 if (returnedResponse == null ){
-                    Toast.makeText(SubscriptionSettingsActivity.this, "Could not sync settings", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ManageSettingsActivity.this, "Could not sync settings", Toast.LENGTH_SHORT).show();
                     boolean canViewAnalytics = sharedpreferences.getBoolean(Analytics, false);
                     boolean canAutoRenew = sharedpreferences.getBoolean(AutoRenewal, false);
                     setViewAnalytics.setChecked(canViewAnalytics);
@@ -145,7 +144,7 @@ public class SubscriptionSettingsActivity extends AppCompatActivity {
                     return;
                 }
                 if (!returnedResponse.getResponseCode().equals("0")){
-                    Toast.makeText(SubscriptionSettingsActivity.this, returnedResponse.getResponseMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ManageSettingsActivity.this, returnedResponse.getResponseMessage(), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -163,7 +162,7 @@ public class SubscriptionSettingsActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<SubscriptionSettingsResponse> call, Throwable t) {
-                Toast.makeText(SubscriptionSettingsActivity.this, "Failure: Could not sync settings", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ManageSettingsActivity.this, "Failure: Could not sync settings", Toast.LENGTH_SHORT).show();
             }
         });
     }

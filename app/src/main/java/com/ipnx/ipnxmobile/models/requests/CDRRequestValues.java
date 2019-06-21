@@ -21,6 +21,9 @@ public class CDRRequestValues extends CustomValues {
     @SerializedName("c.enddate")
     @Expose
     private String cEnddate;
+    @SerializedName("c.offset")
+    @Expose
+    private String cOffset = "10";
 
     public String getCUsername() {
         return cUsername;
@@ -60,6 +63,14 @@ public class CDRRequestValues extends CustomValues {
 
     public void setCEnddate(String cEnddate) {
         this.cEnddate = cEnddate;
+    }
+
+    public String getCOffset() {
+        return cOffset;
+    }
+
+    public void setCOffset(String cOffset) {
+        this.cOffset = cOffset;
     }
 
 }

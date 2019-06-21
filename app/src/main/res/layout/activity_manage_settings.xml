@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".SubscriptionSettingsActivity">
+    tools:context=".ManageSettingsActivity">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -20,38 +20,66 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="150dp"
+                android:paddingBottom="100dp"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/sub_settings_address"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginLeft="24dp"
-                    android:text="Service Address: 33 Cooper Road, ikoyi, Lagos"
-                    android:maxWidth="250dp"
-                    android:textColor="@color/black_text"
-                    android:textSize="18sp" />
+                    android:background="@color/data_grey"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:paddingBottom="8dp">
 
-                <TextView
-                    android:id="@+id/sub_settings_dev_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginTop="30dp"
-                    android:text="Device number: RMCG18C0012E"
-                    android:maxWidth="250dp"
-                    android:textColor="@color/black_text"
-                    android:textSize="18sp" />
+                    <TextView
+                        android:id="@+id/sub_settings_dev_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/line1"
+                        android:text="RMCG180021E"
+                        android:textColor="@color/black_text"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:id="@+id/tv2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/sub_settings_dev_number"
+                        android:text="Device Number" />
+
+                    <View
+                        android:id="@+id/line2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@+id/tv2"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@color/main_grey" />
+
+                    <TextView
+                        android:id="@+id/sub_settings_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/line2"
+                        android:text="33 Cooper Rd, Ikoyi, Lagos"
+                        android:textColor="@color/black_text"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/sub_settings_address"
+                        android:text="Service Address" />
+
+                </RelativeLayout>
+
 
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="50dp"
                     android:background="@color/orange"
-                    android:elevation="5dp"
                     android:gravity="center"
                     android:text="Available Settings"
                     android:textColor="@color/black_text"
@@ -130,11 +158,13 @@
     <TextView
         android:id="@+id/page_title"
         style="@style/PageTitle"
-        android:text="Subscription Settings"/>
+        android:text="Manage Settings"/>
 
     <TextView
         android:id="@+id/page_subtitle"
         style="@style/PageSubTitle"
         android:text="Service Plan: Advantage Basic" />
+
+    <include layout="@layout/bottom_nav_bar" />
 
 </android.support.constraint.ConstraintLayout>

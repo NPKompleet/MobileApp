@@ -57,6 +57,10 @@ public class ApplicationUtils {
     public static final String EXTRA_KEY_SERVICE_PLAN = "servicePlan";
     public static final String EXTRA_KEY_EXPIRY_DATE = "expiryDate";
     public static final String APP_URL = "";
+    public static final String FACEBOOK_URL = "https://www.facebook.com/ipnxnigeria/";
+    public static final String TWITTER_URL = "https://twitter.com/ipNXTweet";
+    public static final String INSTAGRAM_URL = "https://www.instagram.com/ipnxnigeria";
+    public static final String WHATSSAPP_URL = "https://api.whatsapp.com/send?phone=2349096936884";
 
     public static Bitmap getBitmapFromView(View view) {
         //Define a bitmap with the same size as the view

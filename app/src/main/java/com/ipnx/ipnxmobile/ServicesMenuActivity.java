@@ -113,4 +113,8 @@ public class ServicesMenuActivity extends AppCompatActivity {
         }
         super.onBackPressed();
     }
+
+    public void onBackPressed(View view){
+        onBackPressed();
+    }
 }

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.ipnx.ipnxmobile.ManageVoiceServiceActivity;
 import com.ipnx.ipnxmobile.R;
 import com.ipnx.ipnxmobile.TopUpActivity;
 import com.ipnx.ipnxmobile.models.requests.LoginRequestValues;
@@ -45,11 +46,13 @@ public class TelephonyServiceAdapter extends ArrayAdapter<TelephonyService> {
         }
 
         TextView packageName = rowView.findViewById(R.id.voice_list_type);
+        TextView phoneNumber = rowView.findViewById(R.id.voice_list_number);
         View line = (View) rowView.findViewById(R.id.voice_divider);
         line.setVisibility(position == serviceList.size() - 1 ? View.INVISIBLE : View.VISIBLE);
 
         final TelephonyService service = serviceList.get(position);
         packageName.setText(service.getPackageName().split("  ")[0]);
+        phoneNumber.setText(service.getUsername());
 
 
         rowView.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +66,7 @@ public class TelephonyServiceAdapter extends ArrayAdapter<TelephonyService> {
     }
 
     private void startVoiceServiceActivity(TelephonyService service){
-        Intent i = new Intent(context, TopUpActivity.class);
+        Intent i = new Intent(context, ManageVoiceServiceActivity.class);
         i.putExtra(EXTRA_KEY_VOICE_SERVICE, service);
         i.putExtra(EXTRA_KEY_LOGIN, loginValues);
         context.startActivity(i);

@@ -23,4 +23,7 @@
     <color name="data_menu_red">#E95F5F</color>
     <color name="data_menu_orange">#FF5E00</color>
     <color name="click_grey">#55DDDDDD</color>
+    <color name="data_orange">#FBEEDA</color>
+    <color name="data_grey">#F3F3F3</color>
+    <color name="red_button">#C80D0D</color>
 </resources>

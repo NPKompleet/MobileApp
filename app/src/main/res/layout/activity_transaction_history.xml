@@ -17,7 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="150dp">
+            android:paddingTop="150dp"
+            android:paddingBottom="100dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -73,7 +74,7 @@
                     android:layout_marginStart="4dp"
                     android:layout_marginLeft="4dp"
                     android:layout_weight="1"
-                    android:background="@drawable/indigo_fill_button"
+                    android:background="@drawable/red_fill_button"
                     android:onClick="onSubmitClicked"
                     android:text="Submit"
                     android:textColor="@color/white"
@@ -178,5 +179,6 @@
         <!--android:id="@+id/page_subtitle"-->
         <!--style="@style/PageSubTitle"-->
         <!--android:text="Service Plan: Advantage Basic" />-->
+    <include layout="@layout/bottom_nav_bar" />
 
 </android.support.constraint.ConstraintLayout>

@@ -4,7 +4,7 @@
     android:id="@+id/item_layout"
     android:layout_width="match_parent"
     android:layout_height="30dp"
-    android:background="@color/faq_pink"
+    android:background="@color/data_orange"
     android:paddingLeft="32dp"
     android:paddingRight="32dp"
     android:gravity="center_vertical">

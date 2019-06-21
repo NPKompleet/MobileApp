@@ -20,56 +20,132 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingTop="150dp">
+                android:paddingTop="150dp"
+                android:paddingBottom="100dp">
 
-                <TextView
-                    android:id="@+id/data_exp_date"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginLeft="24dp"
-                    android:gravity="center"
-                    android:maxWidth="250dp"
-                    android:text="Expiry Date: February 22, 2019"
-                    android:textColor="@color/black_text"
-                    android:textSize="18sp" />
+                    android:gravity="center">
+                    <TextView
+                        android:id="@+id/data_peak_text"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Peak"
+                        android:textSize="22sp"
+                        android:gravity="center"
+                        android:fontFamily="@font/heebo_medium"
+                        android:textColor="@color/black_text"
+                        />
+                    <TextView
+                        android:id="@+id/data_offPeak_text"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Off-Peak"
+                        android:textSize="22sp"
+                        android:gravity="center"
+                        />
+                </LinearLayout>
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginTop="8dp"
-                    android:text="Regime: Peak"
-                    android:textColor="@color/black_text"
-                    android:gravity="center"
-                    android:textSize="16sp" />
+                    android:gravity="center">
+                    <LinearLayout
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center">
+                        <View
+                            android:id="@+id/data_indicator_peak"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:rotation="45"
+                            android:background="@color/data_grey"
+                            android:translationY="10dp"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center">
+                        <View
+                            android:id="@+id/data_indicator_offPeak"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:rotation="45"
+                            android:background="@color/data_grey"
+                            android:translationY="10dp"
+                            android:visibility="invisible"/>
+                    </LinearLayout>
 
-                <TextView
-                    android:id="@+id/data_data_allowance"
+                </LinearLayout>
+
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginTop="8dp"
-                    android:text="Data Allowance: 100GB"
-                    android:textColor="@color/black_text"
-                    android:gravity="center"
-                    android:textSize="16sp" />
+                    android:background="@color/data_grey"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:translationY="-10dp">
 
-                <TextView
-                    android:id="@+id/data_rollOver"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="16dp"
-                    android:text="Data Rolled Over: 0.00GB"
-                    android:textColor="@color/black_text"
-                    android:gravity="center"
-                    android:textSize="16sp" />
 
+                    <TextView
+                        android:id="@+id/data_data_allowance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="100GB"
+                        android:textColor="@color/black_text"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/data_data_allowance"
+                        android:text="Data Allowance" />
+
+                    <TextView
+                        android:id="@+id/data_exp_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="May 1, 2019"
+                        android:textColor="@color/black_text"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/tv2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/data_exp_date"
+                        android:layout_alignParentRight="true"
+                        android:text="Expiry Date" />
+
+                    <View
+                        android:id="@+id/line2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@+id/tv2"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@color/main_grey" />
+
+                    <TextView
+                        android:id="@+id/data_rollOver"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/line2"
+                        android:text="50GB"
+                        android:textColor="@color/black_text"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/data_rollOver"
+                        android:text="Data Rolled Over" />
+
+                </RelativeLayout>
 
                 <!--The custom view goes here-->
                 <com.ipnx.ipnxmobile.customviews.DataChartView
@@ -94,7 +170,7 @@
                 <View
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:background="@color/orange"/>
+                    android:background="@color/orange" />
 
                 <TextView
                     android:id="@+id/data_usedData"
@@ -142,7 +218,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="16dp"
-                    android:paddingRight="16dp">
+                    android:paddingRight="16dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="0dp"
@@ -170,7 +247,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="16dp"
-                    android:paddingRight="16dp">
+                    android:paddingRight="16dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/data_date_from"
@@ -204,7 +282,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
                     android:background="@color/orange"
-                    android:elevation="5dp"
                     android:gravity="center"
                     android:text="Historical Usage"
                     android:textColor="@color/black_text"
@@ -244,7 +321,7 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv_data_history"
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
+                        android:layout_height="wrap_content"
                         tools:itemCount="5"
                         tools:listitem="@layout/item_data_usage" />
 
@@ -290,5 +367,7 @@
         android:id="@+id/page_subtitle"
         style="@style/PageSubTitle"
         android:text="Service Plan: Advantage Basic" />
+
+    <include layout="@layout/bottom_nav_bar" />
 
 </android.support.constraint.ConstraintLayout>

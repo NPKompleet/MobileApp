@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".TopUpActivity">
+    tools:context=".AddCashActivity">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -20,36 +20,51 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="150dp"
+                android:paddingBottom="100dp"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/voice_package_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginLeft="24dp"
-                    android:text="Iwireless Phone No Charge"
-                    android:maxWidth="250dp"
-                    android:textColor="@color/black_text"
-                    android:textSize="18sp" />
-
-                <Button
-                    android:layout_width="120dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginLeft="24dp"
-                    android:background="@drawable/indigo_fill_button"
-                    android:onClick="viewCDR"
-                    android:text="View CDR"
-                    android:layout_marginTop="20dp"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"/>
-
-                <View
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="30dp"
-                    android:background="@color/main_grey"/>
+                    android:layout_height="wrap_content"
+                    android:background="#F3F3F3"
+                    android:paddingLeft="24dp"
+                    android:paddingRight="24dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp">
+
+                    <TextView
+                        android:id="@+id/renew_balance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/heebo_medium"
+                        android:text="₦33050"
+                        android:textColor="@color/black_text"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Current Balance"
+                        android:layout_below="@+id/renew_balance"/>
+
+                    <TextView
+                        android:id="@+id/renew_plan_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:fontFamily="@font/heebo_medium"
+                        android:text="₦16050"
+                        android:textColor="@color/black_text"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Service Plan Price"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/renew_balance"/>
+
+                </RelativeLayout>
 
                 <TextView
                     style="@style/SubheadingTextTheme"
@@ -64,16 +79,14 @@
                     android:textStyle="normal" />
 
                 <EditText
-                    android:id="@+id/topUp_amount"
+                    android:id="@+id/renew_amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
                     android:layout_marginLeft="24dp"
-                    android:layout_marginEnd="24dp"
                     android:layout_marginRight="24dp"
                     android:background="@drawable/grey_border_rect_shape"
                     android:inputType="number"
-                    android:padding="4dp" />
+                    android:padding="8dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -85,7 +98,7 @@
                     <Button
                         android:layout_width="120dp"
                         android:layout_height="40dp"
-                        android:background="@drawable/indigo_fill_button"
+                        android:background="@drawable/red_fill_button"
                         android:onClick="makePayment"
                         android:text="Proceed"
                         android:textColor="@color/white"
@@ -96,10 +109,10 @@
                         android:layout_height="40dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginLeft="8dp"
-                        android:background="@drawable/indigo_border_button"
+                        android:background="@drawable/red_border_button"
                         android:onClick="cancelPayment"
                         android:text="Cancel"
-                        android:textColor="@color/indigo"
+                        android:textColor="@color/red_button"
                         android:textSize="16sp" />
                 </LinearLayout>
 
@@ -108,7 +121,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
                     android:background="@color/orange"
-                    android:elevation="5dp"
                     android:gravity="center"
                     android:text="Payment Methods"
                     android:textColor="@color/black_text"
@@ -211,24 +223,23 @@
     </android.support.v7.widget.CardView>
 
 
-    <ImageView
-        android:id="@+id/imageView5"
-        style="@style/StyledTopImageView" />
+    <ImageView style="@style/StyledTopImageView" />
 
     <ImageView
         android:id="@+id/home_button"
         style="@style/PageBackButton"
-        android:src="@drawable/ic_menu"
-        android:onClick="onMenuClicked"/>
+        android:onClick="onBackClicked"/>
 
     <TextView
         android:id="@+id/page_title"
         style="@style/PageTitle"
-        android:text="Top-Up"/>
+        android:text="Add Funds" />
 
     <TextView
         android:id="@+id/page_subtitle"
         style="@style/PageSubTitle"
-        android:text="Advantage Basic" />
+        android:text="Service Plan: Advantage Basic" />
+
+    <include layout="@layout/bottom_nav_bar" />
 
 </android.support.constraint.ConstraintLayout>

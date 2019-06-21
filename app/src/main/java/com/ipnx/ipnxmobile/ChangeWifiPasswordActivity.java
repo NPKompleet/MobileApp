@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ipnx.ipnxmobile.models.requests.ChangeWifiRequestValues;
@@ -28,6 +29,7 @@ import retrofit2.Response;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.ACTION_WIFI_PASSWORD;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.DEVICE_ID;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_ONT_SERIAL;
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.anyFieldIsEmpty;
 
 public class ChangeWifiPasswordActivity extends BaseActivity {
 
@@ -128,5 +130,54 @@ public class ChangeWifiPasswordActivity extends BaseActivity {
         deviceNamePopUp.show();
     }
 
-    public void onApplyButtonClicked(View view){}
+    public void onApplyButtonClicked(View view){
+        if (anyFieldIsEmpty(new TextView[]{wirelessName, wirelessDevice, wirelessStatus,
+                wirelessSecurity, wirelessNewPassword})){
+            Toast.makeText(this, "All fields must be filled", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Request changePasswordRequest = new Request();
+        ChangeWifiRequestValues requestValues = new ChangeWifiRequestValues();
+        requestValues.setCSettings("0");
+        requestValues.setCOntSerial(ontSerial);
+        requestValues.setCDeviceNumber(wirelessDevice.getText().toString());
+        requestValues.setCPassword(wirelessNewPassword.getText().toString());
+
+        changePasswordRequest.setCustomValues(requestValues);
+        changePasswordRequest.setAction(ACTION_WIFI_PASSWORD);
+        changePasswordRequest.setDid(DEVICE_ID);
+
+        Location location  = getLastBestLocation();
+        if (location != null){
+            changePasswordRequest.setLat("" + location.getLatitude());
+            changePasswordRequest.setLon("" + location.getLongitude());
+            changePasswordRequest.setLt(location.getProvider());
+            Toast.makeText(this, location.toString(), Toast.LENGTH_SHORT).show();
+        }
+
+        myApi= RetrofitUtils.getService();
+        Call<WifiPasswordResponse> call = myApi.changeWifiPassword(changePasswordRequest);
+        call.enqueue(new Callback<WifiPasswordResponse>() {
+            @Override
+            public void onResponse(Call<WifiPasswordResponse> call, Response<WifiPasswordResponse> response) {
+                WifiPasswordResponse returnedResponse = response.body();
+                if (returnedResponse == null){
+                    Toast.makeText(ChangeWifiPasswordActivity.this, "Network issues. Please try again", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (!returnedResponse.getResponseCode().equals("0")){
+                    Toast.makeText(ChangeWifiPasswordActivity.this, returnedResponse.getResponseMessage(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                Toast.makeText(ChangeWifiPasswordActivity.this, returnedResponse.getResponseMessage(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<WifiPasswordResponse> call, Throwable t) {
+                Toast.makeText(ChangeWifiPasswordActivity.this, "Network failure. Please try again", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }

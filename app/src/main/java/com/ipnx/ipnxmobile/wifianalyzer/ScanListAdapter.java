@@ -59,6 +59,8 @@ public class ScanListAdapter extends RecyclerView.Adapter<ScanListAdapter.ScanHo
 //        if(item.SSID.equals(currentWifiSSID) && item.BSSID.equals(currentWifiBssID)){
 //            Drawable img = context.getResources().getDrawable( R.drawable.ic_wifi );
 //            holder.ssId.setCompoundDrawablesWithIntrinsicBounds( img, null, null, null);
+//        }else{
+//            holder.ssId.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
 //        }
         holder.bssId.setText(item.BSSID);
         holder.frequency.setText(item.frequency + "MHz");

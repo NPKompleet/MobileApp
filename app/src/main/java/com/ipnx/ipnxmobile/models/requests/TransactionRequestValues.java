@@ -11,6 +11,9 @@ public class TransactionRequestValues extends CustomValues {
     @SerializedName("c.password")
     @Expose
     private String cPassword;
+    @SerializedName("c.offset")
+    @Expose
+    private String cOffset = "10";
 
     public String getCUsername() {
         return cUsername;
@@ -28,5 +31,12 @@ public class TransactionRequestValues extends CustomValues {
         this.cPassword = cPassword;
     }
 
+    public String getCOffset() {
+        return cOffset;
+    }
+
+    public void setCOffset(String cOffset) {
+        this.cOffset = cOffset;
+    }
 
 }

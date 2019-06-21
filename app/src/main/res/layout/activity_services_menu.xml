@@ -7,43 +7,64 @@
     android:background="@drawable/background"
     tools:context=".ServicesMenuActivity">
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/background"
-        android:padding="16dp"
-        tools:context=".ServicesMenuActivity">
 
         <ScrollView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginLeft="24dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="150dp"
             android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
             android:layout_marginBottom="8dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/ic_avatar"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"/>
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Welcome, Kunle Oladuni"
+                android:textColor="@color/black_text"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Login Successful"
+                android:textSize="18sp"
+                android:layout_marginBottom="50dp" />
+
+
+
             <Button
                 android:id="@+id/data_menu"
-                android:layout_width="match_parent"
+                android:layout_width="300dp"
                 android:layout_height="60dp"
-                android:background="@drawable/menu_button1"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/red_fill_button"
+                android:drawableRight="@drawable/ic_play_arrow2"
+                android:paddingRight="16dp"
                 android:onClick="onMenuButtonClicked"
-                android:text="Show My Data Plans"
+                android:text="Data Service"
                 android:textColor="@color/white"
                 android:textSize="24sp"
                 android:textAllCaps="false"/>
@@ -51,9 +72,12 @@
             <com.github.aakira.expandablelayout.ExpandableRelativeLayout
                 android:id="@+id/data_layout"
                 style="@style/ExpandableLayoutStyle"
-                android:layout_width="match_parent"
+                android:layout_width="340dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp">
+                android:layout_marginBottom="8dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/white"
+                android:elevation="10dp">
 
                 <ListView
                     android:id="@+id/internetServiceListView"
@@ -63,20 +87,26 @@
 
             <Button
                 android:id="@+id/voice_menu"
-                android:layout_width="match_parent"
+                android:layout_width="300dp"
                 android:layout_height="60dp"
-                android:background="@drawable/menu_button2"
+                android:layout_gravity="center_horizontal"
+                android:drawableRight="@drawable/ic_play_arrow"
+                android:paddingRight="16dp"
+                android:background="@drawable/red_border_button"
                 android:onClick="onMenuButtonClicked"
-                android:text="Show My Voice Plans"
-                android:textColor="@color/white"
+                android:text="Voice Service"
+                android:textColor="@color/red_button"
                 android:textSize="24sp"
                 android:textAllCaps="false"/>
 
             <com.github.aakira.expandablelayout.ExpandableRelativeLayout
                 android:id="@+id/voice_layout"
                 style="@style/ExpandableLayoutStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_width="340dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/white"
+                android:elevation="10dp">
 
                 <ListView
                     android:id="@+id/voiceServiceListView"
@@ -87,35 +117,16 @@
         </ScrollView>
 
 
-    </android.support.constraint.ConstraintLayout>
-
-    <!--<ScrollView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
-
-
-
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="150dp"-->
-            <!--android:orientation="vertical">-->
-
-
-        <!--</LinearLayout>-->
-    <!--</ScrollView>-->
-
-
     <ImageView
         style="@style/StyledTopImageView"/>
 
     <ImageView
         android:id="@+id/home_button"
         style="@style/PageBackButton"
-        android:visibility="gone"/>
+        android:onClick="onBackPressed"/>
 
     <TextView
         style="@style/PageTitle"
-        android:text="Choose Plan"/>
+        android:text="Manage Service"/>
 
 </android.support.constraint.ConstraintLayout>

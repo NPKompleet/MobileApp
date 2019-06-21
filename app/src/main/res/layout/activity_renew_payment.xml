@@ -20,17 +20,51 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="150dp"
+                android:paddingBottom="100dp"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/renew_balance"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginLeft="24dp"
-                    android:text="Current Balance: 33050"
-                    android:textColor="@color/black_text"
-                    android:textSize="18sp" />
+                    android:background="@color/data_grey"
+                    android:paddingLeft="24dp"
+                    android:paddingRight="24dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp">
+
+                    <TextView
+                        android:id="@+id/renew_balance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/heebo_medium"
+                        android:text="₦33050"
+                        android:textColor="@color/black_text"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Current Balance"
+                        android:layout_below="@+id/renew_balance"/>
+
+                    <TextView
+                        android:id="@+id/renew_plan_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:fontFamily="@font/heebo_medium"
+                        android:text="₦16050"
+                        android:textColor="@color/black_text"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Service Plan Price"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/renew_balance"/>
+
+                </RelativeLayout>
 
                 <TextView
                     style="@style/SubheadingTextTheme"
@@ -48,13 +82,42 @@
                     android:id="@+id/renew_amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
                     android:layout_marginLeft="24dp"
-                    android:layout_marginEnd="24dp"
                     android:layout_marginRight="24dp"
                     android:background="@drawable/grey_border_rect_shape"
+                    android:text="0"
                     android:inputType="number"
-                    android:padding="4dp" />
+                    android:focusable="false"
+                    android:padding="8dp" />
+
+
+                <TextView
+                    style="@style/SubheadingTextTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@color/white"
+                    android:text="Number of Months"
+                    android:textColor="@color/indigo"
+                    android:textStyle="normal" />
+
+                <EditText
+                    android:id="@+id/renew_months"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginRight="24dp"
+                    android:drawableEnd="@drawable/ic_arrow_drop_down"
+                    android:drawableRight="@drawable/ic_arrow_drop_down"
+                    android:drawablePadding="4dp"
+                    android:background="@drawable/grey_border_rect_shape"
+                    android:inputType="number"
+                    android:padding="8dp"
+                    android:focusable="false"
+                    android:onClick="onNumberOfMonthsClicked"/>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -66,21 +129,21 @@
                     <Button
                         android:layout_width="120dp"
                         android:layout_height="40dp"
-                        android:background="@drawable/indigo_fill_button"
+                        android:background="@drawable/red_fill_button"
                         android:onClick="makePayment"
                         android:text="Proceed"
                         android:textColor="@color/white"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"/>
 
                     <Button
                         android:layout_width="120dp"
                         android:layout_height="40dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginLeft="8dp"
-                        android:background="@drawable/indigo_border_button"
+                        android:background="@drawable/red_border_button"
                         android:onClick="cancelPayment"
                         android:text="Cancel"
-                        android:textColor="@color/indigo"
+                        android:textColor="@color/red_button"
                         android:textSize="16sp" />
                 </LinearLayout>
 
@@ -89,7 +152,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
                     android:background="@color/orange"
-                    android:elevation="5dp"
                     android:gravity="center"
                     android:text="Payment Methods"
                     android:textColor="@color/black_text"
@@ -208,5 +270,7 @@
         android:id="@+id/page_subtitle"
         style="@style/PageSubTitle"
         android:text="Service Plan: Advantage Basic" />
+
+    <include layout="@layout/bottom_nav_bar" />
 
 </android.support.constraint.ConstraintLayout>

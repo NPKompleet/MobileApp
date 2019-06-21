@@ -22,7 +22,6 @@ import static com.ipnx.ipnxmobile.utils.ApplicationUtils.userProfile;
 public class ProfileActivity extends AppCompatActivity {
     public final String ProfilePREFERENCES = "ProfilePrefs" ;
     public final String PictureLocation = "ProfilePictureLocation";
-//    public final String AutoRenewal = "AutoRenewalSettingsKey";
 
     TextView name, phone, number, email, address;
     CircleImageView image;

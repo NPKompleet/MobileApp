@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="350dp"
+    android:layout_height="300dp"
+    android:background="@color/data_grey"
+    android:layout_margin="16dp"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Do you want the change of service plan to take effect immediately?"
+        android:textColor="@color/black_text"
+        android:textSize="24sp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        tools:layout_editor_absoluteX="-9dp">
+
+        <Button
+            android:id="@+id/dialog_yes"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_margin="24dp"
+            android:background="@drawable/red_border_button"
+            android:text="Yes"
+            android:textAllCaps="true"
+            android:textColor="@color/red_button"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/dialog_no"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_margin="24dp"
+            android:background="@drawable/red_fill_button"
+            android:text="NO"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

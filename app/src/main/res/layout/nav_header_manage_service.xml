@@ -1,63 +1,248 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/nav_header_height"
+    android:layout_height="wrap_content"
     android:background="@drawable/side_nav_bar"
+    android:orientation="vertical"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <ImageView
-        android:id="@+id/imageView2"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:scaleX="1.05"
-        android:src="@drawable/group200" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp">
 
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/nav_header_height"
+            android:scaleType="fitXY"
+            android:scaleX="1.05"
+            android:src="@drawable/group200" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:contentDescription="@string/nav_header_desc"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/appicon" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:contentDescription="@string/nav_header_desc"
+            android:paddingTop="@dimen/nav_header_vertical_spacing"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/appicon" />
+
+        <LinearLayout
+            android:id="@+id/header_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="@+id/imageView2"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView">
+
+            <TextView
+                android:id="@+id/nav_full_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nav_header_title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/black_text"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/nav_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nav_header_subtitle"
+                android:textColor="@color/beige" />
+
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/menu_profile"
+        style="@style/NavMenuItem"
+        android:drawableLeft="@drawable/ic_user"
+        android:text="Profile" />
+
+    <TextView
+        android:id="@+id/menu_password"
+        style="@style/NavMenuItem"
+        android:drawableLeft="@drawable/ic_padlock"
+        android:text="Change Password" />
+
+    <!--<TextView-->
+    <!--android:id="@+id/menu_sub_settings"-->
+    <!--android:drawableLeft="@drawable/ic_settings"-->
+    <!--android:text="Manage Settings"-->
+    <!--style="@style/NavMenuItem"/>-->
+
+    <TextView
+        android:id="@+id/menu_choose_plan"
+        style="@style/NavMenuItem"
+        android:drawableLeft="@drawable/ic_choose_plan2"
+        android:text="Manage Service" />
+
+    <TextView
+        android:id="@+id/menu_payment_history"
+        style="@style/NavMenuItem"
+        android:drawableLeft="@drawable/ic_payment_history"
+        android:text="Payment History" />
 
     <LinearLayout
+        android:id="@+id/menu_notification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center_vertical"
+        android:onClick="onNavItemSelected">
+
+        <RelativeLayout
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginRight="32dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="0dp"
+                android:src="@drawable/ic_notification" />
+
+            <TextView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/white_circular_background"
+                android:gravity="center"
+                android:text="9+"
+                android:textSize="12dp"
+                android:textColor="@color/white"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"/>
+        </RelativeLayout>
 
         <TextView
-            android:id="@+id/nav_full_name"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="@string/nav_header_title"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@color/black_text"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/nav_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/nav_header_subtitle"
-            android:textColor="@color/beige" />
-
+            style="@style/NavMenuItem"
+            android:layout_marginLeft="0dp"
+            android:layout_marginBottom="0dp"
+            android:text="Push Notification" />
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/menu_feedback"
+        style="@style/NavMenuItem"
+        android:drawableLeft="@drawable/ic_feedback"
+        android:text="Feedback" />
+
+    <TextView
+        android:id="@+id/menu_faq"
+        style="@style/NavMenuItem"
+        android:drawableLeft="@drawable/ic_faq"
+        android:text="Faq" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="16dp"
+        android:background="#DDDDDD"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Tools"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/menu_wifi_analyzer"
+        style="@style/NavMenuItem"
+        android:drawableLeft="@drawable/ic_analyzer"
+        android:text="Wifi Analyzer" />
+
+    <TextView
+        android:id="@+id/menu_share"
+        style="@style/NavMenuItem"
+        android:drawableLeft="@drawable/ic_share"
+        android:text="Share" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="16dp"
+        android:background="#DDDDDD"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Follow Us"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="32dp">
+
+        <ImageView
+            android:id="@+id/menu_facebook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_facebook"
+            android:onClick="onNavItemSelected"/>
+
+        <View
+            android:layout_width="24dp"
+            android:layout_height="1dp" />
+
+        <ImageView
+            android:id="@+id/menu_twitter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_twitter"
+            android:onClick="onNavItemSelected"/>
+
+        <View
+            android:layout_width="24dp"
+            android:layout_height="1dp" />
+
+        <ImageView
+            android:id="@+id/menu_instagram"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_instagram"
+            android:onClick="onNavItemSelected"/>
+
+        <View
+            android:layout_width="24dp"
+            android:layout_height="1dp" />
+
+        <ImageView
+            android:id="@+id/menu_whatsapp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_whatsapp"
+            android:onClick="onNavItemSelected"/>
+    </LinearLayout>
+
+</LinearLayout>

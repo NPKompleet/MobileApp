@@ -28,4 +28,6 @@ public class DataAllowance {
     public void setPeak(String peak) {
         this.peak = peak;
     }
+
 }
+

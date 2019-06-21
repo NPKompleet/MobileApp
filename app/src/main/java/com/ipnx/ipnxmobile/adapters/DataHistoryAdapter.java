@@ -48,8 +48,7 @@ public class DataHistoryAdapter extends
         historyHolder.month.setText(item.get(0));
         historyHolder.data.setText(item.get(1) + "GB");
         if (position % 2 != 0){
-            historyHolder.layout.setBackgroundColor(Color.parseColor("#EFEFEF"));
-//            historyHolder.layout.set
+            historyHolder.layout.setBackgroundColor(context.getResources().getColor(R.color.data_grey));
         }
 
     }

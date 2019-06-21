@@ -81,35 +81,51 @@
             android:name=".RenewPaymentActivity"
             android:label="@string/title_activity_renew_payment"
             android:launchMode="singleTop"
-            android:parentActivityName=".ManageServiceActivity"
+            android:parentActivityName=".ManageDataServiceActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.ipnx.ipnxmobile.ManageServiceActivity" />
+                android:value="com.ipnx.ipnxmobile.ManageDataServiceActivity" />
         </activity>
         <activity
-            android:name=".SubscriptionSettingsActivity"
-            android:label="@string/title_activity_manage_settings"
-            android:parentActivityName=".ManageServiceActivity"
+            android:name=".AddCashActivity"
+            android:label="@string/title_activity_renew_payment"
+            android:launchMode="singleTop"
+            android:parentActivityName=".ManageDataServiceActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.ipnx.ipnxmobile.ManageServiceActivity" />
+                android:value="com.ipnx.ipnxmobile.ManageDataServiceActivity" />
+        </activity>
+        <activity
+            android:name=".ManageSettingsActivity"
+            android:label="@string/title_activity_manage_settings"
+            android:parentActivityName=".ManageDataServiceActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ipnx.ipnxmobile.ManageDataServiceActivity" />
         </activity>
         <activity
             android:name=".DataUsageActivity"
             android:label="@string/title_activity_data_usage"
-            android:parentActivityName=".ManageServiceActivity"
+            android:parentActivityName=".ManageDataServiceActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.ipnx.ipnxmobile.ManageServiceActivity" />
+                android:value="com.ipnx.ipnxmobile.ManageDataServiceActivity" />
         </activity>
         <activity
-            android:name=".ManageServiceActivity"
+            android:name=".ManageDataServiceActivity"
+            android:label="@string/title_activity_service_plan"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ManageVoiceServiceActivity"
             android:label="@string/title_activity_service_plan"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />

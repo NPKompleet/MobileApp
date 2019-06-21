@@ -5,27 +5,27 @@ import com.google.gson.annotations.SerializedName;
 
 public class CycleUsage {
 
-    @SerializedName("start_date")
+    @SerializedName("peak")
     @Expose
-    private String startDate;
-    @SerializedName("cycle_mb_used")
+    private Peak peak;
+    @SerializedName("off-peak")
     @Expose
-    private long cycleMbUsed;
+    private OffPeak offPeak;
 
-    public String getStartDate() {
-        return startDate;
+    public Peak getPeak() {
+        return peak;
     }
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
+    public void setPeak(Peak peak) {
+        this.peak = peak;
     }
 
-    public long getCycleMbUsed() {
-        return cycleMbUsed;
+    public OffPeak getOffPeak() {
+        return offPeak;
     }
 
-    public void setCycleMbUsed(long cycleMbUsed) {
-        this.cycleMbUsed = cycleMbUsed;
+    public void setOffPeak(OffPeak offPeak) {
+        this.offPeak = offPeak;
     }
 
 }

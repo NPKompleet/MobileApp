@@ -10,12 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.ipnx.ipnxmobile.ManageServiceActivity;
+import com.ipnx.ipnxmobile.ManageDataServiceActivity;
 import com.ipnx.ipnxmobile.R;
 import com.ipnx.ipnxmobile.models.requests.LoginRequestValues;
 import com.ipnx.ipnxmobile.models.responses.login.InternetService;
-import com.ipnx.ipnxmobile.models.responses.login.LoginCustomValues;
-import com.ipnx.ipnxmobile.models.responses.login.LoginResponse;
 
 import java.util.List;
 
@@ -47,10 +45,12 @@ public InternetServiceAdapter(@NonNull Context context, List<InternetService> li
 
         TextView packageName = rowView.findViewById(R.id.data_list_package);
         View line = (View) rowView.findViewById(R.id.data_list_line);
+        TextView deviceNumber = rowView.findViewById(R.id.data_list_number);
         line.setVisibility(position == serviceList.size() - 1 ? View.INVISIBLE : View.VISIBLE);
 
         final InternetService service = serviceList.get(position);
         packageName.setText(service.getPackageName().split("  ")[0]);
+        deviceNumber.setText(service.getUsername());
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,7 +63,7 @@ public InternetServiceAdapter(@NonNull Context context, List<InternetService> li
     }
 
     private void startManageServiceActivity(InternetService service){
-        Intent i = new Intent(context, ManageServiceActivity.class);
+        Intent i = new Intent(context, ManageDataServiceActivity.class);
         i.putExtra(EXTRA_KEY_INTERNET_SERVICE, service);
         i.putExtra(EXTRA_KEY_LOGIN, loginValues);
         context.startActivity(i);

@@ -107,7 +107,7 @@ public class DataUsageActivity extends AppCompatActivity {
         String expDate = getIntent().getStringExtra(EXTRA_KEY_EXPIRY_DATE);
 
         pageSubtitle.setText("Service Plan: " + plan.split("  ")[0]);
-        expiryDate.setText("Expiry Date: " + expDate);
+        expiryDate.setText(expDate);
 
         DateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd");
         date= new Date();
@@ -150,10 +150,10 @@ public class DataUsageActivity extends AppCompatActivity {
                 if (usageResponse.getResponseCode().equals("0")){
                     long dataRollOver = Long.parseLong(usageResponse.getCustomValues().getRollover().getDataRolledover());
                     long dataAllowance = Long.parseLong(usageResponse.getCustomValues().getDataAllowance().getPeak());
-                    long dataUsed = Long.parseLong(usageResponse.getCustomValues().getCycleUsage().getCycleMbUsed()+"");
+                    long dataUsed = Long.parseLong(usageResponse.getCustomValues().getCycleUsage().getPeak().getCycleMbUsed()+"");
                     long dataTotal = dataRollOver + dataAllowance;
-                    rollOver.setText("Data Rolled Over: "+ dataRollOver/oneGigaByte + "GB");
-                    allowance.setText("Data Allowance: " + dataAllowance/oneGigaByte+ "GB");
+                    rollOver.setText(dataRollOver/oneGigaByte + "GB");
+                    allowance.setText(dataAllowance/oneGigaByte+ "GB");
                     usedData.setText("Used Data: " + dataUsed/oneGigaByte + "GB");
                     totalData.setText("Total Allowed: " + (dataTotal)/oneGigaByte + "GB");
                     dataChartView.moveTo(dataTotal, dataUsed);

@@ -129,7 +129,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:layout_marginBottom="100dp">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_cdr"
@@ -180,5 +181,7 @@
     <!--android:id="@+id/page_subtitle"-->
     <!--style="@style/PageSubTitle"-->
     <!--android:text="Service Plan: Advantage Basic" />-->
+
+    <include layout="@layout/bottom_nav_bar" />
 
 </android.support.constraint.ConstraintLayout>
