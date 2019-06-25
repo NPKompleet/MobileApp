@@ -46,6 +46,8 @@ public class ApplicationUtils {
     public static final String ACTION_ADD_PAYMENT = "Add cash payment";
     public static final String ACTION_SUBSCRIPTION_SETTINGS = "fetch/change data usage settings";
     public static final String ACTION_WIFI_PASSWORD = "fetch/change WiFi settings";
+    public static final String ACTION_FETCH_SERVICE_PLANS = "fetch service plans";
+    public static final String ACTION_CHANGE_SERVICE_PLAN = "Change service plan";
     public static final String EXTRA_KEY_RESPONSE = "response";
     public static final String EXTRA_KEY_LOGIN = "loginValues";
     public static final String EXTRA_KEY_USERNAME = "userID";

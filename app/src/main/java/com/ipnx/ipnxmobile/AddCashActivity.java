@@ -1,12 +1,8 @@
 package com.ipnx.ipnxmobile;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +34,7 @@ import static com.ipnx.ipnxmobile.utils.ApplicationUtils.getRandomAlphabeticStri
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.networkActive;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.userProfile;
 
-public class AddCashActivity extends AppCompatActivity implements PostPaymentHandler {
+public class AddCashActivity extends BaseActivity implements PostPaymentHandler {
 
     TextView planPrice;
     TextView balance;

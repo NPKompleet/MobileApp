@@ -1,7 +1,6 @@
 package com.ipnx.ipnxmobile;
 
 import android.app.DatePickerDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -40,7 +39,7 @@ import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_LOGIN;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.formatDate;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.networkActive;
 
-public class TransactionHistoryActivity extends AppCompatActivity {
+public class TransactionHistoryActivity extends BaseActivity {
 
     DatePickerDialog datePicker;
     Calendar calendar;

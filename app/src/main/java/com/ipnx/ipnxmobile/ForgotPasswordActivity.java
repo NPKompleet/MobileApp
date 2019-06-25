@@ -1,11 +1,7 @@
 package com.ipnx.ipnxmobile;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.provider.Settings;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,7 +25,7 @@ import static com.ipnx.ipnxmobile.utils.ApplicationUtils.DEVICE_ID;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_USERNAME;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.networkActive;
 
-public class ForgotPasswordActivity extends AppCompatActivity {
+public class ForgotPasswordActivity extends BaseActivity {
     EditText username;
     TextView info;
     Button button;

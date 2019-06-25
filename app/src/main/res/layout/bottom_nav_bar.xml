@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#FEFEFE"
     android:elevation="20dp"
+    android:orientation="vertical"
     app:layout_constraintBottom_toBottomOf="parent"
-    android:orientation="vertical">
+    tools:context=".BaseActivity">
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/grey"/>
+        android:background="@color/grey" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,37 +22,48 @@
         android:paddingBottom="16dp">
 
         <TextView
+            android:id="@+id/bottomNav_profile"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Profile"
-            android:textSize="12sp"
             android:drawableTop="@drawable/ic_user2"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:onClick="onBottomNavItemClicked"
+            android:text="Profile"
+            android:textSize="12sp" />
+
         <TextView
+            android:id="@+id/bottomNav_notification"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:drawableTop="@drawable/ic_notification2"
+            android:gravity="center"
             android:text="Notification"
             android:textSize="12sp"
-            android:drawableTop="@drawable/ic_notification2"
-            android:gravity="center"/>
+            android:onClick="onBottomNavItemClicked"/>
+
         <TextView
+            android:id="@+id/bottomNav_payHistory"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:drawableTop="@drawable/ic_payment_history2"
+            android:gravity="center"
             android:text="Payment History"
             android:textSize="12sp"
-            android:drawableTop="@drawable/ic_payment_history2"
-            android:gravity="center"/>
+            android:onClick="onBottomNavItemClicked"/>
+
         <TextView
+            android:id="@+id/bottomNav_faq"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:drawableTop="@drawable/ic_faq2"
+            android:gravity="center"
             android:text="Faq"
             android:textSize="12sp"
-            android:drawableTop="@drawable/ic_faq2"
-            android:gravity="center"/>
+            android:onClick="onBottomNavItemClicked"/>
     </LinearLayout>
 
 </LinearLayout>

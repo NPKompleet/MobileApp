@@ -3,7 +3,6 @@ package com.ipnx.ipnxmobile;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -28,7 +27,7 @@ import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_INTERNET_SERV
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.networkActive;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.userProfile;
 
-public class ManageSettingsActivity extends AppCompatActivity {
+public class ManageSettingsActivity extends BaseActivity {
     public final String AppPREFERENCES = "AppPrefs" ;
     public final String Analytics = "AnalyticsSettingsKey";
     public final String AutoRenewal = "AutoRenewalSettingsKey";

@@ -39,7 +39,7 @@ import static com.ipnx.ipnxmobile.utils.ApplicationUtils.getRandomAlphabeticStri
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.networkActive;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.userProfile;
 
-public class RenewPaymentActivity extends AppCompatActivity implements PostPaymentHandler {
+public class RenewPaymentActivity extends BaseActivity implements PostPaymentHandler {
 
     TextView planPrice;
     TextView balance;

@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="350dp"
+    android:layout_width="match_parent"
     android:layout_height="300dp"
     android:background="@color/data_grey"
     android:layout_margin="16dp"
@@ -13,20 +13,30 @@
         android:id="@+id/textView6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:text="Do you want the change of service plan to take effect immediately?"
         android:textColor="@color/black_text"
         android:textSize="24sp"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@+id/textView6"
-        tools:layout_editor_absoluteX="-9dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6">
 
         <Button
             android:id="@+id/dialog_yes"
@@ -49,6 +59,35 @@
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/serviceDialog_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:background="@color/data_grey"
+        android:visibility="gone">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="Fetching Service Plans..."
+            android:textColor="@color/black_text"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"/>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

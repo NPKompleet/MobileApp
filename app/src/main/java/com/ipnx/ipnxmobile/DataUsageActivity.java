@@ -2,7 +2,6 @@ package com.ipnx.ipnxmobile;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ipnx.ipnxmobile.adapters.DataHistoryAdapter;
-import com.ipnx.ipnxmobile.adapters.TransactionHistoryAdapter;
 import com.ipnx.ipnxmobile.customviews.DataChartView;
 import com.ipnx.ipnxmobile.models.requests.DataHistoryRequestValues;
 import com.ipnx.ipnxmobile.models.requests.Request;
@@ -43,7 +41,7 @@ import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_ONT_SERIAL;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_PACKAGE_CLASS_COMMENT;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_SERVICE_PLAN;
 
-public class DataUsageActivity extends AppCompatActivity {
+public class DataUsageActivity extends BaseActivity {
 
 
     DatePickerDialog datePicker;

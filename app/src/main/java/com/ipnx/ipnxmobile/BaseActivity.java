@@ -2,12 +2,14 @@ package com.ipnx.ipnxmobile;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
@@ -45,6 +47,28 @@ public abstract class BaseActivity extends AppCompatActivity {
             return locationGPS;
         } else {
             return locationNet;
+        }
+    }
+
+    public void onBottomNavItemClicked(View view){
+        Intent i;
+        switch (view.getId()){
+            case R.id.bottomNav_profile:
+                i = new Intent(this, ProfileActivity.class);
+                startActivity(i);
+                break;
+            case R.id.bottomNav_notification:
+                i = new Intent(this, PushNotificationActivity.class);
+                startActivity(i);
+                break;
+            case R.id.bottomNav_payHistory:
+                i = new Intent(this, TransactionHistoryActivity.class);
+                startActivity(i);
+                break;
+            case R.id.bottomNav_faq:
+                i = new Intent(this, FAQActivity.class);
+                startActivity(i);
+                break;
         }
     }
 

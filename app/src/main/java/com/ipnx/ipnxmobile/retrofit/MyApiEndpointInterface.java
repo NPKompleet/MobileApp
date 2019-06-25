@@ -9,6 +9,7 @@ import com.ipnx.ipnxmobile.models.responses.datausage.DataUsageResponse;
 import com.ipnx.ipnxmobile.models.responses.forgotpassword.ForgotPasswordResponse;
 import com.ipnx.ipnxmobile.models.responses.login.LoginResponse;
 import com.ipnx.ipnxmobile.models.requests.Request;
+import com.ipnx.ipnxmobile.models.responses.serviceplan.ServicePlanResponse;
 import com.ipnx.ipnxmobile.models.responses.subscriptionsettings.SubscriptionSettingsResponse;
 import com.ipnx.ipnxmobile.models.responses.transactionhistory.TransactionResponse;
 import com.ipnx.ipnxmobile.models.responses.wifipassword.WifiPasswordResponse;
@@ -61,4 +62,10 @@ public interface MyApiEndpointInterface {
 
     @POST("changewifi")
     Call<WifiPasswordResponse> changeWifiPassword(@Body Request wifiPasswordRequest);
+
+    @POST("serviceplans")
+    Call<ServicePlanResponse> getServicePlans(@Body Request fetchServicePlansRequest);
+
+    @POST("changeplan")
+    Call<Response> changePlan(@Body Request changePlanRequest);
 }

@@ -5,13 +5,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ipnx.ipnxmobile.R;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -19,7 +17,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.userProfile;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends BaseActivity {
     public final String ProfilePREFERENCES = "ProfilePrefs" ;
     public final String PictureLocation = "ProfilePictureLocation";
 

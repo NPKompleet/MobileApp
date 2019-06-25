@@ -13,7 +13,7 @@
         android:gravity="center">
 
         <TextView
-            android:id="@+id/data_list_package"
+            android:id="@+id/plan_list_package"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -40,7 +40,7 @@
             android:layout_marginRight="8dp"/>
 
         <TextView
-            android:id="@+id/data_list_number"
+            android:id="@+id/plan_list_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -57,7 +57,7 @@
     </LinearLayout>
 
     <View
-        android:id="@+id/data_list_line"
+        android:id="@+id/plan_list_line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="8dp"
@@ -69,6 +69,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_container"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        android:visibility="invisible"/>
 
 </android.support.constraint.ConstraintLayout>

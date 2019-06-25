@@ -1,16 +1,14 @@
 package com.ipnx.ipnxmobile;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FAQActivity extends AppCompatActivity {
+public class FAQActivity extends BaseActivity {
 
     @BindView(R.id.faq_answer1)
     ExpandableRelativeLayout layout1;

@@ -1,6 +1,5 @@
 package com.ipnx.ipnxmobile;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -38,10 +37,7 @@ import static com.ipnx.ipnxmobile.utils.ApplicationUtils.getRandomAlphabeticStri
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.networkActive;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.userProfile;
 
-public class TopUpActivity extends AppCompatActivity implements PostPaymentHandler {
-
-//    @BindView(R.id.voice_package_name)
-//    TextView packageName;
+public class TopUpActivity extends BaseActivity implements PostPaymentHandler {
 
     @BindView(R.id.page_subtitle)
     TextView pageSubtitle;

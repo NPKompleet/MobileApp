@@ -23,17 +23,21 @@
             android:gravity="left"
             android:text="iWireless Phone"
             android:textSize="18sp"
-            android:fontFamily="@font/heebo_medium"
+            android:textColor="@color/black_text"
+            android:fontFamily="@font/heebo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/button"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textSize="18sp"
+            android:textColor="@color/black_text"
+            android:layout_marginRight="8dp"/>
 
         <TextView
             android:id="@+id/voice_list_number"

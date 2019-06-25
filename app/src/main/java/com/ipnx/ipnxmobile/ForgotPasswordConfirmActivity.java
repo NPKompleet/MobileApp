@@ -1,6 +1,5 @@
 package com.ipnx.ipnxmobile;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -22,7 +21,7 @@ import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_USERNAME;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.anyFieldIsEmpty;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.networkActive;
 
-public class ForgotPasswordConfirmActivity extends AppCompatActivity {
+public class ForgotPasswordConfirmActivity extends BaseActivity {
     @BindView(R.id.forgot_password_message)
     TextView message;
 

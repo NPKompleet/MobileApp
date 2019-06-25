@@ -1,10 +1,8 @@
 package com.ipnx.ipnxmobile;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ipnx.ipnxmobile.models.requests.FeedbackRequestValues;
@@ -20,7 +18,7 @@ import static com.ipnx.ipnxmobile.utils.ApplicationUtils.ACTION_FEEDBACK;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.networkActive;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.userProfile;
 
-public class FeedbackActivity extends AppCompatActivity {
+public class FeedbackActivity extends BaseActivity {
     EditText feedback;
     MyApiEndpointInterface myApi;
 
