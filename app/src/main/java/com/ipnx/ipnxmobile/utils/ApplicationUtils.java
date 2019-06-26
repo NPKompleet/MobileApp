@@ -44,6 +44,8 @@ public class ApplicationUtils {
     public static final String ACTION_DATA_HISTORY = "get historical data";
     public static final String ACTION_FEEDBACK = "Get ipNXMobile customer feedback";
     public static final String ACTION_ADD_PAYMENT = "Add cash payment";
+    public static final String ACTION_TOP_UP = "top up";
+    public static final String ACTION_RENEW_NOW = "Renew now";
     public static final String ACTION_SUBSCRIPTION_SETTINGS = "fetch/change data usage settings";
     public static final String ACTION_WIFI_PASSWORD = "fetch/change WiFi settings";
     public static final String ACTION_FETCH_SERVICE_PLANS = "fetch service plans";

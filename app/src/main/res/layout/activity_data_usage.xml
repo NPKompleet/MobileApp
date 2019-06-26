@@ -35,7 +35,8 @@
                         android:textSize="22sp"
                         android:gravity="center"
                         android:fontFamily="@font/heebo_medium"
-                        android:textColor="@color/black_text"
+                        android:textColor="@color/red_button"
+                        android:onClick="oRegimeSelected"
                         />
                     <TextView
                         android:id="@+id/data_offPeak_text"
@@ -44,6 +45,7 @@
                         android:text="Off-Peak"
                         android:textSize="22sp"
                         android:gravity="center"
+                        android:onClick="oRegimeSelected"
                         />
                 </LinearLayout>
 
@@ -80,6 +82,7 @@
                 </LinearLayout>
 
                 <RelativeLayout
+                    android:id="@+id/data_peakLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/data_grey"
@@ -94,7 +97,7 @@
                         android:id="@+id/data_data_allowance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="100GB"
+                        android:text="0GB"
                         android:textColor="@color/black_text"
                         android:textSize="20sp" />
 
@@ -109,7 +112,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="May 1, 2019"
+                        android:text="Loading..."
                         android:textColor="@color/black_text"
                         android:textSize="20sp" />
 
@@ -135,7 +138,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/line2"
-                        android:text="50GB"
+                        android:text="0GB"
                         android:textColor="@color/black_text"
                         android:textSize="20sp" />
 
@@ -144,6 +147,23 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/data_rollOver"
                         android:text="Data Rolled Over" />
+
+                    <TextView
+                        android:id="@+id/data_totalData"
+                        android:layout_below="@+id/line2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="0GB"
+                        android:textColor="@color/black_text"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/data_totalData"
+                        android:layout_alignParentRight="true"
+                        android:text="Total Data" />
 
                 </RelativeLayout>
 
@@ -178,7 +198,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
-                    android:text="Used Data: 30GB"
+                    android:text="Used Data: 0GB"
                     android:textColor="@color/black_text"
                     android:textSize="16sp" />
                 </LinearLayout>
@@ -198,12 +218,12 @@
                     android:background="@color/data_menu_blue"/>
 
                 <TextView
-                    android:id="@+id/data_totalData"
+                    android:id="@+id/data_unusedData"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
-                    android:text="Total Data: 100GB"
+                    android:text="Unused Data: 0GB"
                     android:textColor="@color/black_text"
                     android:textSize="16sp" />
             </LinearLayout>

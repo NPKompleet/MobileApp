@@ -57,6 +57,9 @@ public interface MyApiEndpointInterface {
     @POST("addcash")
     Call<AddCashResponse> addPayment(@Body Request addPaymentRequest);
 
+    @POST("topup")
+    Call<AddCashResponse> topUp(@Body Request topUpRequest);
+
     @POST("duasettings")
     Call<SubscriptionSettingsResponse> subscriptionSettings(@Body Request subscriptionSettingsRequest);
 

@@ -45,7 +45,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Current Balance"
-                        android:layout_below="@+id/renew_balance"/>
+                        android:layout_below="@+id/package_balance"/>
 
                     <TextView
                         android:id="@+id/phone_number"
@@ -65,23 +65,6 @@
                         android:layout_below="@+id/phone_number"/>
 
                 </RelativeLayout>
-
-                <!--<TextView-->
-                    <!--android:id="@+id/voice_package_name"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginStart="24dp"-->
-                    <!--android:layout_marginLeft="24dp"-->
-                    <!--android:text="Iwireless Phone No Charge"-->
-                    <!--android:maxWidth="250dp"-->
-                    <!--android:textColor="@color/black_text"-->
-                    <!--android:textSize="18sp" />-->
-
-                <!--<View-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="1dp"-->
-                    <!--android:layout_marginTop="30dp"-->
-                    <!--android:background="@color/main_grey"/>-->
 
                 <TextView
                     style="@style/SubheadingTextTheme"

@@ -12,7 +12,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sleep(1500);
-        Intent i = new Intent(this, LoginActivity.class);
+        Intent i = new Intent(this, CarouselActivity.class);
         startActivity(i);
         finish();
     }

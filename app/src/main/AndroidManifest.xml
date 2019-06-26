@@ -9,9 +9,9 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature android:name="android.hardware.wifi" />
 
@@ -23,6 +23,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".CarouselActivity"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".SplashScreenActivity"
             android:screenOrientation="portrait"
@@ -90,7 +92,7 @@
         </activity>
         <activity
             android:name=".AddCashActivity"
-            android:label="@string/title_activity_renew_payment"
+            android:label="Add Funds"
             android:launchMode="singleTop"
             android:parentActivityName=".ManageDataServiceActivity"
             android:screenOrientation="portrait"
@@ -132,17 +134,10 @@
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
-
-        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat"/>
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

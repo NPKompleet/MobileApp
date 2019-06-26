@@ -84,7 +84,6 @@ public class ChangeServicePlanActivity extends BaseActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_service_plan);
-
         ButterKnife.bind(this);
 
         service = getIntent().getParcelableExtra(EXTRA_KEY_INTERNET_SERVICE);
@@ -209,6 +208,10 @@ public class ChangeServicePlanActivity extends BaseActivity implements
     public void onContinueClicked(View view){
         if (whenToChangePlan.equals("")){
             Toast.makeText(this, "Please select a new plan", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (shouldAddFunds){
+            Toast.makeText(this, "Insufficient balance. Please add more funds.", Toast.LENGTH_SHORT).show();
             return;
         }
         changeServicePlan();

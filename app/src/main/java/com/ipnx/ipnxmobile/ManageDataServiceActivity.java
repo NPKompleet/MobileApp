@@ -152,7 +152,6 @@ public class ManageDataServiceActivity extends BaseActivity {
                 break;
             case R.id.menu_payment_history:
                 i = new Intent(this, TransactionHistoryActivity.class);
-                i.putExtra(EXTRA_KEY_LOGIN, loginValues);
                 startActivity(i);
                 break;
             case R.id.menu_feedback:

@@ -1,7 +1,6 @@
 package com.ipnx.ipnxmobile;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +17,6 @@ import com.interswitchng.sdk.payment.model.PurchaseResponse;
 import com.interswitchng.sdk.util.RandomString;
 import com.ipnx.ipnxmobile.models.requests.AddPaymentRequestValues;
 import com.ipnx.ipnxmobile.models.requests.Request;
-import com.ipnx.ipnxmobile.models.responses.Response;
 import com.ipnx.ipnxmobile.models.responses.addcash.AddCashResponse;
 import com.ipnx.ipnxmobile.models.responses.login.InternetService;
 import com.ipnx.ipnxmobile.payment.PaymentCallback;
@@ -33,7 +31,7 @@ import java.util.Date;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-import static com.ipnx.ipnxmobile.utils.ApplicationUtils.ACTION_ADD_PAYMENT;
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.ACTION_RENEW_NOW;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_INTERNET_SERVICE;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.getRandomAlphabeticString;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.networkActive;
@@ -162,7 +160,7 @@ public class RenewPaymentActivity extends BaseActivity implements PostPaymentHan
         requestValues.setCNumberOfMonths(String.valueOf(monthCount));
 
         addPaymentRequest.setCustomValues(requestValues);
-        addPaymentRequest.setAction(ACTION_ADD_PAYMENT);
+        addPaymentRequest.setAction(ACTION_RENEW_NOW);
 
         myApi= RetrofitUtils.getService();
         Call<AddCashResponse> call = myApi.addPayment(addPaymentRequest);

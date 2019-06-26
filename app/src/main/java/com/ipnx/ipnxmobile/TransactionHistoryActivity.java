@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ipnx.ipnxmobile.adapters.TransactionHistoryAdapter;
-import com.ipnx.ipnxmobile.models.requests.LoginRequestValues;
 import com.ipnx.ipnxmobile.models.requests.Request;
 import com.ipnx.ipnxmobile.models.requests.TransactionRequestValues;
 import com.ipnx.ipnxmobile.models.responses.transactionhistory.TransactionPayment;
@@ -35,9 +34,9 @@ import retrofit2.Response;
 
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.ACTION_TRANSACTION_HISTORY;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.DEVICE_ID;
-import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_LOGIN;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.formatDate;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.networkActive;
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.userProfile;
 
 public class TransactionHistoryActivity extends BaseActivity {
 
@@ -63,7 +62,6 @@ public class TransactionHistoryActivity extends BaseActivity {
     @BindView(R.id.transaction_status_text)
     TextView statusText;
 
-    LoginRequestValues loginValues;
     MyApiEndpointInterface myApi;
     TransactionHistoryAdapter adapter;
     List<TransactionPayment> paymentList = new ArrayList<>();
@@ -75,8 +73,6 @@ public class TransactionHistoryActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaction_history);
         ButterKnife.bind(this);
-
-        loginValues = getIntent().getParcelableExtra(EXTRA_KEY_LOGIN);
 
         DateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd");
         date= new Date();
@@ -99,8 +95,8 @@ public class TransactionHistoryActivity extends BaseActivity {
 
         Request transactionRequest = new Request();
         final TransactionRequestValues transactionRequestValues = new TransactionRequestValues();
-        transactionRequestValues.setCUsername(loginValues.getCUsername());
-        transactionRequestValues.setCPassword(loginValues.getCPassword());
+        transactionRequestValues.setCUsername(userProfile.getUserName());
+        transactionRequestValues.setCPassword(userProfile.getPassword());
 
         transactionRequest.setAction(ACTION_TRANSACTION_HISTORY);
         transactionRequest.setCustomValues(transactionRequestValues);

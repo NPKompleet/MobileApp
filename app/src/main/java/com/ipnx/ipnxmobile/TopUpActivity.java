@@ -30,7 +30,7 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-import static com.ipnx.ipnxmobile.utils.ApplicationUtils.ACTION_ADD_PAYMENT;
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.ACTION_TOP_UP;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_LOGIN;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_VOICE_SERVICE;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.getRandomAlphabeticString;
@@ -65,7 +65,6 @@ public class TopUpActivity extends BaseActivity implements PostPaymentHandler {
         service = getIntent().getParcelableExtra(EXTRA_KEY_VOICE_SERVICE);
         loginValues = getIntent().getParcelableExtra(EXTRA_KEY_LOGIN);
 
-//        packageName.setText(service.getPackageName());
         pageSubtitle.setText(service.getPackageName().split("  ")[0]);
         phoneNumber.setText(service.getUsername());
         balance.setText("₦" + service.getPackageBalance());
@@ -112,7 +111,7 @@ public class TopUpActivity extends BaseActivity implements PostPaymentHandler {
         DateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateString = dateFormat.format(date);
 
-        Request addPaymentRequest = new Request();
+        Request topUpRequest = new Request();
         AddPaymentRequestValues requestValues = new AddPaymentRequestValues();
         requestValues.setCUsername(userProfile.getUserName());
         requestValues.setCPassword(userProfile.getPassword());
@@ -125,11 +124,11 @@ public class TopUpActivity extends BaseActivity implements PostPaymentHandler {
         requestValues.setCAmount(Long.parseLong(response.getAmount()));
         requestValues.setCTransactionDate(dateString);
 
-        addPaymentRequest.setCustomValues(requestValues);
-        addPaymentRequest.setAction(ACTION_ADD_PAYMENT);
+        topUpRequest.setCustomValues(requestValues);
+        topUpRequest.setAction(ACTION_TOP_UP);
 
         myApi= RetrofitUtils.getService();
-        Call<AddCashResponse> call = myApi.addPayment(addPaymentRequest);
+        Call<AddCashResponse> call = myApi.topUp(topUpRequest);
         call.enqueue(new Callback<AddCashResponse>() {
             @Override
             public void onResponse(Call<AddCashResponse> call, retrofit2.Response<AddCashResponse> response) {
