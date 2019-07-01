@@ -1,10 +1,14 @@
 package com.ipnx.ipnxmobile;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
@@ -17,11 +21,15 @@ import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_LOGIN;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.EXTRA_KEY_RESPONSE;
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.userProfile;
 
 public class ServicesMenuActivity extends AppCompatActivity {
+    public final String ProfilePREFERENCES = "ProfilePrefs" ;
+    public final String PictureLocation = "ProfilePictureLocation";
 
     @BindView(R.id.internetServiceListView)
     ListView internetServiceListView;
@@ -40,6 +48,14 @@ public class ServicesMenuActivity extends AppCompatActivity {
 
     @BindView(R.id.voice_menu)
     Button voiceButton;
+
+    @BindView(R.id.welcome_name)
+    TextView name;
+
+    @BindView(R.id.home_avatar)
+    CircleImageView avatar;
+
+    SharedPreferences sharedpreferences;
 
     boolean backAlreadyPressed = false;
     long timeFirstPressed;
@@ -82,6 +98,10 @@ public class ServicesMenuActivity extends AppCompatActivity {
             voiceLayout.setVisibility(View.GONE);
         }
 
+        name.setText("Welcome, " + userProfile.getFullName());
+        sharedpreferences = getSharedPreferences(ProfilePREFERENCES, Context.MODE_PRIVATE);
+        loadProfilePicture();
+
     }
 
     public void onMenuButtonClicked(View view){
@@ -112,6 +132,14 @@ public class ServicesMenuActivity extends AppCompatActivity {
             }
         }
         super.onBackPressed();
+    }
+
+    private void loadProfilePicture() {
+        String uriString = sharedpreferences.getString(PictureLocation, "");
+        if (!uriString.equals("")){
+            Uri uri = Uri.parse(uriString);
+            avatar.setImageURI(uri);
+        }
     }
 
     public void onBackPressed(View view){

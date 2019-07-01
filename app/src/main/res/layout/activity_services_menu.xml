@@ -29,6 +29,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/home_avatar"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center_horizontal"
@@ -36,11 +37,11 @@
                 android:src="@drawable/ic_avatar" />
 
             <TextView
-                android:id="@+id/name"
+                android:id="@+id/welcome_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Welcome, Kunle Oladuni"
+                android:text="Welcome, ......."
                 android:textColor="@color/black_text"
                 android:textSize="24sp" />
 

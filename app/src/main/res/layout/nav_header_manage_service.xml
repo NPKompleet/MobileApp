@@ -76,17 +76,12 @@
         android:drawableLeft="@drawable/ic_user"
         android:text="Profile" />
 
+
     <TextView
         android:id="@+id/menu_password"
         style="@style/NavMenuItem"
         android:drawableLeft="@drawable/ic_padlock"
         android:text="Change Password" />
-
-    <!--<TextView-->
-    <!--android:id="@+id/menu_sub_settings"-->
-    <!--android:drawableLeft="@drawable/ic_settings"-->
-    <!--android:text="Manage Settings"-->
-    <!--style="@style/NavMenuItem"/>-->
 
     <TextView
         android:id="@+id/menu_choose_plan"
@@ -112,7 +107,8 @@
         <RelativeLayout
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_marginRight="32dp">
+            android:layout_marginRight="32dp"
+            android:layout_gravity="center">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -136,8 +132,10 @@
             style="@style/NavMenuItem"
             android:layout_marginLeft="0dp"
             android:layout_marginBottom="0dp"
-            android:text="Push Notification" />
+            android:text="Push Notification"
+            android:clickable="false"/>
     </LinearLayout>
+
 
     <TextView
         android:id="@+id/menu_feedback"
@@ -155,9 +153,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginBottom="16dp"
-        android:background="#DDDDDD"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"/>
+        android:background="#DDDDDD"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -184,16 +180,14 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginBottom="16dp"
-        android:background="#DDDDDD"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"/>
+        android:background="#DDDDDD"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginBottom="16dp"
-        android:text="Follow Us"
+        android:text="Contact Us"
         android:textColor="@color/white"
         android:textStyle="bold" />
 
@@ -244,5 +238,19 @@
             android:src="@drawable/ic_whatsapp"
             android:onClick="onNavItemSelected"/>
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/main_grey"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="Version 1.0"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:gravity="end"/>
 
 </LinearLayout>

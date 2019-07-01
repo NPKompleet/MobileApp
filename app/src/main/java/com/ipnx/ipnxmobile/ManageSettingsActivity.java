@@ -83,6 +83,10 @@ public class ManageSettingsActivity extends BaseActivity {
                     setViewAnalytics.setChecked(!isChecked);
                     return;
                 }
+                if (isChecked){
+                    Toast.makeText(ManageSettingsActivity.this,
+                            "Your change will reflect in 72 hours", Toast.LENGTH_SHORT).show();
+                }
 //                if (isChecked){
 //                    editor.putBoolean(Analytics, true);
 //                    makeToastNotification("Analytics", "ON");
