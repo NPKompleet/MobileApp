@@ -143,4 +143,7 @@
     <TextView
         style="@style/PageTitle"
         android:text="FAQ" />
+
+    <include layout="@layout/bottom_nav_bar" />
+
 </android.support.constraint.ConstraintLayout>

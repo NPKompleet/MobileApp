@@ -1,7 +1,9 @@
 package com.ipnx.ipnxmobile;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 
@@ -33,6 +35,9 @@ public class FAQActivity extends BaseActivity {
 
     @BindView(R.id.faq_answer8)
     ExpandableRelativeLayout layout8;
+
+    @BindView(R.id.bottomNav_faq)
+    TextView bottomNavFaqIcon;
     
 
     @Override
@@ -40,6 +45,10 @@ public class FAQActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faq);
         ButterKnife.bind(this);
+
+        bottomNavFaqIcon.setTextColor(getResources().getColor(R.color.red_button));
+        Drawable img = getResources().getDrawable( R.drawable.ic_faq3);
+        bottomNavFaqIcon.setCompoundDrawablesWithIntrinsicBounds(null, img, null, null);
 
         // Collapse Expandable layouts in case of android versions
         // where it is always open by default
@@ -81,6 +90,15 @@ public class FAQActivity extends BaseActivity {
                 break;
         }
 
+    }
+
+    @Override
+    public void onBottomNavItemClicked(View view) {
+        // All bottom nav items except the FAQ item should
+        // be clickable
+        if (view.getId() != R.id.bottomNav_faq){
+            super.onBottomNavItemClicked(view);
+        }
     }
 
     public void onBackClicked(View view){

@@ -1,6 +1,7 @@
 package com.ipnx.ipnxmobile;
 
 import android.app.DatePickerDialog;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -62,6 +63,9 @@ public class TransactionHistoryActivity extends BaseActivity {
     @BindView(R.id.transaction_status_text)
     TextView statusText;
 
+    @BindView(R.id.bottomNav_payHistory)
+    TextView bottomNavPayHistoryIcon;
+
     MyApiEndpointInterface myApi;
     TransactionHistoryAdapter adapter;
     List<TransactionPayment> paymentList = new ArrayList<>();
@@ -73,6 +77,10 @@ public class TransactionHistoryActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaction_history);
         ButterKnife.bind(this);
+
+        bottomNavPayHistoryIcon.setTextColor(getResources().getColor(R.color.red_button));
+        Drawable img = getResources().getDrawable( R.drawable.ic_payment_history3 );
+        bottomNavPayHistoryIcon.setCompoundDrawablesWithIntrinsicBounds(null, img, null, null);
 
         DateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd");
         date= new Date();
@@ -201,6 +209,14 @@ public class TransactionHistoryActivity extends BaseActivity {
         adapter.setData(sortedPaymentList);
     }
 
+    @Override
+    public void onBottomNavItemClicked(View view) {
+        // All bottom nav items except the payment history item should
+        // be clickable
+        if (view.getId() != R.id.bottomNav_payHistory){
+            super.onBottomNavItemClicked(view);
+        }
+    }
 
     public void onBackClicked(View view){
         finish();

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -24,6 +25,8 @@ public class ProfileActivity extends BaseActivity {
     TextView name, phone, number, email, address;
     CircleImageView image;
 
+    TextView bottomNavProfileIcon;
+
     SharedPreferences sharedpreferences;
     SharedPreferences.Editor editor;
 
@@ -37,6 +40,7 @@ public class ProfileActivity extends BaseActivity {
         number = findViewById(R.id.profile_number);
         email = findViewById(R.id.profile_email);
         address = findViewById(R.id.profile_address);
+        bottomNavProfileIcon = findViewById(R.id.bottomNav_profile);
 
         sharedpreferences = getSharedPreferences(ProfilePREFERENCES, Context.MODE_PRIVATE);
 
@@ -46,6 +50,10 @@ public class ProfileActivity extends BaseActivity {
         number.setText(userProfile.getCustomerNumber());
         email.setText(userProfile.getEmailAddress().toString());
         address.setText(userProfile.getAddress());
+
+        bottomNavProfileIcon.setTextColor(getResources().getColor(R.color.red_button));
+        Drawable img = getResources().getDrawable( R.drawable.ic_user3 );
+        bottomNavProfileIcon.setCompoundDrawablesWithIntrinsicBounds(null, img, null, null);
     }
 
     public void onBackClicked(View view){
@@ -84,6 +92,15 @@ public class ProfileActivity extends BaseActivity {
         if (!uriString.equals("")){
             Uri uri = Uri.parse(uriString);
             image.setImageURI(uri);
+        }
+    }
+
+    @Override
+    public void onBottomNavItemClicked(View view) {
+        // All bottom nav item except the profile item should
+        // be clickable
+        if (view.getId() != R.id.bottomNav_profile){
+            super.onBottomNavItemClicked(view);
         }
     }
 }

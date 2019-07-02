@@ -67,7 +67,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".FAQActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"/>
         <activity
             android:name=".ServicesMenuActivity"
             android:screenOrientation="portrait" />
