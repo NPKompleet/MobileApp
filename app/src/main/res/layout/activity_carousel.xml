@@ -14,7 +14,7 @@
         app:pageColor="#00000000"
         app:radius="6dp"
         app:slideInterval="4000"
-        app:autoPlay="false"
+        app:autoPlay="true"
         app:strokeColor="@color/red_button"
         app:strokeWidth="1dp"/>
 

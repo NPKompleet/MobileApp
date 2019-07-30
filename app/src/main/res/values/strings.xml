@@ -50,4 +50,28 @@
         5. Enter Password Confirmation.\n
         6. Click Change Password button.
     </string>
+
+    <string name="google_app_id">119754105709</string>
+    <string name="infobip_application_code">6cd01f765ca308bf037610bd2c141f7a-ff887774-e932-484c-9b68-9c672ee14932</string>
+
+    <!-- Main activity -->
+    <string name="main_activity_title">Messages</string>
+    <string name="main_activity_message_count_default">0</string>
+    <string name="main_activity_total_received">"Received messages: "</string>
+
+    <!-- Menu -->
+    <string name="menu_action_gsm">GSM number</string>
+    <string name="menu_action_registration_id">Registration ID</string>
+    <string name="menu_action_erase">Erase inbox</string>
+    <string name="menu_action_enable_primary">Enable primary</string>
+    <string name="menu_action_disable_primary">Disable primary</string>
+    <string name="menu_action_depersonalize">Depersonalize</string>
+
+    <!-- Dialogs -->
+    <string name="dialog_title_gsm">GSM</string>
+    <string name="dialog_title_registration_id">Registration ID</string>
+    <string name="dialog_action_save">Save</string>
+
+    <!-- Toast messages -->
+    <string name="toast_user_data_saved">User data saved</string>
 </resources>

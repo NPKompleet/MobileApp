@@ -1,6 +1,7 @@
 package com.ipnx.ipnxmobile;
 
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,18 @@ import android.widget.TextView;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ViewListener;
 
+import org.infobip.mobile.messaging.MobileMessaging;
+import org.infobip.mobile.messaging.NotificationSettings;
+import org.infobip.mobile.messaging.User;
+import org.infobip.mobile.messaging.UserAttributes;
+import org.infobip.mobile.messaging.UserIdentity;
+import org.infobip.mobile.messaging.api.support.util.CollectionUtils;
+import org.infobip.mobile.messaging.mobile.MobileMessagingError;
+import org.infobip.mobile.messaging.mobile.Result;
+import org.infobip.mobile.messaging.storage.SQLiteMessageStore;
+
+import static com.ipnx.ipnxmobile.utils.ApplicationUtils.userProfile;
+
 
 public class CarouselActivity extends AppCompatActivity {
     CarouselView customCarouselView;
@@ -17,6 +30,8 @@ public class CarouselActivity extends AppCompatActivity {
     int NUMBER_OF_PAGES = 3;
     int[] carouselItems = {R.layout.carousel_page1, R.layout.carousel_page2, R.layout.carousel_page3};
     int viewPosition = 0;
+
+    MobileMessaging mobileMessaging;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +57,23 @@ public class CarouselActivity extends AppCompatActivity {
 
             @Override
             public void onPageScrollStateChanged(int i) {
+
+            }
+        });
+
+        UserIdentity userIdentity = new UserIdentity();
+        userIdentity.setPhones(CollectionUtils.setOf(userProfile.getPhoneNumber()));
+        userIdentity.setPhones(CollectionUtils.setOf("2348035399398"));
+        userIdentity.setEmails(CollectionUtils.setOf(userProfile.getEmailAddress().toString()));
+        userIdentity.setExternalUserId(userProfile.getCustomerNumber());
+
+        UserAttributes userAttributes = new UserAttributes();
+        userAttributes.setFirstName(userProfile.getFirstName());
+        userAttributes.setLastName(userProfile.getLastName());
+
+        MobileMessaging.getInstance(this).personalize(userIdentity, userAttributes, new MobileMessaging.ResultListener<User>() {
+            @Override
+            public void onResult(Result<User, MobileMessagingError> result) {
 
             }
         });

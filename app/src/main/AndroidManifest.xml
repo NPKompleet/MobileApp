@@ -22,7 +22,9 @@
         android:roundIcon="@drawable/app_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        android:name=".MobileApplication">
+
         <activity android:name=".CarouselActivity"
             android:screenOrientation="portrait"></activity>
         <activity
@@ -149,6 +151,13 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/filepaths" />
         </provider>
+        <receiver android:name=".MyPushMessageReceiver" android:exported="false">
+            <intent-filter>
+                <action android:name="org.infobip.mobile.messaging.MESSAGE_RECEIVED"/>
+                <!-- register here another event you want to receive updates from -->
+                <action android:name="org.infobip.mobile.messaging.USER_UPDATED"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

@@ -23,7 +23,7 @@ public interface MyApiEndpointInterface {
     // Request method and URL specified in the annotation
     // Callback for the parsed response is the last parameter
 
-//    String BASE_URL= "http://10.50.5.250/ipnxmobilebridge/api/v1/";
+//    String BASE_URL= "https://10.50.5.250/ipnxmobilebridge/api/v1/";
     String BASE_URL= "https://mbridge.ipnxnigeria.net/ipnxmobilebridge/api/v1/";
 
 
