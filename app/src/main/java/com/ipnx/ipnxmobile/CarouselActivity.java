@@ -61,9 +61,17 @@ public class CarouselActivity extends AppCompatActivity {
             }
         });
 
+        // Set user information on Infobip
         UserIdentity userIdentity = new UserIdentity();
         userIdentity.setPhones(CollectionUtils.setOf(userProfile.getPhoneNumber()));
-        userIdentity.setPhones(CollectionUtils.setOf("2348035399398"));
+        String phoneNumber = userProfile.getPhoneNumber();
+        phoneNumber = phoneNumber.trim();
+        if (phoneNumber.startsWith("0")){
+            phoneNumber = phoneNumber.replaceFirst("0", "234");
+        }else if (phoneNumber.startsWith("+")){
+            phoneNumber = phoneNumber.replaceFirst("\\+", "");
+        }
+        userIdentity.setPhones(CollectionUtils.setOf(phoneNumber));
         userIdentity.setEmails(CollectionUtils.setOf(userProfile.getEmailAddress().toString()));
         userIdentity.setExternalUserId(userProfile.getCustomerNumber());
 
