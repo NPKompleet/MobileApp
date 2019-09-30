@@ -135,14 +135,14 @@
                         android:rotation="45"
                         android:translationY="10dp" />
 
-                    <ListView
-                        android:id="@+id/voiceServiceListView"
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_voiceService"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:background="@color/white"
+                        android:layout_height="wrap_content"
                         android:elevation="10dp"
                         android:layout_marginTop="20dp"
-                        android:nestedScrollingEnabled="true"/>
+                        android:background="@color/white"
+                        tools:listitem="@layout/item_voice_service_list" />
                 </RelativeLayout>
             </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
         </LinearLayout>

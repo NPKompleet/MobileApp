@@ -6,18 +6,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.interswitchng.sdk.model.RequestOptions;
-import com.interswitchng.sdk.payment.android.inapp.PayWithCard;
-import com.interswitchng.sdk.payment.model.PurchaseResponse;
-import com.interswitchng.sdk.util.RandomString;
 import com.ipnx.ipnxmobile.models.requests.AddPaymentRequestValues;
 import com.ipnx.ipnxmobile.models.requests.LoginRequestValues;
 import com.ipnx.ipnxmobile.models.requests.Request;
 import com.ipnx.ipnxmobile.models.responses.Response;
 import com.ipnx.ipnxmobile.models.responses.addcash.AddCashResponse;
 import com.ipnx.ipnxmobile.models.responses.login.TelephonyService;
-import com.ipnx.ipnxmobile.payment.PaymentCallback;
-import com.ipnx.ipnxmobile.payment.PostPaymentHandler;
 import com.ipnx.ipnxmobile.retrofit.MyApiEndpointInterface;
 import com.ipnx.ipnxmobile.retrofit.RetrofitUtils;
 
@@ -37,7 +31,7 @@ import static com.ipnx.ipnxmobile.utils.ApplicationUtils.getRandomAlphabeticStri
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.networkActive;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.userProfile;
 
-public class TopUpActivity extends BaseActivity implements PostPaymentHandler {
+public class TopUpActivity extends BaseActivity{
 
     @BindView(R.id.page_subtitle)
     TextView pageSubtitle;
@@ -88,15 +82,15 @@ public class TopUpActivity extends BaseActivity implements PostPaymentHandler {
         System.out.println(customerNumber);
         System.out.println(unixTime);
         System.out.println(transRef);
-        PaymentCallback paymentCallback = new PaymentCallback(TopUpActivity.this, this, transRef);
-        RequestOptions options = RequestOptions.builder()
-                .setClientId("IKIA67A8FBB81191FC4F1226098245E9541711B3E959")
-                .setClientSecret("FQ+X6B28Y/HJZdsDa1SsbKI23W+pIOLcyxBhGgb8Q9U=")
-                .build();
-        PayWithCard payWithCard = new PayWithCard(this, customerNumber,
-                pageSubtitle.getText().toString(), amountToPay, "NGN", transRef, options, paymentCallback);
-
-        payWithCard.start();
+//        PaymentCallback paymentCallback = new PaymentCallback(TopUpActivity.this, this, transRef);
+//        RequestOptions options = RequestOptions.builder()
+//                .setClientId("IKIA67A8FBB81191FC4F1226098245E9541711B3E959")
+//                .setClientSecret("FQ+X6B28Y/HJZdsDa1SsbKI23W+pIOLcyxBhGgb8Q9U=")
+//                .build();
+//        PayWithCard payWithCard = new PayWithCard(this, customerNumber,
+//                pageSubtitle.getText().toString(), amountToPay, "NGN", transRef, options, paymentCallback);
+//
+//        payWithCard.start();
         Toast.makeText(TopUpActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
 
     }
@@ -105,49 +99,49 @@ public class TopUpActivity extends BaseActivity implements PostPaymentHandler {
         amount.setText("");
     }
 
-    @Override
-    public void postPayment(PurchaseResponse response) {
-        Date date= new Date();
-        DateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String dateString = dateFormat.format(date);
-
-        Request topUpRequest = new Request();
-        AddPaymentRequestValues requestValues = new AddPaymentRequestValues();
-        requestValues.setCUsername(userProfile.getUserName());
-        requestValues.setCPassword(userProfile.getPassword());
-        requestValues.setCCustomerNumber(userProfile.getCustomerNumber());
-        requestValues.setCPackageNumber(service.getPkgnum() + "");
-        requestValues.setCMerchantReference(response.getTransactionRef());
-        requestValues.setCCardNumber(response.toString());
-        requestValues.setCRetrievalReferenceNumber(RandomString.numeric(12));
-        requestValues.setCPaymentReference(response.getTransactionIdentifier());
-        requestValues.setCAmount(Long.parseLong(response.getAmount()));
-        requestValues.setCTransactionDate(dateString);
-
-        topUpRequest.setCustomValues(requestValues);
-        topUpRequest.setAction(ACTION_TOP_UP);
-
-        myApi= RetrofitUtils.getService();
-        Call<AddCashResponse> call = myApi.topUp(topUpRequest);
-        call.enqueue(new Callback<AddCashResponse>() {
-            @Override
-            public void onResponse(Call<AddCashResponse> call, retrofit2.Response<AddCashResponse> response) {
-                Response returnedResponse = response.body();
-                if (returnedResponse == null) return;
-                if (returnedResponse.getResponseCode().equals("0")){
-                    Toast.makeText(TopUpActivity.this, "Payment has been posted", Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(TopUpActivity.this, "Problem posting payment", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<AddCashResponse> call, Throwable t) {
-                Toast.makeText(TopUpActivity.this, "Problem posting payment", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
+//    @Override
+//    public void postPayment(PurchaseResponse response) {
+//        Date date= new Date();
+//        DateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        String dateString = dateFormat.format(date);
+//
+//        Request topUpRequest = new Request();
+//        AddPaymentRequestValues requestValues = new AddPaymentRequestValues();
+//        requestValues.setCUsername(userProfile.getUserName());
+//        requestValues.setCPassword(userProfile.getPassword());
+//        requestValues.setCCustomerNumber(userProfile.getCustomerNumber());
+//        requestValues.setCPackageNumber(service.getPkgnum() + "");
+//        requestValues.setCMerchantReference(response.getTransactionRef());
+//        requestValues.setCCardNumber(response.toString());
+//        requestValues.setCRetrievalReferenceNumber(RandomString.numeric(12));
+//        requestValues.setCPaymentReference(response.getTransactionIdentifier());
+//        requestValues.setCAmount(Long.parseLong(response.getAmount()));
+//        requestValues.setCTransactionDate(dateString);
+//
+//        topUpRequest.setCustomValues(requestValues);
+//        topUpRequest.setAction(ACTION_TOP_UP);
+//
+//        myApi= RetrofitUtils.getService();
+//        Call<AddCashResponse> call = myApi.topUp(topUpRequest);
+//        call.enqueue(new Callback<AddCashResponse>() {
+//            @Override
+//            public void onResponse(Call<AddCashResponse> call, retrofit2.Response<AddCashResponse> response) {
+//                Response returnedResponse = response.body();
+//                if (returnedResponse == null) return;
+//                if (returnedResponse.getResponseCode().equals("0")){
+//                    Toast.makeText(TopUpActivity.this, "Payment has been posted", Toast.LENGTH_SHORT).show();
+//                }else {
+//                    Toast.makeText(TopUpActivity.this, "Problem posting payment", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<AddCashResponse> call, Throwable t) {
+//                Toast.makeText(TopUpActivity.this, "Problem posting payment", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//    }
 
     public void onBackClicked(View view){
         finish();

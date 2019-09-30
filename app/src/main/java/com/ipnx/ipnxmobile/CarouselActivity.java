@@ -11,18 +11,6 @@ import android.widget.TextView;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ViewListener;
 
-import org.infobip.mobile.messaging.MobileMessaging;
-import org.infobip.mobile.messaging.NotificationSettings;
-import org.infobip.mobile.messaging.User;
-import org.infobip.mobile.messaging.UserAttributes;
-import org.infobip.mobile.messaging.UserIdentity;
-import org.infobip.mobile.messaging.api.support.util.CollectionUtils;
-import org.infobip.mobile.messaging.mobile.MobileMessagingError;
-import org.infobip.mobile.messaging.mobile.Result;
-import org.infobip.mobile.messaging.storage.SQLiteMessageStore;
-
-import static com.ipnx.ipnxmobile.utils.ApplicationUtils.userProfile;
-
 
 public class CarouselActivity extends AppCompatActivity {
     CarouselView customCarouselView;
@@ -31,7 +19,6 @@ public class CarouselActivity extends AppCompatActivity {
     int[] carouselItems = {R.layout.carousel_page1, R.layout.carousel_page2, R.layout.carousel_page3};
     int viewPosition = 0;
 
-    MobileMessaging mobileMessaging;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,31 +44,6 @@ public class CarouselActivity extends AppCompatActivity {
 
             @Override
             public void onPageScrollStateChanged(int i) {
-
-            }
-        });
-
-        // Set user information on Infobip
-        UserIdentity userIdentity = new UserIdentity();
-        userIdentity.setPhones(CollectionUtils.setOf(userProfile.getPhoneNumber()));
-        String phoneNumber = userProfile.getPhoneNumber();
-        phoneNumber = phoneNumber.trim();
-        if (phoneNumber.startsWith("0")){
-            phoneNumber = phoneNumber.replaceFirst("0", "234");
-        }else if (phoneNumber.startsWith("+")){
-            phoneNumber = phoneNumber.replaceFirst("\\+", "");
-        }
-        userIdentity.setPhones(CollectionUtils.setOf(phoneNumber));
-        userIdentity.setEmails(CollectionUtils.setOf(userProfile.getEmailAddress().toString()));
-        userIdentity.setExternalUserId(userProfile.getCustomerNumber());
-
-        UserAttributes userAttributes = new UserAttributes();
-        userAttributes.setFirstName(userProfile.getFirstName());
-        userAttributes.setLastName(userProfile.getLastName());
-
-        MobileMessaging.getInstance(this).personalize(userIdentity, userAttributes, new MobileMessaging.ResultListener<User>() {
-            @Override
-            public void onResult(Result<User, MobileMessagingError> result) {
 
             }
         });

@@ -26,4 +26,5 @@
     <color name="data_orange">#FBEEDA</color>
     <color name="data_grey">#F3F3F3</color>
     <color name="red_button">#C80D0D</color>
+    <color name="grey">#F3F3F3</color>
 </resources>

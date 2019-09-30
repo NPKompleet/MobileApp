@@ -9,6 +9,8 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -17,7 +19,7 @@ import android.widget.Toast;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 import com.ipnx.ipnxmobile.adapters.InternetServiceAdapter;
-import com.ipnx.ipnxmobile.adapters.TelephonyServiceAdapter;
+import com.ipnx.ipnxmobile.adapters.VoiceServiceAdapter;
 import com.ipnx.ipnxmobile.models.requests.LoginRequestValues;
 import com.ipnx.ipnxmobile.models.responses.login.LoginResponse;
 import com.ipnx.ipnxmobile.wifianalyzer.WifiAnalyzerActivity;
@@ -51,8 +53,8 @@ public class ServicesMenuActivity extends AppCompatActivity {
     @BindView(R.id.internetServiceListView)
     ListView internetServiceListView;
 
-    @BindView(R.id.voiceServiceListView)
-    ListView voiceServiceListView;
+    @BindView(R.id.rv_voiceService)
+    RecyclerView recyclerView;
 
     @BindView(R.id.data_layout)
     ExpandableRelativeLayout dataLayout;
@@ -103,10 +105,10 @@ public class ServicesMenuActivity extends AppCompatActivity {
         
         if (response.getCustomValues().getTelephonyServices() != null &&
                 !response.getCustomValues().getTelephonyServices().isEmpty()) {
-            TelephonyServiceAdapter voiceServiceAdapter
-                    = new TelephonyServiceAdapter(this,
+            VoiceServiceAdapter adapter = new VoiceServiceAdapter(this,
                     response.getCustomValues().getTelephonyServices(), loginValues);
-            voiceServiceListView.setAdapter(voiceServiceAdapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(adapter);
             // Collapse Expandable layouts in case of android versions
             // where it is always open by default
             voiceLayout.collapse();
@@ -178,6 +180,10 @@ public class ServicesMenuActivity extends AppCompatActivity {
                 i = new Intent(this, WifiAnalyzerActivity.class);
                 startActivity(i);
                 break;
+            case R.id.menu_speed_test:
+                i = new Intent(this, SpeedTestActivity.class);
+                startActivity(i);
+                break;
             case R.id.menu_profile:
                 i = new Intent(this, ProfileActivity.class);
                 startActivity(i);
@@ -188,7 +194,6 @@ public class ServicesMenuActivity extends AppCompatActivity {
                 startActivity(i);
                 break;
             case R.id.menu_choose_plan:
-                finish();
                 break;
             case R.id.menu_payment_history:
                 i = new Intent(this, TransactionHistoryActivity.class);

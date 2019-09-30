@@ -1,26 +1,19 @@
 package com.ipnx.ipnxmobile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.interswitchng.sdk.auth.Passport;
-import com.interswitchng.sdk.model.RequestOptions;
-import com.interswitchng.sdk.payment.Payment;
-import com.interswitchng.sdk.payment.android.inapp.PayWithCard;
-import com.interswitchng.sdk.payment.model.PurchaseResponse;
-import com.interswitchng.sdk.util.RandomString;
-import com.ipnx.ipnxmobile.models.requests.AddPaymentRequestValues;
-import com.ipnx.ipnxmobile.models.requests.Request;
-import com.ipnx.ipnxmobile.models.responses.addcash.AddCashResponse;
 import com.ipnx.ipnxmobile.models.responses.login.InternetService;
-import com.ipnx.ipnxmobile.payment.PaymentCallback;
-import com.ipnx.ipnxmobile.payment.PostPaymentHandler;
 import com.ipnx.ipnxmobile.retrofit.MyApiEndpointInterface;
 import com.ipnx.ipnxmobile.retrofit.RetrofitUtils;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,7 +27,7 @@ import static com.ipnx.ipnxmobile.utils.ApplicationUtils.getRandomAlphabeticStri
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.networkActive;
 import static com.ipnx.ipnxmobile.utils.ApplicationUtils.userProfile;
 
-public class AddCashActivity extends BaseActivity implements PostPaymentHandler {
+public class AddCashActivity extends BaseActivity{
 
     TextView planPrice;
     TextView balance;
@@ -49,9 +42,6 @@ public class AddCashActivity extends BaseActivity implements PostPaymentHandler 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_cash);
-        Passport.overrideApiBase(Passport.QA_API_BASE);
-        Payment.overrideApiBase(Payment.QA_API_BASE);
-
         planPrice = findViewById(R.id.renew_plan_price);
         balance = findViewById(R.id.renew_balance);
         amount = findViewById(R.id.renew_amount);
@@ -82,19 +72,40 @@ public class AddCashActivity extends BaseActivity implements PostPaymentHandler 
         String customerNumber = userProfile.getCustomerNumber();
         String idAndTime = customerNumber + unixTime;
         String transRef = idAndTime + getRandomAlphabeticString(26-idAndTime.length());
-        System.out.println(customerNumber);
-        System.out.println(unixTime);
-        System.out.println(transRef);
-        PaymentCallback paymentCallback = new PaymentCallback(AddCashActivity.this, this, transRef);
-        RequestOptions options = RequestOptions.builder()
-                .setClientId("IKIA67A8FBB81191FC4F1226098245E9541711B3E959")
-                .setClientSecret("FQ+X6B28Y/HJZdsDa1SsbKI23W+pIOLcyxBhGgb8Q9U=")
-                .build();
-        PayWithCard payWithCard = new PayWithCard(this, customerNumber,
-                pageSubtitle.getText().toString(), amountToPay, "NGN", transRef, options, paymentCallback);
+//        System.out.println(customerNumber);
+//        System.out.println(unixTime);
+//        System.out.println(transRef);
+//        PaymentCallback paymentCallback = new PaymentCallback(AddCashActivity.this, this, transRef);
+//        RequestOptions options = RequestOptions.builder()
+//                .setClientId("IKIA67A8FBB81191FC4F1226098245E9541711B3E959")
+//                .setClientSecret("FQ+X6B28Y/HJZdsDa1SsbKI23W+pIOLcyxBhGgb8Q9U=")
+//                .build();
+//        PayWithCard payWithCard = new PayWithCard(this, customerNumber,
+//                pageSubtitle.getText().toString(), amountToPay, "NGN", transRef, options, paymentCallback);
+//
+//        payWithCard.start();
+//        Toast.makeText(AddCashActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
 
-        payWithCard.start();
-        Toast.makeText(AddCashActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
+        String currencyCode = "566";
+        String customerName = userProfile.getFullName();
+
+        String paymentPath = "https://mbridge.ipnxnigeria.net/ipnxmobilebridge/api/v1/show_payment?";
+        String productId = "6205";
+        String redirect = "https://www.ipnxnigeria.net";
+        String itemId = "101";
+        String key = "D3D1D05AFE42AD50818167EAC73C109168A0F108F32645C8B59E897FA930DA44F9230910DAC9E20641823799A107A02068F7BC0F4CC41D2952E249552255710F";
+        String hash = encryptThisString(transRef + productId + itemId + amountToPay + redirect + key);
+
+        String url = paymentPath + "product_id=" + productId + "&amount=" + amountToPay
+                + "&currency=" + currencyCode + "&site_redirect_url=" + redirect
+                + "&site_name=ipnxmobile" + "&customer_id=" + customerNumber
+                + "&customer_name=" + customerName + "&txn_ref=" + transRef
+                + "&pay_item_id=" + itemId + "&hash=" + hash;
+
+        Intent i = new Intent(this, PaymentViewActivity.class);
+        i.putExtra("url", url);
+        startActivity(i);
+
     }
 
 
@@ -106,47 +117,36 @@ public class AddCashActivity extends BaseActivity implements PostPaymentHandler 
         finish();
     }
 
-    @Override
-    public void postPayment(PurchaseResponse response) {
-        Date date= new Date();
-        DateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String dateString = dateFormat.format(date);
+    public static String encryptThisString(String input)
+    {
+        try {
+            // getInstance() method is called with algorithm SHA-512
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
 
-        Request addPaymentRequest = new Request();
-        AddPaymentRequestValues requestValues = new AddPaymentRequestValues();
-        requestValues.setCUsername(userProfile.getUserName());
-        requestValues.setCPassword(userProfile.getPassword());
-        requestValues.setCCustomerNumber(userProfile.getCustomerNumber());
-        requestValues.setCPackageNumber(String.valueOf(service.getPkgnum()));
-        requestValues.setCMerchantReference(response.getTransactionRef());
-        requestValues.setCCardNumber(response.toString());
-        requestValues.setCRetrievalReferenceNumber(RandomString.numeric(12));
-        requestValues.setCPaymentReference(response.getTransactionIdentifier());
-        requestValues.setCAmount(Long.parseLong(response.getAmount()));
-        requestValues.setCTransactionDate(dateString);
+            // digest() method is called
+            // to calculate message digest of the input string
+            // returned as array of byte
+            byte[] messageDigest = md.digest(input.getBytes());
 
-        addPaymentRequest.setCustomValues(requestValues);
-        addPaymentRequest.setAction(ACTION_ADD_PAYMENT);
+            // Convert byte array into signum representation
+            BigInteger no = new BigInteger(1, messageDigest);
 
-        myApi= RetrofitUtils.getService();
-        Call<AddCashResponse> call = myApi.addPayment(addPaymentRequest);
-        call.enqueue(new Callback<AddCashResponse>() {
-            @Override
-            public void onResponse(Call<AddCashResponse> call, retrofit2.Response<AddCashResponse> response) {
-                AddCashResponse returnedResponse = response.body();
-                if (returnedResponse == null) return;
-                if (returnedResponse.getResponseCode().equals("0")){
-                    Toast.makeText(AddCashActivity.this, "Payment has been posted", Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(AddCashActivity.this, "Problem posting payment", Toast.LENGTH_SHORT).show();
-                }
+            // Convert message digest into hex value
+            String hashtext = no.toString(16);
+
+            // Add preceding 0s to make it 32 bit
+            while (hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
             }
 
-            @Override
-            public void onFailure(Call<AddCashResponse> call, Throwable t) {
-                Toast.makeText(AddCashActivity.this, "Problem posting payment", Toast.LENGTH_SHORT).show();
-            }
-        });
+            // return the HashText
+            return hashtext;
+        }
 
+        // For specifying wrong message digest algorithms
+        catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
+
 }

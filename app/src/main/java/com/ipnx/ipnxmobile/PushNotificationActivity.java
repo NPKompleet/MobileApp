@@ -118,6 +118,10 @@ public class PushNotificationActivity extends BaseActivity implements Notificati
     }
 
     private void refresh() {
+        if (messageStore.countAll(this) == 0) {
+            Toast.makeText(this, "There are no notification messages saved", Toast.LENGTH_SHORT).show();
+            return;
+        }
         List<Message> messages = messageStore.findAll(this);
         Collections.reverse(messages);
         adapter.setData(messages);

@@ -95,47 +95,11 @@
         android:drawableLeft="@drawable/ic_payment_history"
         android:text="Payment History" />
 
-    <LinearLayout
+    <TextView
         android:id="@+id/menu_notification"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginBottom="16dp"
-        android:gravity="center_vertical"
-        android:onClick="onNavItemSelected">
-
-        <RelativeLayout
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginRight="32dp"
-            android:layout_gravity="center">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="0dp"
-                android:src="@drawable/ic_notification" />
-
-            <TextView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@drawable/white_circular_background"
-                android:gravity="center"
-                android:text="9+"
-                android:textSize="12dp"
-                android:textColor="@color/white"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"/>
-        </RelativeLayout>
-
-        <TextView
-            style="@style/NavMenuItem"
-            android:layout_marginLeft="0dp"
-            android:layout_marginBottom="0dp"
-            android:text="Push Notification"
-            android:clickable="false"/>
-    </LinearLayout>
-
+        style="@style/NavMenuItem"
+        android:drawableLeft="@drawable/ic_notification"
+        android:text="Push Notification" />
 
     <TextView
         android:id="@+id/menu_feedback"
@@ -169,6 +133,12 @@
         style="@style/NavMenuItem"
         android:drawableLeft="@drawable/ic_analyzer"
         android:text="Wifi Analyzer" />
+
+    <TextView
+        android:id="@+id/menu_speed_test"
+        style="@style/NavMenuItem"
+        android:drawableLeft="@drawable/ic_gauge"
+        android:text="Speed test" />
 
     <TextView
         android:id="@+id/menu_share"
